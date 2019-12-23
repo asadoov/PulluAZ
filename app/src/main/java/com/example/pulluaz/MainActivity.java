@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity {
+public  class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +33,14 @@ startActivity(intent);
     public void SignIn(View view)
     {
         LinearLayout lr=new LinearLayout(this);
-        EditText tx=new EditText{
-        Text="ffafdsa"
-        };
+
         SharedPreferences sharedPreferences
                 = getSharedPreferences("MySharedPref",
                 MODE_PRIVATE);
+        EditText usernameEdit = findViewById(R.id.username);
+
+        EditText passEdit = findViewById(R.id.pass);
+
         // Creating an Editor object
 // to edit(write to the file)
         SharedPreferences.Editor myEdit
@@ -47,16 +49,21 @@ startActivity(intent);
 // Storing the key and its value
 // as the data fetched from edittext
 
-        myEdit.putString(
+      /*  myEdit.putString(
                 "name",
-                "Rufat");
+                "Rufat");*/
+
+        DbSelect db= new DbSelect(this,usernameEdit.getText().toString(),passEdit.getText().toString());
+db.execute();
 
 
+        //Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
 // Once the changes have been made,
 // we need to commit to apply those changes made,
 // otherwise, it will throw an error
         myEdit.commit();
-        Toast.makeText(this, sharedPreferences.getString("name",""), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, sharedPreferences.getString("name",""), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, aa, Toast.LENGTH_SHORT).show();
 
        // Intent intent=new Intent(this,RegActivity.class);
 

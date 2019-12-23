@@ -57,7 +57,7 @@ android:textColor="#454555"
         android:textStyle="bold" />
     <EditText
         android:hint="rufatasadzade"
-        android:id="@+id/editText"
+        android:id="@+id/username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -75,7 +75,7 @@ android:textColor="#454555"
     <EditText
         android:hint="* * * * * * * *"
         android:drawableRight="@drawable/eye_icon"
-        android:id="@+id/editText2"
+        android:id="@+id/pass"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
