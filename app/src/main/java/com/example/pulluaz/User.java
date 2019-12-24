@@ -3,6 +3,7 @@ package com.example.pulluaz;
 import java.util.Date;
 
 public class User {
+    public String id ;
     public String name ;
     public String surname ;
     public String username ;

@@ -1,9 +1,11 @@
 package com.example.pulluaz;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -15,6 +17,7 @@ import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // Do something in response to button click
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void SignIn(View view) {
         LinearLayout lr = new LinearLayout(this);
 
@@ -56,35 +60,50 @@ public class MainActivity extends AppCompatActivity {
                 "Rufat");*/
 
 
-        EditText usernameEdit = findViewById(R.id.username);
+        final EditText usernameEdit = findViewById(R.id.username);
 
-        EditText passEdit = findViewById(R.id.pass);
-        final String usernameTxt=usernameEdit.getText().toString();
-        final String PassTxt=passEdit.getText().toString();
+        final EditText passEdit = findViewById(R.id.pass);
+        final String usernameTxt = usernameEdit.getText().toString();
+        final String PassTxt = passEdit.getText().toString();
+        DbSelect db = new DbSelect();
+        String forToast;
 
-        Thread aa =    new Thread(new Runnable() {
-                @Override
-                public void run() {
+        Thread aa = new Thread(new Runnable() {
+            DbSelect db = new DbSelect();
+            ArrayList<User> UserData = new ArrayList<User>();
 
-                    DbSelect db = new DbSelect();
-                    ArrayList<User> UserData=new ArrayList<User>();
-                    try {
-                        UserData= db.GetUserList(usernameTxt, PassTxt);
-                        Toast.makeText(MainActivity.this, UserData.get(0).city, Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            @Override
+            public void run() {
 
 
+                try {
+                    UserData = db.GetUserList(usernameTxt, PassTxt);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                //usernameEdit.setText( UserData.get(0).id.toString());
 
-            });
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        Toast.makeText(MainActivity.this, UserData.get(0).id.toString(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+
+        });
         aa.start();
+
         try {
-            aa.wait();
-        } catch (InterruptedException e) {
+            aa.join();
+        } catch (
+                InterruptedException e) {
             e.printStackTrace();
         }
 
