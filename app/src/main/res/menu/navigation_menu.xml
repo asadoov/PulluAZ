@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+    xmlns:tools="http://schemas.android.com/tools">
+    <group android:id="@+id/grp1" android:checkableBehavior="single">
+
+        <item
+
+            android:id="@+id/nav_not_read"
+
+            android:title="Reklam əlavə et" />
+        <item
+            android:id="@+id/nav_incomes"
+            android:background="@android:color/white"
+
+            android:title="Reklam arxivim" />
+        <item
+
+            android:id="@+id/nav_sent"
+
+            android:title="Maliyyə" />
+        <item
+
+            android:id="@+id/nav_in_struct"
+
+            android:title="Statistik məlumatlar" />
+        <item
+
+
+            android:title="Kampaniyalar" />
+        <item
+
+
+            android:title="Linklər" />
+        <item
+
+
+            android:title="Paylaş" />
+        <item
+
+
+            android:title="Canlı dəstək" />
+    </group>
+
+    <group  android:id="@+id/grp2" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_logout"
+
+            android:title="Qayda və şərtlər" />
+        <item
+            android:id="@+id/nav_settings"
+
+            android:title="PULLU Haqqında" />
+        <item
+
+
+            android:title="Çıxış" />
+    </group>
+
+</menu>

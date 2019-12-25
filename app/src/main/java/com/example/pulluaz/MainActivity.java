@@ -25,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Intent intent = new Intent(MainActivity.this, AdsActivity.class);
+
+        startActivity(intent);
 
     }
 
@@ -89,8 +92,16 @@ public class MainActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        try {
+                            Toast.makeText(MainActivity.this, UserData.get(0).id.toString(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(MainActivity.this, AdsActivity.class);
 
-                        Toast.makeText(MainActivity.this, UserData.get(0).id.toString(), Toast.LENGTH_SHORT).show();
+                            startActivity(intent);
+                        } catch (Exception ex) {
+                            ex.printStackTrace();
+
+                        }
+
 
                     }
                 });

@@ -3,8 +3,9 @@ package com.example.pulluaz;
 import java.util.Date;
 
 public class User {
-    public String id ;
-    public String name ;
+    public String id;
+
+   /* public String name ;
     public String surname ;
     public String username ;
     public String mail ;
@@ -15,5 +16,6 @@ public class User {
     public String city ;
     public String profession;
     public Date regDate;
+    */
 
 }
