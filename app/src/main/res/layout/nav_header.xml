@@ -23,7 +23,7 @@
         app:srcCompat="@drawable/pullu_icon" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/nameSurname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
@@ -31,7 +31,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/position"
+        android:id="@+id/mail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="email@mail.ru" />

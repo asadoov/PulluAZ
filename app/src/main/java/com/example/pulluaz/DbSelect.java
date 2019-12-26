@@ -3,9 +3,11 @@ package com.example.pulluaz;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.JsonReader;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
@@ -16,11 +18,13 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /*
@@ -86,28 +90,33 @@ Toast.makeText(_context, this.usr.name,Toast.LENGTH_LONG).show();
 public class DbSelect {
     String DefaultURL = "http://13.92.237.16";
 
-    public ArrayList<User>  GetUserList(String username, String pass) throws IOException, JSONException {
+    public List<User> GetUserList(String username, String pass) throws IOException, JSONException {
 
         String data = "";
-        //URL url = new URL(DefaultURL + "/api/androidmobileapp/user/login?username=" + username + "&pass=" + pass);
-       // URL url = new URL("http://demo10.rabita.az/api/androidmobileapp/user/login?username=aida.aliyeva&pass=123");
-        URL url = new URL("http://13.92.237.16/api/androidmobileapp/test");
+        URL url = new URL(DefaultURL + "/api/androidmobileapp/user/login?username=" + username + "&pass=" + pass);
+
+
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
         InputStream inputStream = httpURLConnection.getInputStream();
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         String line = "";
-        while (line != null) {
-            line = bufferedReader.readLine();
-            data = data + line;
+        while ((line = bufferedReader.readLine()) != null) {
+
+            data += line;
         }
-/*
-        Gson gson = new Gson();
-        ArrayList<User> usrList = new ArrayList<User>();
-        Type type = new TypeToken<ArrayList<User>>(){}.getType();
+        List<User> usrList = new ArrayList();
+        try {
 
-        usrList =gson.fromJson(data,type);
+            Gson gson = new GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
 
- */
+            usrList = Arrays.asList(gson.fromJson(data, User[].class));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+
+
 /*
        JSONArray JA = new JSONArray(data);
 
@@ -122,11 +131,7 @@ public class DbSelect {
             usrList.add(usr);
         }
 */
-        ArrayList<User> usrList = new ArrayList<User>();
-        User usr = new User();
-        JSONObject JO = new JSONObject(data);
-        usr.id = JO.get("id").toString();
-        usrList.add(usr);
+
         return usrList;
     }
 

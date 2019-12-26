@@ -10,12 +10,19 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class AdsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
@@ -28,7 +35,8 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
         try {
             setContentView(R.layout.ads_layout);
-            toolbar = (Toolbar) findViewById(R.id.toolbar);
+            NavigationView navView = findViewById(R.id.nav_view);
+           /* toolbar = (Toolbar) findViewById(R.id.toolbar);
             drawerLayout = findViewById(R.id.drawer_layout);
             setSupportActionBar(toolbar);
 
@@ -38,10 +46,30 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
 
-            CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
+           CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.collapsing_toolbar);
             collapsingToolbar.setActivated(true);
             collapsingToolbar.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
             collapsingToolbar.setTitle("PULLU");
+
+
+           */
+            List<User> usrList;
+            Intent iin = getIntent();
+            Bundle uData = iin.getExtras();
+
+            if (uData != null) {
+                String jsonUserData = (String) uData.get("UserData");
+                Gson gson = new GsonBuilder().setLenient().create();
+
+                usrList = Arrays.asList(gson.fromJson(jsonUserData, User[].class));
+                View headerView = navView.getHeaderView(0);
+                TextView nameSurname = headerView.findViewById(R.id.nameSurname);
+                TextView mail = headerView.findViewById(R.id.mail);
+                nameSurname.setText(usrList.get(0).name + " " + usrList.get(0).surname);
+                mail.setText(usrList.get(0).mail);
+
+
+            }
 
 
         } catch (Exception ex) {
@@ -79,6 +107,16 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         menuItem.setChecked(true);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+
+    }
+
+    public void openSideBar(View view) {
+        try {
+            drawerLayout = findViewById(R.id.drawer_layout);
+            drawerLayout.openDrawer(GravityCompat.START);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 }

@@ -3,20 +3,30 @@ package com.example.pulluaz;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.w3c.dom.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,9 +35,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent intent = new Intent(MainActivity.this, AdsActivity.class);
 
-        startActivity(intent);
 
     }
 
@@ -43,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void SignIn(View view) {
+        findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
+
+
         LinearLayout lr = new LinearLayout(this);
 
         SharedPreferences sharedPreferences
@@ -67,72 +78,104 @@ public class MainActivity extends AppCompatActivity {
 
         final EditText passEdit = findViewById(R.id.pass);
         final String usernameTxt = usernameEdit.getText().toString();
-        final String PassTxt = passEdit.getText().toString();
-        DbSelect db = new DbSelect();
-        String forToast;
+        final String passTxt = passEdit.getText().toString();
 
-        Thread aa = new Thread(new Runnable() {
+        if (!TextUtils.isEmpty(usernameTxt) && !TextUtils.isEmpty(passTxt)) {
+
             DbSelect db = new DbSelect();
-            ArrayList<User> UserData = new ArrayList<User>();
+            String forToast;
+            if (isNetworkAvailable()) {
+                Thread aa = new Thread(new Runnable() {
+                    DbSelect db = new DbSelect();
+                    List<User> UserData;
 
-            @Override
-            public void run() {
-
-
-                try {
-                    UserData = db.GetUserList(usernameTxt, PassTxt);
-
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //usernameEdit.setText( UserData.get(0).id.toString());
-
-                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+
                         try {
-                            Toast.makeText(MainActivity.this, UserData.get(0).id.toString(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(MainActivity.this, AdsActivity.class);
+                            UserData = db.GetUserList(usernameTxt, passTxt);
 
-                            startActivity(intent);
-                        } catch (Exception ex) {
-                            ex.printStackTrace();
-
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
                         }
+                        //usernameEdit.setText( UserData.get(0).id.toString());
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                try {
+                                    Gson gson = new Gson();
+                                    String jsonUserData = gson.toJson(UserData);
+                                    finish();
+                                    Toast.makeText(MainActivity.this, UserData.get(0).name.toString(), Toast.LENGTH_SHORT).show();
+                                    Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
+                                    AdsPage.putExtra("UserData", jsonUserData);
+                                    startActivity(AdsPage);
+                                    findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
+
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+
+                                }
+
+
+                            }
+                        });
 
 
                     }
-                });
 
+                });
+                aa.start();
+
+                try {
+                    aa.join();
+                } catch (
+                        InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            } else {
+
+                findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
+                Toast.makeText(this, "Net Interneta!", Toast.LENGTH_SHORT).show();
+
+
+                findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
             }
 
-        });
-        aa.start();
-
-        try {
-            aa.join();
-        } catch (
-                InterruptedException e) {
-            e.printStackTrace();
-        }
-
-
-        //Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
 // Once the changes have been made,
 // we need to commit to apply those changes made,
 // otherwise, it will throw an error
-        myEdit.commit();
-        //Toast.makeText(this, sharedPreferences.getString("name",""), Toast.LENGTH_SHORT).show();
-        //Toast.makeText(this, aa, Toast.LENGTH_SHORT).show();
+            myEdit.commit();
+            //Toast.makeText(this, sharedPreferences.getString("name",""), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, aa, Toast.LENGTH_SHORT).show();
 
-        // Intent intent=new Intent(this,RegActivity.class);
+            // Intent intent=new Intent(this,RegActivity.class);
 
-        // startActivity(intent);
+            // startActivity(intent);
 
-        //startActivity(new Intent(MainActivity.this, RegActivity.class));
+            //startActivity(new Intent(MainActivity.this, RegActivity.class));
 
-        // Do something in response to button click
+            // Do something in response to button click
+
+        } else {
+            findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
+            Toast.makeText(this, "Boshluqlari doldurun!", Toast.LENGTH_SHORT).show();
+        }
     }
+
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 }
