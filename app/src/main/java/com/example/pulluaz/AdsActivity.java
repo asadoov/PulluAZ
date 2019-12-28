@@ -4,36 +4,62 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONException;
+import org.w3c.dom.Text;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class AdsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
+    List<User> usrList;
+    List<Ads> AdsList;
+    public int advCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        SharedPreferences sharedPreferences
+                = getSharedPreferences("MySharedPref",
+                MODE_PRIVATE);
         super.onCreate(savedInstanceState);
 
 
         try {
+            //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
             setContentView(R.layout.ads_layout);
             NavigationView navView = findViewById(R.id.nav_view);
            /* toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -53,20 +79,85 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
            */
-            List<User> usrList;
+
             Intent iin = getIntent();
             Bundle uData = iin.getExtras();
-
-            if (uData != null) {
-                String jsonUserData = (String) uData.get("UserData");
+            //String jsonUserData = sharedPreferences.getString("userData", "");
+            if ((sharedPreferences.getString("userData", null) != null) && (sharedPreferences.getString("pass", null) != null)) {
+                //= String jsonUserData = (String) uData.get("UserData");
+                String jsonUserData = sharedPreferences.getString("userData", "");
                 Gson gson = new GsonBuilder().setLenient().create();
 
                 usrList = Arrays.asList(gson.fromJson(jsonUserData, User[].class));
+
+                final String userMail = usrList.get(0).mail;
                 View headerView = navView.getHeaderView(0);
                 TextView nameSurname = headerView.findViewById(R.id.nameSurname);
                 TextView mail = headerView.findViewById(R.id.mail);
                 nameSurname.setText(usrList.get(0).name + " " + usrList.get(0).surname);
-                mail.setText(usrList.get(0).mail);
+                mail.setText(userMail);
+
+
+                Thread aa = new Thread(new Runnable() {
+                    DbSelect db = new DbSelect();
+
+
+                    @Override
+                    public void run() {
+                        SharedPreferences sharedPreferences
+                                = getSharedPreferences("MySharedPref",
+                                MODE_PRIVATE);
+
+                        try {
+                            AdsList = db.GetAds(userMail, sharedPreferences.getString("pass", ""));
+
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        //usernameEdit.setText( UserData.get(0).id.toString());
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+                                try {
+                                    advCounter = 0;
+                                    LinearLayout adsScroll = findViewById(R.id.adsScroll);
+                                    adsScroll.removeAllViews();
+                                    for (Ads adv : AdsList) {
+
+                                        if (adv.isPaid == 1) {
+                                            advCounter++;
+                                            AdvCreator(adv);
+                                        }
+                                    }
+                                    TextView advCounterView = findViewById(R.id.advCounter);
+                                    advCounterView.setText(advCounter + " yeni reklam");
+                                    findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+
+                                }
+
+
+                            }
+                        });
+
+
+                    }
+
+                });
+                aa.start();
+
+                try {
+                    aa.join();
+                } catch (
+                        InterruptedException e) {
+                    e.printStackTrace();
+                }
 
 
             }
@@ -119,5 +210,208 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         }
 
     }
+
+    public void notPaidClick(final View view) {
+        findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
+
+
+        try {
+
+
+            Button paidBtn = findViewById(R.id.paidBtn);
+            paidBtn.setBackgroundResource(R.drawable.round_button_not_clicked);
+            paidBtn.setTextColor(Color.parseColor("#454555"));
+
+
+            Button btn = (Button) view;
+            btn.setBackgroundResource(R.drawable.round_button);
+            btn.setTextColor(Color.WHITE);
+
+            TextView advCounterView = findViewById(R.id.advCounter);
+            advCounterView.setText(advCounter + " yeni reklam");
+            LinearLayout adsScroll = findViewById(R.id.adsScroll);
+            adsScroll.removeAllViews();
+
+            advCounter = 0;
+
+
+            for (Ads adv : AdsList) {
+
+                if (adv.isPaid == 0) {
+                    advCounter++;
+                    try {
+                        AdvCreator(adv);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
+    }
+    public void PaidClick(final View view) {
+        findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
+
+
+        try {
+
+
+            Button notPaidBtn = findViewById(R.id.notPaidBtn);
+            notPaidBtn.setBackgroundResource(R.drawable.round_button_not_clicked);
+            notPaidBtn.setTextColor(Color.parseColor("#454555"));
+
+
+            Button btn = (Button) view;
+            btn.setBackgroundResource(R.drawable.round_button);
+            btn.setTextColor(Color.WHITE);
+
+            TextView advCounterView = findViewById(R.id.advCounter);
+            advCounterView.setText(advCounter + " yeni reklam");
+            LinearLayout adsScroll = findViewById(R.id.adsScroll);
+            adsScroll.removeAllViews();
+
+            advCounter = 0;
+
+
+            for (Ads adv : AdsList) {
+
+                if (adv.isPaid == 1) {
+                    advCounter++;
+                    try {
+                        AdvCreator(adv);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
+        findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
+    }
+
+    public void AdvCreator(Ads adv) throws ParseException {
+        LinearLayout adsScroll = findViewById(R.id.adsScroll);
+        CardView adCard = new CardView(AdsActivity.this);
+        CardView.LayoutParams params = new CardView.LayoutParams(
+                CardView.LayoutParams.MATCH_PARENT,
+                CardView.LayoutParams.WRAP_CONTENT
+        );
+        params.setMargins(10, 10, 10, 10);
+        adCard.setLayoutParams(params);
+
+        adCard.setBackgroundResource(R.drawable.round_ads);
+        adCard.setRadius(20);
+
+        LinearLayout lr = new LinearLayout(AdsActivity.this);
+        LinearLayout.LayoutParams lrParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        lr.setLayoutParams(lrParams);
+        lr.setOrientation(LinearLayout.VERTICAL);
+
+        ImageView advImage = new ImageView(AdsActivity.this);
+
+
+        advImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_background));
+        advImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                                       /* Bitmap bImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_background);
+                                        advImage.setImageBitmap(bImage);
+
+                                        */
+        lr.addView(advImage);
+
+        TextView advHead = new TextView(AdsActivity.this);
+        LinearLayout.LayoutParams advTxtParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+        advTxtParams.setMargins(20, 20, 20, 20);
+        advHead.setLayoutParams(advTxtParams);
+
+        advHead.setText(adv.name);
+        advHead.setTextSize(20);
+        advHead.setTypeface(Typeface.DEFAULT_BOLD);
+        lr.addView(advHead);
+
+        TextView advDescription = new TextView(AdsActivity.this);
+        advDescription.setLayoutParams(advTxtParams);
+
+        advDescription.setText(adv.description);
+
+
+        lr.addView(advDescription);
+        //
+        LinearLayout bottomLr = new LinearLayout(AdsActivity.this);
+        bottomLr.setLayoutParams(advTxtParams);
+        bottomLr.setOrientation(LinearLayout.HORIZONTAL);
+        bottomLr.setWeightSum(5);
+
+        TextView advDate = new TextView(AdsActivity.this);
+
+        LinearLayout.LayoutParams advBottomParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        advBottomParams.weight = 1;
+        advDate.setLayoutParams(advBottomParams);
+
+        Locale aLocale = Locale.forLanguageTag("en-US");
+
+        SimpleDateFormat dt1 = new SimpleDateFormat("dd MMMM", new Locale("AZ"));
+        advDate.setText(dt1.format(adv.cDate));
+
+
+        bottomLr.addView(advDate);
+
+        TextView separator = new TextView(AdsActivity.this);
+        separator.setLayoutParams(advBottomParams);
+        separator.setText("|");
+
+        bottomLr.addView(separator);
+
+        TextView advType = new TextView(AdsActivity.this);
+
+        advType.setLayoutParams(advBottomParams);
+        advType.setText(adv.aTypeName);
+
+        bottomLr.addView(advType);
+
+
+        TextView separator2 = new TextView(AdsActivity.this);
+        separator2.setLayoutParams(advBottomParams);
+        separator2.setText("|");
+
+        bottomLr.addView(separator2);
+
+
+        TextView advOpen = new TextView(AdsActivity.this);
+        advOpen.setLayoutParams(advBottomParams);
+        advOpen.setText("İzlə");
+
+        bottomLr.addView(advOpen);
+
+
+        lr.addView(bottomLr);
+        adCard.addView(lr);
+        TextView advCatName = new TextView(AdsActivity.this);
+        LinearLayout.LayoutParams advCatNameParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        advCatNameParams.setMargins(20, 20, 20, 20);
+        advCatName.setPadding(15, 15, 15, 15);
+        advCatName.setTextColor(Color.WHITE);
+        advCatName.setBackgroundResource(R.drawable.round_button);
+        advCatName.setLayoutParams(advCatNameParams);
+        advCatName.setText(adv.catName);
+        advCatName.setTypeface(Typeface.DEFAULT_BOLD);
+
+        adCard.addView(advCatName);
+        adsScroll.addView(adCard);
+
+    }
+
 }
 

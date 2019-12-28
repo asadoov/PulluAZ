@@ -31,11 +31,26 @@ import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
 
+
+            SharedPreferences sharedPreferences
+                    = getSharedPreferences("MySharedPref",
+                    MODE_PRIVATE);
+            if ((isNetworkAvailable() == true) && (sharedPreferences.getString("userData", null) != null) && (sharedPreferences.getString("pass", null) != null)) {
+
+                String aa = sharedPreferences.getString("userData", null);
+                Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
+                startActivity(AdsPage);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 
@@ -50,30 +65,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
+
+
+
+
     public void SignIn(View view) {
         findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
-
 
         LinearLayout lr = new LinearLayout(this);
 
         SharedPreferences sharedPreferences
                 = getSharedPreferences("MySharedPref",
                 MODE_PRIVATE);
-
-
-        // Creating an Editor object
-// to edit(write to the file)
-        SharedPreferences.Editor myEdit
+        final SharedPreferences.Editor myEdit
                 = sharedPreferences.edit();
-
-// Storing the key and its value
-// as the data fetched from edittext
-
-      /*  myEdit.putString(
-                "name",
-                "Rufat");*/
-
-
         final EditText usernameEdit = findViewById(R.id.username);
 
         final EditText passEdit = findViewById(R.id.pass);
@@ -106,23 +111,33 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                if (UserData.size() > 0) {
+                                    try {
+                                        Gson gson = new Gson();
+                                        String jsonUserData = gson.toJson(UserData);
+                                        finish();
+                                        myEdit.putString(
+                                                "userData",
+                                                jsonUserData);
+                                        myEdit.putString(
+                                                "pass",
+                                                passTxt);
+                                        myEdit.commit();
+                                        Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
+                                        //AdsPage.putExtra("UserData", jsonUserData);
+                                        startActivity(AdsPage);
 
-                                try {
-                                    Gson gson = new Gson();
-                                    String jsonUserData = gson.toJson(UserData);
-                                    finish();
-                                    Toast.makeText(MainActivity.this, UserData.get(0).name.toString(), Toast.LENGTH_SHORT).show();
-                                    Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
-                                    AdsPage.putExtra("UserData", jsonUserData);
-                                    startActivity(AdsPage);
-                                    findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
 
-                                } catch (Exception ex) {
-                                    ex.printStackTrace();
+                                    } catch (Exception ex) {
+                                        ex.printStackTrace();
+
+                                    }
 
                                 }
-
-
+                                else  {
+                                    Toast.makeText(MainActivity.this, "Username Pass yalnish yazilib!", Toast.LENGTH_SHORT).show();
+                                }
+                                findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
                             }
                         });
 
@@ -152,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 // Once the changes have been made,
 // we need to commit to apply those changes made,
 // otherwise, it will throw an error
-            myEdit.commit();
+
             //Toast.makeText(this, sharedPreferences.getString("name",""), Toast.LENGTH_SHORT).show();
             //Toast.makeText(this, aa, Toast.LENGTH_SHORT).show();
 
