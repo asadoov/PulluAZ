@@ -1,3 +1,8 @@
+/*
+ * Created by Rufat Asadzade on 25.12.19
+ * Copyright (c) 2019. Rufat Asadzade. All rights reserved.
+ */
+
 package com.example.pulluaz;
 
 import androidx.annotation.NonNull;
