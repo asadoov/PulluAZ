@@ -217,10 +217,11 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     }
 
     public void notPaidClick(final View view) {
-        findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
 
 
         try {
+            findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
+            findViewById(R.id.adsLayout).setVisibility(View.GONE);
 
 
             Button paidBtn = findViewById(R.id.paidBtn);
@@ -237,20 +238,34 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
             LinearLayout adsScroll = findViewById(R.id.adsScroll);
             adsScroll.removeAllViews();
 
-            advCounter = 0;
+            Thread secondThread = new Thread(new Runnable() {
 
 
-            for (Ads adv : AdsList) {
-
-                if (adv.isPaid == 0) {
-                    advCounter++;
+                @Override
+                public void run() {
                     try {
-                        AdvCreator(adv);
-                    } catch (ParseException e) {
+
+
+                        advCounter = 0;
+
+
+                        for (Ads adv : AdsList) {
+
+                            if (adv.isPaid == 0) {
+                                advCounter++;
+                                try {
+                                    AdvCreator(adv);
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-            }
+            });
+            secondThread.start();
 
 
         } catch (Exception ex) {
@@ -259,6 +274,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
         findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
     }
+
     public void PaidClick(final View view) {
         findViewById(R.id.adsLayout).setVisibility(View.VISIBLE);
 
@@ -303,118 +319,124 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
     }
 
-    public void AdvCreator(Ads adv) throws ParseException {
-        LinearLayout adsScroll = findViewById(R.id.adsScroll);
-        CardView adCard = new CardView(AdsActivity.this);
-        CardView.LayoutParams params = new CardView.LayoutParams(
-                CardView.LayoutParams.MATCH_PARENT,
-                CardView.LayoutParams.WRAP_CONTENT
-        );
-        params.setMargins(10, 10, 10, 10);
-        adCard.setLayoutParams(params);
+    public void AdvCreator(final Ads adv) throws ParseException {
+        runOnUiThread(new Runnable() {
 
-        adCard.setBackgroundResource(R.drawable.round_ads);
-        adCard.setRadius(20);
+            @Override
+            public void run() {
+                LinearLayout adsScroll = findViewById(R.id.adsScroll);
+                CardView adCard = new CardView(AdsActivity.this);
+                CardView.LayoutParams params = new CardView.LayoutParams(
+                        CardView.LayoutParams.MATCH_PARENT,
+                        CardView.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(10, 10, 10, 10);
+                adCard.setLayoutParams(params);
 
-        LinearLayout lr = new LinearLayout(AdsActivity.this);
-        LinearLayout.LayoutParams lrParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-        );
-        lr.setLayoutParams(lrParams);
-        lr.setOrientation(LinearLayout.VERTICAL);
+                adCard.setBackgroundResource(R.drawable.round_ads);
+                adCard.setRadius(20);
 
-        ImageView advImage = new ImageView(AdsActivity.this);
+                LinearLayout lr = new LinearLayout(AdsActivity.this);
+                LinearLayout.LayoutParams lrParams = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT
+                );
+                lr.setLayoutParams(lrParams);
+                lr.setOrientation(LinearLayout.VERTICAL);
+
+                ImageView advImage = new ImageView(AdsActivity.this);
 
 
-        advImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_background));
-        advImage.setScaleType(ImageView.ScaleType.FIT_XY);
+                advImage.setImageDrawable(getResources().getDrawable(R.drawable.ic_background));
+                advImage.setScaleType(ImageView.ScaleType.FIT_XY);
                                        /* Bitmap bImage = BitmapFactory.decodeResource(getResources(), R.drawable.ic_background);
                                         advImage.setImageBitmap(bImage);
 
                                         */
-        lr.addView(advImage);
+                lr.addView(advImage);
 
-        TextView advHead = new TextView(AdsActivity.this);
-        LinearLayout.LayoutParams advTxtParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-        advTxtParams.setMargins(20, 20, 20, 20);
-        advHead.setLayoutParams(advTxtParams);
+                TextView advHead = new TextView(AdsActivity.this);
+                LinearLayout.LayoutParams advTxtParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+                advTxtParams.setMargins(20, 20, 20, 20);
+                advHead.setLayoutParams(advTxtParams);
 
-        advHead.setText(adv.name);
-        advHead.setTextSize(20);
-        advHead.setTypeface(Typeface.DEFAULT_BOLD);
-        lr.addView(advHead);
+                advHead.setText(adv.name);
+                advHead.setTextSize(20);
+                advHead.setTypeface(Typeface.DEFAULT_BOLD);
+                lr.addView(advHead);
 
-        TextView advDescription = new TextView(AdsActivity.this);
-        advDescription.setLayoutParams(advTxtParams);
+                TextView advDescription = new TextView(AdsActivity.this);
+                advDescription.setLayoutParams(advTxtParams);
 
-        advDescription.setText(adv.description);
-
-
-        lr.addView(advDescription);
-        //
-        LinearLayout bottomLr = new LinearLayout(AdsActivity.this);
-        bottomLr.setLayoutParams(advTxtParams);
-        bottomLr.setOrientation(LinearLayout.HORIZONTAL);
-        bottomLr.setWeightSum(5);
-
-        TextView advDate = new TextView(AdsActivity.this);
-
-        LinearLayout.LayoutParams advBottomParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-        advBottomParams.weight = 1;
-        advDate.setLayoutParams(advBottomParams);
-
-        Locale aLocale = Locale.forLanguageTag("en-US");
-
-        SimpleDateFormat dt1 = new SimpleDateFormat("dd MMMM", new Locale("AZ"));
-        advDate.setText(dt1.format(adv.cDate));
+                advDescription.setText(adv.description);
 
 
-        bottomLr.addView(advDate);
+                lr.addView(advDescription);
+                //
+                LinearLayout bottomLr = new LinearLayout(AdsActivity.this);
+                bottomLr.setLayoutParams(advTxtParams);
+                bottomLr.setOrientation(LinearLayout.HORIZONTAL);
+                bottomLr.setWeightSum(5);
 
-        TextView separator = new TextView(AdsActivity.this);
-        separator.setLayoutParams(advBottomParams);
-        separator.setText("|");
+                TextView advDate = new TextView(AdsActivity.this);
 
-        bottomLr.addView(separator);
+                LinearLayout.LayoutParams advBottomParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-        TextView advType = new TextView(AdsActivity.this);
+                advBottomParams.weight = 1;
+                advDate.setLayoutParams(advBottomParams);
 
-        advType.setLayoutParams(advBottomParams);
-        advType.setText(adv.aTypeName);
+                Locale aLocale = Locale.forLanguageTag("en-US");
 
-        bottomLr.addView(advType);
-
-
-        TextView separator2 = new TextView(AdsActivity.this);
-        separator2.setLayoutParams(advBottomParams);
-        separator2.setText("|");
-
-        bottomLr.addView(separator2);
+                SimpleDateFormat dt1 = new SimpleDateFormat("dd MMMM", new Locale("AZ"));
+                advDate.setText(dt1.format(adv.cDate));
 
 
-        TextView advOpen = new TextView(AdsActivity.this);
-        advOpen.setLayoutParams(advBottomParams);
-        advOpen.setText("İzlə");
+                bottomLr.addView(advDate);
 
-        bottomLr.addView(advOpen);
+                TextView separator = new TextView(AdsActivity.this);
+                separator.setLayoutParams(advBottomParams);
+                separator.setText("|");
+
+                bottomLr.addView(separator);
+
+                TextView advType = new TextView(AdsActivity.this);
+
+                advType.setLayoutParams(advBottomParams);
+                advType.setText(adv.aTypeName);
+
+                bottomLr.addView(advType);
 
 
-        lr.addView(bottomLr);
-        adCard.addView(lr);
-        TextView advCatName = new TextView(AdsActivity.this);
-        LinearLayout.LayoutParams advCatNameParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        advCatNameParams.setMargins(20, 20, 20, 20);
-        advCatName.setPadding(15, 15, 15, 15);
-        advCatName.setTextColor(Color.WHITE);
-        advCatName.setBackgroundResource(R.drawable.round_button);
-        advCatName.setLayoutParams(advCatNameParams);
-        advCatName.setText(adv.catName);
-        advCatName.setTypeface(Typeface.DEFAULT_BOLD);
+                TextView separator2 = new TextView(AdsActivity.this);
+                separator2.setLayoutParams(advBottomParams);
+                separator2.setText("|");
 
-        adCard.addView(advCatName);
-        adsScroll.addView(adCard);
+                bottomLr.addView(separator2);
+
+
+                TextView advOpen = new TextView(AdsActivity.this);
+                advOpen.setLayoutParams(advBottomParams);
+                advOpen.setText("İzlə");
+
+                bottomLr.addView(advOpen);
+
+
+                lr.addView(bottomLr);
+                adCard.addView(lr);
+                TextView advCatName = new TextView(AdsActivity.this);
+                LinearLayout.LayoutParams advCatNameParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                advCatNameParams.setMargins(20, 20, 20, 20);
+                advCatName.setPadding(15, 15, 15, 15);
+                advCatName.setTextColor(Color.WHITE);
+                advCatName.setBackgroundResource(R.drawable.round_button);
+                advCatName.setLayoutParams(advCatNameParams);
+                advCatName.setText(adv.catName);
+                advCatName.setTypeface(Typeface.DEFAULT_BOLD);
+
+                adCard.addView(advCatName);
+                adsScroll.addView(adCard);
+            }
+        });
 
     }
 

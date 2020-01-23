@@ -8,6 +8,7 @@
     tools:context=".AdsActivity">
 
 
+
     <RelativeLayout
         android:id="@+id/adsLayout"
         android:layout_width="match_parent"
@@ -264,7 +265,23 @@
             />
 
     </RelativeLayout>
+    <FrameLayout
+        android:id="@+id/progressBarHolder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
+        android:alpha="0.4"
+        android:animateLayoutChanges="true"
+        android:background="@android:color/black"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true" />
+    </FrameLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
@@ -275,25 +292,6 @@
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/navigation_menu" />
-
-    <FrameLayout
-
-        android:id="@+id/progressBarHolder"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.4"
-        android:animateLayoutChanges="true"
-        android:background="@android:color/transparent"
-        android:visibility="gone">
-
-        <ProgressBar
-
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="false" />
-    </FrameLayout>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
