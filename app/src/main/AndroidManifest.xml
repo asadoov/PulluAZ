@@ -14,8 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RegActivity"></activity>
-        <activity android:name=".AdsActivity"></activity>
+        <activity android:name=".AdViewTest"></activity>
+        <activity android:name=".RegActivity" />
+        <activity android:name=".AdsActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

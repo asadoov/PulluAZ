@@ -6,57 +6,55 @@
 package com.example.pulluaz;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
 
 public class AdsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     Toolbar toolbar;
     DrawerLayout drawerLayout;
     List<User> usrList;
     List<Ads> AdsList;
+    List<adView> Ad;
     public int advCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         SharedPreferences sharedPreferences
                 = getSharedPreferences("MySharedPref",
                 MODE_PRIVATE);
@@ -116,6 +114,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                         try {
                             AdsList = db.GetAds(userMail, sharedPreferences.getString("pass", ""));
 
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         } catch (JSONException e) {
@@ -151,7 +150,19 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                             }
                         });
 
-
+                        /*for (Ads adv: AdsList)
+                        {
+                            try {
+                            Ad.add(db.AdView(String.valueOf(adv.id)));
+                            }
+                            catch (IOException e)
+                            {
+                                e.printStackTrace();
+                            }
+                            catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }*/
                     }
 
                 });
@@ -319,6 +330,31 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
     }
 
+    Thread t=new Thread() {
+
+        public void run(int adID, View view)
+        {
+        findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
+        /*DbSelect db = new DbSelect();
+
+        try {
+            Ad.add(db.AdView(String.valueOf(adID)));
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        catch (JSONException e) {
+            e.printStackTrace();
+        }
+            Intent intent = new Intent(view.getContext(), AdViewTest.class);
+            intent.putExtra(VIEWADID, adID);
+            startActivity(intent);*/
+        }
+    };
+
+
+
     public void AdvCreator(final Ads adv) throws ParseException {
         runOnUiThread(new Runnable() {
 
@@ -414,8 +450,18 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                 bottomLr.addView(separator2);
 
 
+
                 TextView advOpen = new TextView(AdsActivity.this);
                 advOpen.setLayoutParams(advBottomParams);
+                advOpen.setOnClickListener(new View.OnClickListener(){
+//DbSelect db = new DbSelect();
+                    @Override
+                    public void onClick(View v) {
+                        findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
+                        adLoadInBack adload = new adLoadInBack(v.getContext());
+                        adload.execute(adv.id);
+                    }
+                });
                 advOpen.setText("İzlə");
 
                 bottomLr.addView(advOpen);
@@ -441,4 +487,88 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     }
 
 }
+
+
+
+
+class adLoadInBack extends AsyncTask<Integer, Void, adView> {
+    private Context context;
+    public static final String VIEWADID = "com.example.pullua.VIEWADID";
+    public static final String VIEWADHEADERTEXT = "com.example.pullua.VIEWADHEADERTEXT";
+    public static final String VIEWADCONTENTTEXT = "com.example.pullua.VIEWADCONTENTTEXT";
+    public static final String VIEWADOWNERNAME = "com.example.pullua.VIEWADOWNERNAME";
+    public static final String VIEWADOWNERMOB = "com.example.pullua.VIEWADOWNERMOB";
+    public static final String VIEWADTYPE = "com.example.pullua.VIEWADTYPE";
+    public static final String VIEWADPROFIT = "com.example.pullua.VIEWADPROFIT";
+    public static final String VIEWADBALANS = "com.example.pullua.VIEWADBALANS";
+    public static final String VIEWADHEADERIMAGE = "com.example.pullua.VIEWADHEADERIMAGE";
+    public adLoadInBack(Context context)
+    {
+        this.context = context;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+    @Override
+    protected adView doInBackground(Integer... params) {
+    List<adView> Data;
+    adView rtInfo = new adView();
+    DbSelect db = new DbSelect();
+        try {
+            try {
+
+                Data = db.AdView(String.valueOf(params[0]));
+                for (adView adv : Data) {
+
+                    if (adv.id > 0) {
+                        rtInfo = adv;
+                    }
+                }
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rtInfo;
+
+    }
+
+
+    protected void onPostExecute(adView page) {
+        super.onPreExecute();
+
+        if (page.id > 0)
+        {
+            String[] urls;
+            urls = page.photoUrl;
+            Intent intent = new Intent(context, AdViewTest.class);
+            intent.putExtra(VIEWADID, String.valueOf(page.id));
+            intent.putExtra(VIEWADHEADERTEXT, page.name);
+            intent.putExtra(VIEWADCONTENTTEXT, page.description);
+            intent.putExtra(VIEWADOWNERNAME, page.sellerFullName);
+            intent.putExtra(VIEWADOWNERMOB, page.sellerPhone);
+            intent.putExtra(VIEWADTYPE, page.catName);
+            intent.putExtra(VIEWADPROFIT, "NAN");
+            intent.putExtra(VIEWADBALANS, "NAN");
+            intent.putExtra(VIEWADHEADERIMAGE, urls[0]);
+            context.startActivity(intent);
+            ((Activity)context).finish();
+        }
+        else
+        {
+            Toast.makeText(context, "Məlumatları yükləmək mümkün olmadı", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+}
+
 

@@ -186,4 +186,35 @@ public class DbSelect {
         return adsList;
     }
 
+    public List<adView> AdView(String adID) throws IOException, JSONException {
+
+        String data = "";
+        URL url = new URL(DefaultURL + "/api/androidmobileapp/user/about?advertID=" + adID);
+
+
+        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+        InputStream inputStream = httpURLConnection.getInputStream();
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        String line = "";
+        while ((line = bufferedReader.readLine()) != null) {
+
+            data += line;
+        }
+        List<adView> adsList = new ArrayList();
+        try {
+
+            Gson gson = new GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
+
+            adsList = Arrays.asList(gson.fromJson(data, adView[].class));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+
+
+
+
+        return adsList;
+    }
+
 }
