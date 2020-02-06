@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences
                     = getSharedPreferences("MySharedPref",
                     MODE_PRIVATE);
-            if ((isNetworkAvailable() == true) && (sharedPreferences.getString("userData", null) != null) && (sharedPreferences.getString("pass", null) != null)) {
+            if ((isNetworkAvailable() == true) && (sharedPreferences.getString("userData", null) != null)
+                    && (sharedPreferences.getString("pass", null) != null)) {
 
                 String aa = sharedPreferences.getString("userData", null);
                 Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);

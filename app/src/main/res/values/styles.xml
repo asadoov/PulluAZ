@@ -6,6 +6,16 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
+        <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.DatePicker">
+            <item name="android:colorControlActivated">#ffea00</item>
+            . . .
+            <item name="android:datePickerMode">spinner</item>
+            <item name="android:calendarViewShown">false</item>
+        </style>
     </style>
+
+    <style name="MyDatePickerSpinnerStyle">datepicker</style>
+
+    <style name="MyDatePickerStyle">datepicker</style>
 
 </resources>
