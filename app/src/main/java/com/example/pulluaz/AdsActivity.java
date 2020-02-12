@@ -63,6 +63,16 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
 
 
+
+
+/*
+        Intent a = new Intent(this, MainActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        AdsActivity.this.finish();*/
+
+
+
         try {
             //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
             setContentView(R.layout.ads_layout);
@@ -174,16 +184,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case 0:
-                // do whatever
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -193,6 +194,17 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.exit:
+                // do whatever
+                Toast.makeText(this, "Cixiw", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -439,6 +451,16 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         });
 
     }
+
+    /*public void exit(View v){
+
+       // finishAffinity();
+    }*/
+
+
+
+
+
 
 }
 

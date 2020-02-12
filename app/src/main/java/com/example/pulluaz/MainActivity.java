@@ -17,11 +17,15 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -71,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-
-
 
 
     public void SignIn(View view) {
@@ -139,8 +141,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     }
 
-                                }
-                                else  {
+                                } else {
                                     Toast.makeText(MainActivity.this, "Username Pass yalnish yazilib!", Toast.LENGTH_SHORT).show();
                                 }
                                 findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
@@ -192,11 +193,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 
+
+
+        private boolean isNetworkAvailable () {
+            ConnectivityManager connectivityManager
+                    = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+
+
+    }
 }

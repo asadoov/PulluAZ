@@ -8,7 +8,9 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,25 +20,39 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.Calendar;
+import java.util.regex.Pattern;
 
 public class RegActivity extends AppCompatActivity {
 
     private static final String JSON_URL = "http://13.92.237.16/api/androidmobileapp/user/about?mail=mirza@gmail.com&pass=mirza123&advertID=253";
 
-    EditText edEmail,edPass,edPass2;
+    EditText edEmail, edPass, edPass2;
     Button btnNext;
+
     TextView mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     private static final String TAG = "RegActivity";
+    private static final Pattern PASSWORD_PATTERN =
+            Pattern.compile("^" +
+                   // "(?=.*[0-9])" +         //at least 1 digit
+                    "(?=.*[a-z])" +         //at least 1 lower case letter
+                    //"(?=.*[A-Z])" +         //at least 1 upper case letter
+                    // "(?=.*[a-zA-Z])" +      //any letter
+                   // "(?=.*[@#$%^&+=])" +    //at least 1 special character
+                   // "(?=\\S+$)" +           //no white spaces
+                    ".{4,}" +               //at least 4 characters
+                    "$");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_layout);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
@@ -46,7 +62,7 @@ public class RegActivity extends AppCompatActivity {
         edPass2 = findViewById(R.id.edPass2);
 
 
-        btnNext=(Button)findViewById(R.id.btnNext);
+        btnNext = (Button) findViewById(R.id.btnNext);
 
 
         final String email = edEmail.getText().toString();
@@ -56,81 +72,8 @@ public class RegActivity extends AppCompatActivity {
 
         mDisplayDate = (TextView) findViewById(R.id.date);
 
-        /*DatePicker dp = findViewById(R.id.datePicker);
-        dp.setOnDateChangedListener(dateChangedListener);
 
-    private DatePicker.OnDateChangedListener dateChangedListener =
-            new DatePicker.OnDateChangedListener(){
-                @Override
-                public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                    Toast.makeText(DatePickerWidgetActivity.this, "picked date is " + datePicker.getDayOfMonth() +
-                            " / " + (datePicker.getMonth()+1) +
-                            " / " + datePicker.getYear(), Toast.LENGTH_SHORT).show();
-    private DatePicker.OnDateChangedListener dateChangedListener =
-            new DatePicker.OnDateChangedListener(){
-                @Override
-                public void onDateChanged(DatePicker datePicker, int i, int i1, int i2) {
-                    Toast.makeText(getApplicationContext(), "picked date is " + datePicker.getDayOfMonth() +
-                            " / " + (datePicker.getMonth()+1) +
-                            " / " + datePicker.getYear(), Toast.LENGTH_SHORT).show();*/
-
-        /*mDisplayDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
-
-                DatePickerDialog dialog = new DatePickerDialog(
-                        getApplicationContext(),
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
-            }
-        });
-
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + month + "/" + day + "/" + year);
-
-                String date = month + "/" + day + "/" + year;
-                mDisplayDate.setText(date);
-            }
-        };*/
-
-        btnNext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                if (email.isEmpty()) {
-                    edEmail.setError("Mailinizi daxil edin");
-                    edEmail.requestFocus();
-                } else if (password.isEmpty()) {
-                    edPass.setError("Shifrenizi daxil edin");
-                } else if (password2.isEmpty()) {
-                    edPass2.setError(" Tekrar shifrenizi daxil edin");
-                } else if (email.isEmpty() && password.isEmpty() && password2.isEmpty()) {
-                    Toast.makeText(RegActivity.this, "Melumatlari daxil edin", Toast.LENGTH_SHORT).show();
-                }
-
-                intent();
-
-            }
-
-
-        });
-
-
-
-}
-
+    }
 
     private void intent() {
         Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
@@ -139,4 +82,70 @@ public class RegActivity extends AppCompatActivity {
         intent.putExtra("pass2", edPass2.getText().toString());
         startActivity(intent);
     }
-}
+
+    private boolean validateEmail() {
+        String emailInput = edEmail.getText().toString().trim();
+        if (emailInput.isEmpty()) {
+            edEmail.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            edEmail.setError("Please enter a valid email address");
+            return false;
+        } else {
+            edEmail.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword() {
+        String passwordInput = edPass.getText().toString().trim().toLowerCase();
+
+        if (passwordInput.isEmpty()) {
+            edPass.setError("Field can't be empty");
+            return false;
+        } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
+            edPass.setError("Password too weak");
+            return false;
+
+        } else {
+            edPass.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validatePassword2() {
+        String passwordInput = edPass2.getText().toString().trim().toLowerCase();
+
+        if (passwordInput.isEmpty()) {
+            edPass2.setError("Field can't be empty");
+            return false;
+        } else {
+            edPass2.setError(null);
+            return true;
+        }
+    }
+
+    public void confirmInput(View v) {
+        if (!validateEmail() | !validatePassword() | !validatePassword2()) {
+            return;
+        }
+        if (!validatePassword() == validatePassword2()) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+
+        }else {
+                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+
+                intent();
+            }
+
+
+
+        /*String input = "Email: " + edEmail.getText().toString();
+        input += "\n";
+        input += "Username: " + edPass.getText().toString();
+        input += "\n";
+        input += "Password: " + edPass2.getText().toString();*/
+
+
+        }
+    }

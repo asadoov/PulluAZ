@@ -11,10 +11,13 @@ public class User {
     public String phone ;
     public Date birthDate;
 
+
     public String gender ;
     public String city ;
     public String profession;
     public Date regDate;
+
+
 
 
 }
