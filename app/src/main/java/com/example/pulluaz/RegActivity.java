@@ -1,28 +1,22 @@
 package com.example.pulluaz;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class RegActivity extends AppCompatActivity {
@@ -51,6 +45,9 @@ public class RegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_layout);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -60,6 +57,10 @@ public class RegActivity extends AppCompatActivity {
         edEmail = findViewById(R.id.edEmail);
         edPass = findViewById(R.id.edPass);
         edPass2 = findViewById(R.id.edPass2);
+
+        edEmail.setOnFocusChangeListener(listener);
+        edPass.setOnFocusChangeListener(listener);
+        edPass2.setOnFocusChangeListener(listener);
 
 
         btnNext = (Button) findViewById(R.id.btnNext);
@@ -140,12 +141,25 @@ public class RegActivity extends AppCompatActivity {
 
 
 
-        /*String input = "Email: " + edEmail.getText().toString();
-        input += "\n";
-        input += "Username: " + edPass.getText().toString();
-        input += "\n";
-        input += "Password: " + edPass2.getText().toString();*/
-
-
         }
+
+
+    final View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (!hasFocus) hideKeyboard();
+        }
+    };
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
     }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        return super.dispatchTouchEvent(ev);
+    }
+
+}
