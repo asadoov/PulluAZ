@@ -3,6 +3,7 @@
  * Copyright (c) 2020. Rufat Asadzade. All rights reserved.
  */
 
+
 package com.example.pulluaz;
 
 import android.content.Context;
@@ -12,6 +13,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,10 +21,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +31,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class CountriesRegistrActivity extends AppCompatActivity {
+public class CountriesRegistrActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     public static final String LOG_TAG = "onEmptyResponse";
 
 
     private Spinner spinnerCountry;
     private Spinner spinnerCity;
+    private Spinner sectorSpinner;
 
     Button btnEndReg;
 
@@ -48,17 +47,37 @@ public class CountriesRegistrActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_registr);
 
->>>>>>> 2691887c232373036b1db6ecd1b986025d4a8a8a
-
 
         spinnerCountry = findViewById(R.id.spinnerCountry);
+        spinnerCity = findViewById(R.id.spinnerCity);
+        sectorSpinner = findViewById(R.id.sector);
         init();
+        Log.d(LOG_TAG, "onCreate: ");
 
+
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinnerSector,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sectorSpinner.setAdapter(adapter);
+        sectorSpinner.setOnItemSelectedListener(this);
 
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        if (parent.isSelected()) {
+            Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+        }
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 
 
     private void init() {
@@ -74,48 +93,102 @@ public class CountriesRegistrActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Countries>>() {
             @Override
             public void onResponse(Call<List<Countries>> call, Response<List<Countries>> response) {
-                Log.d(LOG_TAG, "onResponse: "+ response.code());
-                Log.d(LOG_TAG, "onResponse: "+ response.toString());
+                Log.d(LOG_TAG, "onResponse: " + response.code());
+                Log.d(LOG_TAG, "onResponse: " + response.toString());
 
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d("onSuccess", response.body().toString());
 
-                        String jsonresponse = response.body().toString();
-                        spinJSON(jsonresponse);
+                        bindCountries(response.body());
+
+                    } else {
+                        Log.d("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
                     }
 
-                    for (int i = 0; i < countrieslArrayList.size(); i++) {
-                    }
-
-                } else {
-                    Log.d("onEmptyResponse", "Returned empty response");
-                     Toast.makeText(getApplicationContext(),"Nothing returned",Toast.LENGTH_LONG).show();
                 }
             }
->>>>>>> 2691887c232373036b1db6ecd1b986025d4a8a8a
+
+            @Override
+            public void onFailure(Call<List<Countries>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    public void bindCountries(final List<Countries> countries) {
+        final ArrayList<String> countriesNames = new ArrayList<>();
+        for (int i = 0; i < countries.size(); i++) {
+
+            countriesNames.add(countries.get(i).getName().toString());
+        }
+
+        Log.d(LOG_TAG, "bind: " + countriesNames);
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, countriesNames);
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
+        spinnerCountry.setAdapter(spinnerArrayAdapter);
+        spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Countries country = countries.get(i);
+                onChooseCountry(country);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                Toast.makeText(CountriesRegistrActivity.this, "error", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
+
+    }
+
+
+    public void onChooseCountry(Countries country) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://13.92.237.16/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        SpinnerRetrofit api = retrofit.create(SpinnerRetrofit.class);
+
+        Call<List<City>> call = api.getCities(country.getId());
+        call.enqueue(new Callback<List<City>>() {
             @Override
             public void onResponse(Call<List<City>> call, Response<List<City>> response) {
-                Log.d(LOG_TAG, "onResponse: "+ response.code());
-                Log.d(LOG_TAG, "onResponse: "+ response.toString());
+                Log.d(LOG_TAG, "onResponse: " + response.code());
+                Log.d(LOG_TAG, "onResponse: " + response.toString());
 
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d("onSuccess", response.body().toString());
 
-<<<<<<< HEAD
-                   
+                        bindCities(response.body());
+
+                    } else {
+                        Log.d("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<City>> call, Throwable t) {
+
+            }
+        });
+    }
+
+    public void bindCities(List<City> cities) {
+        final ArrayList<String> citiesNames = new ArrayList<>();
+        for (int i = 0; i < cities.size(); i++) {
+
+            citiesNames.add(cities.get(i).getName().toString());
         }
-
-    private void spinJSON(String response){
-
-        try {
-               JSONObject obj = new JSONObject(response);
-
-
-                countrieslArrayList = new ArrayList<>();
-                JSONArray dataArray  = obj.getJSONArray("");
->>>>>>> 2691887c232373036b1db6ecd1b986025d4a8a8a
 
         Log.d(LOG_TAG, "bind: " + citiesNames);
 
@@ -130,36 +203,14 @@ public class CountriesRegistrActivity extends AppCompatActivity {
 
             }
 
-                    Countries countries = new Countries();
-                    JSONObject dataobj = dataArray.getJSONObject(i);
-
-                    countries.setName(dataobj.getString("name"));
-
-
-                    countrieslArrayList.add(countries);
->>>>>>> 2691887c232373036b1db6ecd1b986025d4a8a8a
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 Toast.makeText(CountriesRegistrActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
-            });
+        });
 
     }
 
-
-                ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_countries_registr, countriesNames);
-                spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
-                spinnerCountry.setAdapter(spinnerArrayAdapter);
-
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
->>>>>>> 2691887c232373036b1db6ecd1b986025d4a8a8a
-
-    }
 
 
     @Override
@@ -174,10 +225,12 @@ public class CountriesRegistrActivity extends AppCompatActivity {
             }
 
         }
-            return super.dispatchKeyEvent(event);
+        return super.dispatchKeyEvent(event);
     }
 
-    public void EndReg(View view){
+    public void EndReg(View view) {
 
     }
+
+
 }
