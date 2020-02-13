@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".CountriesRegistrActivity"></activity>
-        <activity android:name=".RegActivity">
+        <activity android:name=".RegActivity"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AdsActivity"></activity>
-        <activity android:name=".SecondRegistrationActivity"></activity>
+        <activity android:name=".SecondRegistrationActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".MainActivity"></activity>
 
         <meta-data

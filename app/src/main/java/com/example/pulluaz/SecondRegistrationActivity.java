@@ -5,11 +5,13 @@
 
 package com.example.pulluaz;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -18,9 +20,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import java.util.regex.Pattern;
-
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.regex.Pattern;
 
 
 public class SecondRegistrationActivity  extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -46,6 +48,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_registration);
+        closeKeyboard();
 
         edNames = findViewById(R.id.edName);
         edPhone = findViewById(R.id.edPhone);
@@ -77,6 +80,14 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
 
 }
 
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view !=null){
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(),0);
+        }
+
+    }
 
 
     @Override
@@ -158,5 +169,15 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         Intent intent = new Intent(getApplicationContext(), CountriesRegistrActivity.class);
         startActivity(intent);
 
+    }
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() ==  MotionEvent.ACTION_DOWN) hideKeyboard();
+        return super.dispatchTouchEvent(ev);
     }
 }
