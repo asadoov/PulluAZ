@@ -6,6 +6,7 @@
 
     </string-array>
     <string-array name="spinnerSector">
+        <item>Sektoru seçin</item>
         <item>Texnologiya sektoru</item>
         <item>Ticarət sektoru</item>
         <item>Turizm sektoru</item>

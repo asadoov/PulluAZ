@@ -6,7 +6,9 @@
 
 package com.example.pulluaz;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -35,10 +37,11 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
     public static final String LOG_TAG = "onEmptyResponse";
 
-
+    ProgressDialog progressDoalog;
     private Spinner spinnerCountry;
     private Spinner spinnerCity;
     private Spinner sectorSpinner;
+
 
     Button btnEndReg;
 
@@ -46,6 +49,14 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_registr);
+
+        progressDoalog = new ProgressDialog(this);
+        progressDoalog.setMax(500);
+        progressDoalog.setMessage("Yuklenir...");
+        progressDoalog.setTitle("Sonuncu merhele");
+        progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        // show it
+        progressDoalog.show();
 
 
         spinnerCountry = findViewById(R.id.spinnerCountry);
@@ -55,24 +66,33 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         Log.d(LOG_TAG, "onCreate: ");
 
 
+        ArrayList<String> arraySector = new ArrayList<>();
+        arraySector.add(0, "Sectoru secin");
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinnerSector,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.spinnerSector,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sectorSpinner.setAdapter(adapter);
-        sectorSpinner.setOnItemSelectedListener(this);
 
+        sectorSpinner.setOnItemSelectedListener(this);
 
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        if (parent.isSelected()) {
-            Toast.makeText(parent.getContext(), text, Toast.LENGTH_SHORT).show();
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
+
+
+
+
+        if (adapterView.getItemAtPosition(0).equals("Sectoru secin")){
+
         }
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+        else {
+            String item = adapterView.getItemAtPosition(i).toString();
+            Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -81,6 +101,8 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
 
     private void init() {
+
+       ;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://13.92.237.16/")
@@ -93,6 +115,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         call.enqueue(new Callback<List<Countries>>() {
             @Override
             public void onResponse(Call<List<Countries>> call, Response<List<Countries>> response) {
+                progressDoalog.dismiss();
                 Log.d(LOG_TAG, "onResponse: " + response.code());
                 Log.d(LOG_TAG, "onResponse: " + response.toString());
 
@@ -102,23 +125,25 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
                         bindCountries(response.body());
 
-                    } else {
-                        Log.d("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
-                    }
 
+
+
+                    } else {
+                        Log.d("onEmptyResponse", "Returned empty response");
+                        Toast.makeText(getApplicationContext(),"Nothing returned",Toast.LENGTH_LONG).show();
+                    }
                 }
             }
-
             @Override
             public void onFailure(Call<List<Countries>> call, Throwable t) {
-
+                progressDoalog.dismiss();
             }
         });
-
     }
 
     public void bindCountries(final List<Countries> countries) {
         final ArrayList<String> countriesNames = new ArrayList<>();
+        countriesNames.add(0,"Olkeni Secin");
         for (int i = 0; i < countries.size(); i++) {
 
             countriesNames.add(countries.get(i).getName().toString());
@@ -133,8 +158,27 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         spinnerCountry.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Countries country = countries.get(i);
-                onChooseCountry(country);
+                if (i != 0){
+                    spinnerCity.setVisibility(View.VISIBLE);
+                }else spinnerCity.setVisibility(View.GONE);
+
+
+                if (adapterView.getItemAtPosition(i).equals("Olkeni Secin")){
+
+                }
+                else {
+                    String item = adapterView.getItemAtPosition(i).toString();
+                    Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
+                    spinnerCity.setVisibility(View.VISIBLE);
+
+                }
+
+              Countries country = countries.get(0);
+              onChooseCountry(country);
+
+
+
+
             }
 
             @Override
@@ -143,10 +187,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
             }
         });
-
-
     }
-
 
     public void onChooseCountry(Countries country) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -172,10 +213,8 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
                     } else {
                         Log.d("onEmptyResponse", "Returned empty response");//Toast.makeText(getContext(),"Nothing returned",Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
-
             @Override
             public void onFailure(Call<List<City>> call, Throwable t) {
 
@@ -183,11 +222,12 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         });
     }
 
-    public void bindCities(List<City> cities) {
+    public void bindCities(final List<City> cities) {
         final ArrayList<String> citiesNames = new ArrayList<>();
+        citiesNames.add(0,"Seheri secin");
         for (int i = 0; i < cities.size(); i++) {
 
-            citiesNames.add(cities.get(i).getName().toString());
+            citiesNames.add(cities.get(i).getName());
         }
 
         Log.d(LOG_TAG, "bind: " + citiesNames);
@@ -196,23 +236,31 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
                 android.R.layout.simple_spinner_item, citiesNames);
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // The drop down view
         spinnerCity.setAdapter(spinnerArrayAdapter);
+
         spinnerCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (adapterView.getItemAtPosition(i).equals("Seheri Secin")){
+                    String item = adapterView.getItemAtPosition(i).toString();
+                    Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
+                    intent.putExtra("getCountry",item);
+                    startService(intent);
 
 
+                }
+                else {
+                    String item = adapterView.getItemAtPosition(i).toString();
+                    Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
+                }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
                 Toast.makeText(CountriesRegistrActivity.this, "error", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
-
-
-
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -221,16 +269,15 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
                 v.clearFocus();
                 InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-
             }
-
         }
         return super.dispatchKeyEvent(event);
     }
 
     public void EndReg(View view) {
 
+        Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
+        startActivity(intent);
+
     }
-
-
 }

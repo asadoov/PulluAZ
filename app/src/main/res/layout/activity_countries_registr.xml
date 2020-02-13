@@ -53,61 +53,37 @@
         android:text="Qeydiyyatdan keç və pul qazan"
         android:textColor="#454555" />
 
-    <TextView
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Olkeni secin"
-        android:textColor="#454555"
-        android:gravity="center"
-        android:textSize="22dp">
-    </TextView>
+
     <Spinner
         android:id="@+id/spinnerCountry"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="80dp"
+        android:padding="5dp"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:layout_width="280dp"
-        android:layout_height="42dp">
+        android:layout_height="62dp">
     </Spinner>
-    <TextView
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Seheri secin"
-        android:textColor="#454555"
-        android:gravity="center"
-        android:textSize="22dp">
-    </TextView>
+
 
     <Spinner
         android:id="@+id/spinnerCity"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         android:textAlignment="center"
         android:layout_gravity="center_horizontal"
         android:layout_width="280dp"
-        android:layout_height="42dp">
+        android:layout_height="62dp">
 
     </Spinner>
-    <TextView
-        android:layout_marginTop="50dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sectoru secin"
-        android:textColor="#454555"
-        android:gravity="center"
-        android:textSize="22dp">
-    </TextView>
 
     <Spinner
         android:id="@+id/sector"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:focusable="true"
         android:textAlignment="center"
         android:layout_gravity="center_horizontal"
         android:layout_width="280dp"
-        android:layout_height="42dp">
+        android:layout_height="62dp">
 
     </Spinner>
 

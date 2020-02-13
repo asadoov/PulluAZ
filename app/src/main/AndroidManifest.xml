@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".LastRegistrationActivity"></activity>
         <activity android:name=".CountriesRegistrActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,14 +22,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RegActivity"
-            android:windowSoftInputMode="adjustResize">
-
-        </activity>
-        <activity android:name=".AdsActivity"></activity>
-        <activity android:name=".SecondRegistrationActivity"
+        <activity
+            android:name=".RegActivity"
             android:windowSoftInputMode="adjustResize"></activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".AdsActivity" />
+        <activity
+            android:name=".SecondRegistrationActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
