@@ -6,10 +6,16 @@
 package com.example.pulluaz;
 
 
+import java.util.List;
+
 import retrofit2.Call;
+import retrofit2.http.Query;
 import retrofit2.http.GET;
 
 public interface SpinnerRetrofit {
-    @GET("/getCountries")
-    Call<Countries> getCountries();
+    @GET("api/androidmobileapp/getCountries")
+    Call<List<Countries>> getCountries();
+
+    @GET("api/androidmobileapp/getCities")
+    Call<List<City>> getCities(@Query("countryId") Integer countryId);
 }
