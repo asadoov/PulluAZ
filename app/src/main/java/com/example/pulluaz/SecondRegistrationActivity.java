@@ -29,6 +29,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
 
     DatePicker dp;
     EditText edNames,edLastName,edPhone;
+    Spinner spinner;
     Button btnNext;
     private static final String TAG="SecondRegistrationActiv";
     private  final Pattern PHONE_NUMBER =
@@ -50,32 +51,30 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         setContentView(R.layout.second_registration);
         closeKeyboard();
 
+
+
+
+
+
         edNames = findViewById(R.id.edName);
         edPhone = findViewById(R.id.edPhone);
         edLastName = findViewById(R.id.edLastName);
-
-        Intent intent = getIntent();
-
-        String email = intent.getStringExtra("email");
-        String pass = intent.getStringExtra("pass");
-        String pass2 = intent.getStringExtra("pass2");
-
-        Log.d(TAG, "onCreate: " + email + pass + pass2);
-
-
 
         dp = (DatePicker)findViewById(R.id.datePicker);
 
             dp.isSaveEnabled();
 
 
-        Spinner spinner = findViewById(R.id.spinner);
+
+        spinner = findViewById(R.id.spinner);
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinner,
                 android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
+
+
 
 
 }
@@ -94,7 +93,12 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         String text = adapterView.getItemAtPosition(i).toString();
+
+
+
         if (adapterView.isSelected()) {
+
+            intent();
             Toast.makeText(adapterView.getContext(), text, Toast.LENGTH_SHORT).show();
         }
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
@@ -106,9 +110,16 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         Toast.makeText(this, "Choose...", Toast.LENGTH_SHORT).show();
 
     }
-    
+
     public void btnNext(View view){
-        String setBirthDayPicker = " "+ dp.getDayOfMonth() + " " + (dp.getMonth() +1)+ " " + dp.getYear();
+      final   String setBirthDayPicker = " "+ dp.getDayOfMonth() + " " + (dp.getMonth() +1)+ " " + dp.getYear();
+
+        intent();
+
+
+
+
+
 
         Toast.makeText(this, "" + setBirthDayPicker, Toast.LENGTH_SHORT).show();
         return;
@@ -129,6 +140,9 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
             edPhone.setError(null);
             return true;
         }
+
+
+
     }
 
     private boolean validateName() {
@@ -159,15 +173,31 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
             return;
         }else {
             Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
-
-            intent();
         }
         
     }
 
     private void intent() {
-        Intent intent = new Intent(getApplicationContext(), CountriesRegistrActivity.class);
-        startActivity(intent);
+
+        Intent intent = getIntent();
+
+        String mail = intent.getStringExtra("email");
+        String pass = intent.getStringExtra("pass");
+
+        String gender = spinner.getSelectedItem().toString();
+
+        Log.d(TAG, "onCreate: "+ mail+pass);
+
+        Intent intent2 = new Intent(getApplicationContext(), CountriesRegistrActivity.class);
+        intent2.putExtra("name", edNames.getText().toString());
+        intent2.putExtra("lastname", edLastName.getText().toString());
+        intent2.putExtra("phone", edPhone.getText().toString());
+        intent2.putExtra("email", mail);
+        intent2.putExtra("pass", pass);
+        intent2.putExtra("gender", gender);
+        intent2.putExtra("dp", dp.getDayOfMonth() + " " + (dp.getMonth() +1)+ " " + dp.getYear());
+
+        startActivity(intent2);
 
     }
     private void hideKeyboard() {

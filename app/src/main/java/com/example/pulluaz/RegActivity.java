@@ -62,25 +62,21 @@ public class RegActivity extends AppCompatActivity {
         edPass.setOnFocusChangeListener(listener);
         edPass2.setOnFocusChangeListener(listener);
 
-
         btnNext = (Button) findViewById(R.id.btnNext);
-
 
         final String email = edEmail.getText().toString();
         final String password = edPass.getText().toString();
         final String password2 = edPass2.getText().toString();
 
-
         mDisplayDate = (TextView) findViewById(R.id.date);
-
-
     }
 
     private void intent() {
         Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
-        intent.putExtra("email", edEmail.getText().toString());
-        intent.putExtra("pass", edPass.getText().toString());
-        intent.putExtra("pass2", edPass2.getText().toString());
+
+
+        intent.putExtra("email",edEmail.getText().toString());
+        intent.putExtra("pass",edPass.getText().toString());
         startActivity(intent);
     }
 

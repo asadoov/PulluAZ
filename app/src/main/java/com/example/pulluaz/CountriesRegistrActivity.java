@@ -50,6 +50,18 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_registr);
 
+       /* Intent intent = getIntent();
+
+        String mail = intent.getStringExtra("email");
+        String pass = intent.getStringExtra("pass");
+        String name = intent.getStringExtra("name");
+        String lastname = intent.getStringExtra("lastname");
+        String phone = intent.getStringExtra("phone");
+
+        Log.d(LOG_TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone);*/
+
+
+
         progressDoalog = new ProgressDialog(this);
         progressDoalog.setMax(500);
         progressDoalog.setMessage("Yuklenir...");
@@ -57,6 +69,8 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         // show it
         progressDoalog.show();
+
+        btnEndReg = findViewById(R.id.btnEndReg);
 
 
         spinnerCountry = findViewById(R.id.spinnerCountry);
@@ -81,8 +95,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long id) {
 
-
-
+        final String spinnerSelected = sectorSpinner.getSelectedItem().toString();
 
         if (adapterView.getItemAtPosition(0).equals("Sectoru secin")){
 
@@ -102,7 +115,6 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
     private void init() {
 
-       ;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://13.92.237.16/")
@@ -163,6 +175,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
                 }else spinnerCity.setVisibility(View.GONE);
 
 
+
                 if (adapterView.getItemAtPosition(i).equals("Olkeni Secin")){
 
                 }
@@ -171,13 +184,11 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
                     Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
                     spinnerCity.setVisibility(View.VISIBLE);
 
+
                 }
 
               Countries country = countries.get(0);
               onChooseCountry(country);
-
-
-
 
             }
 
@@ -241,16 +252,14 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 if (adapterView.getItemAtPosition(i).equals("Seheri Secin")){
-                    String item = adapterView.getItemAtPosition(i).toString();
-                    Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
-                    intent.putExtra("getCountry",item);
-                    startService(intent);
+
 
 
                 }
                 else {
                     String item = adapterView.getItemAtPosition(i).toString();
                     Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
+
                 }
             }
             @Override
@@ -261,6 +270,8 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         });
 
     }
+
+
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -272,12 +283,40 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
             }
         }
         return super.dispatchKeyEvent(event);
-    }
-
-    public void EndReg(View view) {
-
-        Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
-        startActivity(intent);
 
     }
+
+        public void btnEndReg(View v){
+
+            Intent intent2 = getIntent();
+            String mail = intent2.getStringExtra("email");
+            String pass = intent2.getStringExtra("pass");
+            String name = intent2.getStringExtra("name");
+            String lastname = intent2.getStringExtra("lastname");
+            String phone = intent2.getStringExtra("phone");
+            String dp = intent2.getStringExtra("dp");
+            String gender = intent2.getStringExtra("gender");
+
+            Log.d(LOG_TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone+" "+dp);
+
+            Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
+            intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
+            intent.putExtra("city", spinnerCity.getSelectedItem().toString());
+            intent.putExtra("name",name);
+            intent.putExtra("email",mail);
+            intent.putExtra("pass",pass);
+            intent.putExtra("lastname",lastname);
+            intent.putExtra("phone",phone);
+            intent.putExtra("dp",dp);
+            intent.putExtra("gender",gender);
+
+            Log.d(LOG_TAG, "onClick: is work " );
+            startActivity(intent);
+
+
+        }
+
+
+
+
 }
