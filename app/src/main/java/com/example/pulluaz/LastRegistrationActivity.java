@@ -6,6 +6,9 @@
 package com.example.pulluaz;
 
 import androidx.appcompat.app.AppCompatActivity;
+import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class LastRegistrationActivity extends Activity {
     private static final String TAG = "LastRegistrationActivit";
@@ -30,6 +35,8 @@ public class LastRegistrationActivity extends Activity {
         setContentView(R.layout.activity_last_registration);
 
         Log.d(TAG, "onCreate: ");
+
+      // init();
 
         TextView txtCountry=(TextView)findViewById(R.id.countryTxt);
       //  TextView mail=(TextView)findViewById(R.id.mail);
@@ -52,9 +59,10 @@ public class LastRegistrationActivity extends Activity {
         String city = intent.getStringExtra("city");
         String dp = intent.getStringExtra("dp");
         String gender = intent.getStringExtra("gender");
+        String sector = intent.getStringExtra("sector");
 
 
-        Log.d(TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone+" "+country+" "+city+" "+dp+" "+gender);
+        Log.d(TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone+" "+country+" "+city+" "+dp+" "+gender+" "+sector);
 
 
 
@@ -87,6 +95,16 @@ public class LastRegistrationActivity extends Activity {
 
         }
 
+    private void init(User user) {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://13.92.237.16/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        SpinnerRetrofit api = retrofit.create(SpinnerRetrofit.class);
 
+      //  Call<List<City>> call = api.getCities(user);
     }
+
+
+}

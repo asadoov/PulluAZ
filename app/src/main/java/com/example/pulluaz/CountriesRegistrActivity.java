@@ -50,18 +50,6 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_registr);
 
-       /* Intent intent = getIntent();
-
-        String mail = intent.getStringExtra("email");
-        String pass = intent.getStringExtra("pass");
-        String name = intent.getStringExtra("name");
-        String lastname = intent.getStringExtra("lastname");
-        String phone = intent.getStringExtra("phone");
-
-        Log.d(LOG_TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone);*/
-
-
-
         progressDoalog = new ProgressDialog(this);
         progressDoalog.setMax(500);
         progressDoalog.setMessage("Yuklenir...");
@@ -71,7 +59,6 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         progressDoalog.show();
 
         btnEndReg = findViewById(R.id.btnEndReg);
-
 
         spinnerCountry = findViewById(R.id.spinnerCountry);
         spinnerCity = findViewById(R.id.spinnerCity);
@@ -302,6 +289,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
             Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
             intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
             intent.putExtra("city", spinnerCity.getSelectedItem().toString());
+            intent.putExtra("sector", sectorSpinner.getSelectedItem().toString());
             intent.putExtra("name",name);
             intent.putExtra("email",mail);
             intent.putExtra("pass",pass);
