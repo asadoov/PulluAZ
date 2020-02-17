@@ -124,9 +124,6 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
                         bindCountries(response.body());
 
-
-
-
                     } else {
                         Log.d("onEmptyResponse", "Returned empty response");
                         Toast.makeText(getApplicationContext(),"Nothing returned",Toast.LENGTH_LONG).show();

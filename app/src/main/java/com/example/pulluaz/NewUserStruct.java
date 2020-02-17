@@ -18,4 +18,17 @@ public class NewUserStruct {
     public String city;
     public String sector;
 
+    public NewUserStruct(String name, String surname, String mail, String pass, String phone,
+                         String bDate, String gender, String country, String city, String sector) {
+        this.name = name;
+        this.surname = surname;
+        this.mail = mail;
+        this.pass = pass;
+        this.phone = phone;
+        this.bDate = bDate;
+        this.gender = gender;
+        this.country = country;
+        this.city = city;
+        this.sector = sector;
+    }
 }

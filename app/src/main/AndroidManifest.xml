@@ -14,24 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LastRegistrationActivity"
-            android:parentActivityName=".CountriesRegistrActivity">
-        </activity>
-        <activity android:name=".CountriesRegistrActivity"
-            android:parentActivityName=".SecondRegistrationActivity">
-        </activity>
+        <activity android:name=".FinishActivity"></activity>
+        <activity
+            android:name=".LastRegistrationActivity"
+            android:parentActivityName=".CountriesRegistrActivity"></activity>
+        <activity
+            android:name=".CountriesRegistrActivity"
+            android:parentActivityName=".SecondRegistrationActivity"></activity>
         <activity
             android:name=".RegActivity"
-
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
-
         <activity android:name=".AdsActivity" />
         <activity
             android:name=".SecondRegistrationActivity"

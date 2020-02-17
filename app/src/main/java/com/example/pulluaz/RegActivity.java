@@ -5,7 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -15,6 +17,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.regex.Pattern;
@@ -23,7 +29,8 @@ public class RegActivity extends AppCompatActivity {
 
     private static final String JSON_URL = "http://13.92.237.16/api/androidmobileapp/user/about?mail=mirza@gmail.com&pass=mirza123&advertID=253";
 
-    EditText edEmail, edPass, edPass2;
+  //  EditText edEmail, edPass, edPass2;
+    TextInputLayout txtInput,txtInputPass2,txtInputPass;
     Button btnNext;
 
     TextView mDisplayDate;
@@ -54,70 +61,74 @@ public class RegActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
 
-        edEmail = findViewById(R.id.edEmail);
-        edPass = findViewById(R.id.edPass);
-        edPass2 = findViewById(R.id.edPass2);
+        txtInput = findViewById(R.id.txtInput);
+        txtInputPass = findViewById(R.id.txtInputPass);
+        txtInputPass2 = findViewById(R.id.txtInputPass2);
 
-        edEmail.setOnFocusChangeListener(listener);
+       /* edEmail.setOnFocusChangeListener(listener);
         edPass.setOnFocusChangeListener(listener);
-        edPass2.setOnFocusChangeListener(listener);
+        edPass2.setOnFocusChangeListener(listener);*/
 
-        btnNext = (Button) findViewById(R.id.btnNext);
+        btnNext = findViewById(R.id.btnNext);
+        txtInput = findViewById(R.id.txtInput);
 
-        final String email = edEmail.getText().toString();
-        final String password = edPass.getText().toString();
-        final String password2 = edPass2.getText().toString();
+
+
+        final String email = txtInput.getEditText().toString();
+        final String password = txtInputPass.getEditText().toString();
+        final String password2 = txtInputPass2.getEditText().toString();
 
         mDisplayDate = (TextView) findViewById(R.id.date);
+
+
     }
 
     private void intent() {
         Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
 
-
-        intent.putExtra("email",edEmail.getText().toString());
-        intent.putExtra("pass",edPass.getText().toString());
+        intent.putExtra("email",txtInput.getEditText().toString());
+        intent.putExtra("pass",txtInputPass.getEditText().toString());
         startActivity(intent);
     }
 
     private boolean validateEmail() {
-        String emailInput = edEmail.getText().toString().trim();
+        String emailInput = txtInput.getEditText().getText().toString().trim();
         if (emailInput.isEmpty()) {
-            edEmail.setError("Field can't be empty");
+            txtInput.setError("Field can't be empty");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            edEmail.setError("Please enter a valid email address");
+            txtInput.setError("Please enter a valid email address");
             return false;
         } else {
-            edEmail.setError(null);
+            txtInput.setError(null);
             return true;
         }
     }
 
     private boolean validatePassword() {
-        String passwordInput = edPass.getText().toString().trim().toLowerCase();
+        String passwordInput = txtInputPass.getEditText().getText().toString().trim().toLowerCase();
 
         if (passwordInput.isEmpty()) {
-            edPass.setError("Field can't be empty");
+            txtInputPass.setError("Field can't be empty");
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            edPass.setError("Password too weak");
+            txtInputPass.setError("Password too weak");
             return false;
 
         } else {
-            edPass.setError(null);
+            txtInputPass.setError(null);
             return true;
         }
     }
 
     private boolean validatePassword2() {
-        String passwordInput = edPass2.getText().toString().trim().toLowerCase();
+        String passwordInput2 = txtInputPass2.getEditText().getText().toString().trim().toLowerCase();
 
-        if (passwordInput.isEmpty()) {
-            edPass2.setError("Field can't be empty");
+        if (passwordInput2.isEmpty()) {
+            txtInputPass2.setError("Field can't be empty");
             return false;
         } else {
-            edPass2.setError(null);
+            txtInputPass2.setError(null);
             return true;
         }
     }
@@ -126,13 +137,19 @@ public class RegActivity extends AppCompatActivity {
         if (!validateEmail() | !validatePassword() | !validatePassword2()) {
             return;
         }
-        if (!validatePassword() == validatePassword2()) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
 
-        }else {
+        String strPassword1 = txtInputPass.getEditText().getText().toString();
+        String strPassword2 = txtInputPass2.getEditText().getText().toString();
+
+        if (strPassword1.equals(strPassword2)) {
+            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
+            intent();
+        }
+
+        else {
                 Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
 
-                intent();
+
             }
 
 
