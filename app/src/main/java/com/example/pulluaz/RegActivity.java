@@ -86,8 +86,8 @@ public class RegActivity extends AppCompatActivity {
     private void intent() {
         Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
 
-        intent.putExtra("email",txtInput.getEditText().toString());
-        intent.putExtra("pass",txtInputPass.getEditText().toString());
+        intent.putExtra("email",txtInput.getEditText().getText().toString());
+        intent.putExtra("pass",txtInputPass.getEditText().getText().toString());
         startActivity(intent);
     }
 

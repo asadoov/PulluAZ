@@ -51,18 +51,8 @@ public class LastRegistrationActivity extends Activity {
         String sector = intent.getStringExtra("sector");
 
         NewUserStruct newUserStruct = new NewUserStruct(name,lastname,mail, pass, phone,bDate,gender,country,city,sector);
-        newUserStruct.name = name;
-        newUserStruct.surname = lastname;
-        newUserStruct.mail = mail;
-        newUserStruct.pass = pass;
-        newUserStruct.phone = phone;
-        newUserStruct.bDate = bDate;
-        newUserStruct.gender = gender;
-        newUserStruct.country = country;
-        newUserStruct.city = city;
-        newUserStruct.sector = sector;
 
-       init(new NewUserStruct(name,lastname,mail, pass, phone,bDate,gender,country,city,sector));
+       init(newUserStruct);
     }
 
     private void init(final NewUserStruct newUserStruct) {
@@ -73,26 +63,32 @@ public class LastRegistrationActivity extends Activity {
         Log.d(TAG, "init: 1");
 
         SpinnerRetrofit api = retrofit.create(SpinnerRetrofit.class);
-        Intent intent = getIntent();
+        Call<List<NewUserStruct>> call = api.getUserList(newUserStruct.name,
+                newUserStruct.surname,
+                newUserStruct.mail,
+                newUserStruct.pass,
+                newUserStruct.phone,
+                newUserStruct.bDate,
+                newUserStruct.gender,
+                newUserStruct.country,
+                newUserStruct.city,
+                newUserStruct.sector);
 
-        final String mail = intent.getStringExtra("email");
-        final String pass = intent.getStringExtra("pass");
-        final String nameItem = intent.getStringExtra("name");
-        final String lastname = intent.getStringExtra("lastname");
-        final String phone = intent.getStringExtra("phone");
-        final String country = intent.getStringExtra("country");
-        final String city = intent.getStringExtra("city");
-        final String bDate = intent.getStringExtra("dp");
-        final String gender = intent.getStringExtra("gender");
-        final String sector = intent.getStringExtra("sector");
+       call.enqueue(new Callback<List<NewUserStruct>>() {
+           @Override
+           public void onResponse(Call<List<NewUserStruct>> call, Response<List<NewUserStruct>> response) {
 
-        ArrayList<String> arrayList = new ArrayList<>();
-       // arrayList.get()
+               Log.d(TAG, "onResponse: " + response.body());
+           }
 
-        Log.d(TAG, "init: 2");
+           @Override
+           public void onFailure(Call<List<NewUserStruct>> call, Throwable t) {
+               Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+               Log.d(TAG, "onFailure: " + call.request().toString());
 
-       Call<List<NewUserStruct>> call = api.getUserList(newUserStruct.name,lastname, mail, pass, phone,bDate,gender,country,city,sector);
 
+           }
+       });
         Log.d(TAG, "init: 3");
 ;
        // call.enqueue();
