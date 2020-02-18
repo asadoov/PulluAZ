@@ -63,7 +63,9 @@ public class LastRegistrationActivity extends Activity {
         Log.d(TAG, "init: 1");
 
         SpinnerRetrofit api = retrofit.create(SpinnerRetrofit.class);
-        Call<UserModel> call = api.getUserList( /*newUserStruct.name,
+
+        Call<SignupResponse> call = api.signUp(newUserStruct.name,
+                newUserStruct.name,
                 newUserStruct.surname,
                 newUserStruct.mail,
                 newUserStruct.pass,
@@ -72,32 +74,33 @@ public class LastRegistrationActivity extends Activity {
                 newUserStruct.gender,
                 newUserStruct.country,
                 newUserStruct.city,
-                newUserStruct.sector*/);
+                newUserStruct.sector);
 
-       call.enqueue(new Callback<UserModel>() {
+       call.enqueue(new Callback<SignupResponse>() {
            @Override
-           public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-               if (response.isSuccessful()) {
-
-                      // Log.d(TAG, "onResponse: " + response.body().newUserStructs.size());
-                       Log.d(TAG, "onResponse: " + response.body().newUserStructs.get(1));
-
-
-               } else {
-                   response.message();
+           public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response){
+               Integer responseCode = response.body().response;
+               Log.d(TAG, "onResponse: "+ call.request().url());
+               Log.d(TAG, "onResponse: "+ call.request().toString());
+               Log.d(TAG, "onResponse: " + responseCode);
+               if (responseCode == 0) {
+                   Toast.makeText(LastRegistrationActivity.this, "ok", Toast.LENGTH_SHORT).show();
+                   //vsyo xuevo
+               } else if (responseCode == 1) {
+                   Toast.makeText(LastRegistrationActivity.this, "Server error", Toast.LENGTH_SHORT).show();
+                   //vsyo xoroshjo
+               } else if (responseCode == 2) {
+                   Toast.makeText(LastRegistrationActivity.this, "İstifadəçi artiq vardır", Toast.LENGTH_SHORT).show();
+                   //uje zaregan
                }
            }
 
            @Override
-           public void onFailure(Call<UserModel> call, Throwable t) {
+           public void onFailure(Call<SignupResponse> call, Throwable t) {
 
-
-               Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
-               Log.d(TAG, "onFailure: " + call.request().toString());
            }
-
-
        });
+
 
 
 

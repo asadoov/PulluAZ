@@ -221,7 +221,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         intent2.putExtra("email", mail);
         intent2.putExtra("pass", pass);
         intent2.putExtra("gender", gender);
-        intent2.putExtra("dp", dp.getDayOfMonth() + " " + (dp.getMonth() +1)+ " " + dp.getYear());
+        intent2.putExtra("dp", dp.getYear() + "-" + (dp.getMonth() +1)+ "-" + dp.getDayOfMonth());
 
         startActivity(intent2);
 

@@ -7,6 +7,6 @@ package com.example.pulluaz;
 
 import java.util.List;
 
-public class UserModel {
-    List<NewUserStruct> newUserStructs;
+public class SignupResponse {
+    Integer response;
 }

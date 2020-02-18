@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">PulluAZ</string>
     <string-array name="spinner">
-        <item>Kisi</item>
+        <item>Kişi</item>
         <item>Qadin</item>
 
     </string-array>

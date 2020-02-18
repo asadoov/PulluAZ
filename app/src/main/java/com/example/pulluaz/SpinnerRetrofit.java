@@ -22,15 +22,13 @@ public interface SpinnerRetrofit {
     @GET("api/androidmobileapp/getCities")
     Call<List<City>> getCities(@Query("countryId") Integer countryId);
 
+    //@GET("api/androidmobileapp/user/signUp?")
+    //Call<SignupResponse> getUserList();
 
 
     @GET("api/androidmobileapp/user/signUp?")
-    Call<UserModel> getUserList();
-
-
-  /*  @GET("api/androidmobileapp/user/signUp?")
-    Call<List<NewUserStruct>> getUserList(@Query("name")String name,@Query("surname")String surname, @Query("mail")String mail, @Query("pass")
-                                    String pass, @Query("phone") String phone,  @Query("bDate")String bDate, @Query("gender")String gender,
-                                    @Query("country")String country,  @Query("city")String city, @Query("sector")String sector);*/
+    Call<SignupResponse> signUp(@Query("username") String username,@Query("name") String name,@Query("surname")String surname, @Query("mail")String mail, @Query("pass")
+            String pass, @Query("phone") String phone,  @Query("bDate")String bDate, @Query("gender")String gender,
+                                @Query("country")String country,  @Query("city")String city, @Query("profession")String sector);
 
 }
