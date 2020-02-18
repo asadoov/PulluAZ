@@ -7,7 +7,7 @@ package com.example.pulluaz;
 
 public class NewUserStruct {
 
-    public Boolean response;
+   // public Boolean response;
     public String name;
     public String surname;
     public String mail;

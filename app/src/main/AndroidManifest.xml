@@ -32,9 +32,10 @@
         </activity>
         <activity android:name=".AdsActivity" />
         <activity
+            android:theme="@style/AppTheme"
             android:name=".SecondRegistrationActivity"
             android:parentActivityName=".RegActivity"
-            android:windowSoftInputMode="adjustResize" />
+             />
         <activity android:name=".MainActivity" />
 
         <meta-data

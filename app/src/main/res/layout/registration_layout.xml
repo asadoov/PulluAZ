@@ -164,7 +164,7 @@
             android:layout_marginTop="45dip"
             android:onClick="confirmInput"
             android:backgroundTint="#1E5DD3"
-            android:background="@drawable/round_button"
+            android:background="@drawable/button"
             android:fontFamily="@font/nunito_extralight"
             android:textAllCaps="false"
             android:textSize="22dp"

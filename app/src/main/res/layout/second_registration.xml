@@ -191,7 +191,7 @@
 
 
     <Button
-        android:id="@+id/btnNext"
+        android:id="@+id/btnNextCountry"
         android:layout_width="match_parent"
         android:layout_height="48dip"
         android:layout_gravity="center_horizontal"
@@ -199,9 +199,7 @@
         android:layout_marginTop="720dip"
         android:layout_marginEnd="30dp"
         android:onClick="btnNext"
-
-        android:background="#1E5DD3"
-        android:fontFamily="@font/nunito_extralight"
+        android:background="@drawable/button"
         android:text="irəli"
         android:textAllCaps="false"
         android:textColor="#ffffff"

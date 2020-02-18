@@ -30,7 +30,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
     DatePicker dp;
     EditText edNames,edLastName,edPhone;
     Spinner spinner;
-    Button btnNext;
+    Button btnNextCountry;
     private static final String TAG="SecondRegistrationActiv";
     private  final Pattern PHONE_NUMBER =
             Pattern.compile("^" +
@@ -138,14 +138,15 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
           edPhone.setError("Password too weak");
 
 
-      }
+      } else
+          intent();
 
 
 
 
 
 
-        Toast.makeText(this, "" + setBirthDayPicker, Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "" + setBirthDayPicker, Toast.LENGTH_SHORT).show();
         return;
 
 
@@ -216,7 +217,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         Intent intent2 = new Intent(getApplicationContext(), CountriesRegistrActivity.class);
         intent2.putExtra("name", edNames.getText().toString());
         intent2.putExtra("lastname", edLastName.getText().toString());
-        intent2.putExtra("phone", edPhone.getText().toString());
+        intent2.putExtra("phone", "+994"+ edPhone.getText().toString());
         intent2.putExtra("email", mail);
         intent2.putExtra("pass", pass);
         intent2.putExtra("gender", gender);

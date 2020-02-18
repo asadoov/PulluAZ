@@ -63,7 +63,7 @@ public class LastRegistrationActivity extends Activity {
         Log.d(TAG, "init: 1");
 
         SpinnerRetrofit api = retrofit.create(SpinnerRetrofit.class);
-        Call<List<NewUserStruct>> call = api.getUserList(newUserStruct.name,
+        Call<UserModel> call = api.getUserList( /*newUserStruct.name,
                 newUserStruct.surname,
                 newUserStruct.mail,
                 newUserStruct.pass,
@@ -72,26 +72,38 @@ public class LastRegistrationActivity extends Activity {
                 newUserStruct.gender,
                 newUserStruct.country,
                 newUserStruct.city,
-                newUserStruct.sector);
+                newUserStruct.sector*/);
 
-       call.enqueue(new Callback<List<NewUserStruct>>() {
+       call.enqueue(new Callback<UserModel>() {
            @Override
-           public void onResponse(Call<List<NewUserStruct>> call, Response<List<NewUserStruct>> response) {
+           public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+               if (response.isSuccessful()) {
 
-               Log.d(TAG, "onResponse: " + response.body());
-               Log.d(TAG, "onResponse: " + response.body().get(0));
+                      // Log.d(TAG, "onResponse: " + response.body().newUserStructs.size());
+                       Log.d(TAG, "onResponse: " + response.body().newUserStructs.get(1));
+
+
+               } else {
+                   response.message();
+               }
            }
 
            @Override
-           public void onFailure(Call<List<NewUserStruct>> call, Throwable t) {
+           public void onFailure(Call<UserModel> call, Throwable t) {
+
+
                Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
                Log.d(TAG, "onFailure: " + call.request().toString());
-
-
            }
-       });
-        Log.d(TAG, "init: 3");
 
+
+       });
+
+
+
+        Log.d(TAG, "init: 3");
+        //  Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+        //   Log.d(TAG, "onFailure: " + call.request().toString());
 
     }
 
