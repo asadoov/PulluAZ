@@ -29,9 +29,9 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
-    <TextView
+        <TextView
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
 
         android:layout_marginTop="240dip"
         android:text="Ad"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:textColor="#454555"
         android:textSize="16dp"
         android:textStyle="bold" />
@@ -83,7 +83,7 @@
         android:layout_marginTop="290dip"
         android:text="Soyad"
         android:textColor="#454555"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:textSize="16dp"
         android:textStyle="bold" />
 
@@ -103,26 +103,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="350dp"
         android:text="Mobil telefon"
         android:textColor="#454555"
         android:textSize="16dip"
         android:textStyle="bold" />
 
-    <EditText
-
-        android:id="@+id/edPhone"
-        android:layout_marginTop="370dp"
-        android:layout_width="match_parent"
-        android:layout_marginStart="15dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="phone"
-        android:hint="+994" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:textSize="18dp"
+            android:layout_marginTop="380dp"
+            android:layout_marginStart="15dp"
+            android:hint="+994"/>
 
 
-    <TextView
+
+
+
+            <EditText
+                android:layout_marginTop="370dp"
+                android:textColor="#454555"
+                android:inputType="phone"
+                android:id="@+id/edPhone"
+                android:layout_marginStart="58dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:maxLength="9"
+                android:hint=" 501234567"
+                app:counterEnabled="true" />
+
+
+
+        <TextView
         android:id="@+id/date"
 
         android:layout_marginTop="425dp"
@@ -182,10 +196,11 @@
         android:layout_height="48dip"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="728dip"
+        android:layout_marginTop="720dip"
         android:layout_marginEnd="30dp"
         android:onClick="btnNext"
-        android:background="@drawable/round_button"
+
+        android:background="#1E5DD3"
         android:fontFamily="@font/nunito_extralight"
         android:text="irəli"
         android:textAllCaps="false"

@@ -34,6 +34,4 @@ public interface SpinnerRetrofit {
                                     String pass, @Query("phone") String phone,  @Query("bDate")String bDate, @Query("gender")String gender,
                                     @Query("country")String country,  @Query("city")String city, @Query("sector")String sector);
 
-
-    //String surname, String mail, String pass, String phone, String bDate, String gender, String country, String city, String sector)
 }

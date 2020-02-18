@@ -23,7 +23,7 @@
             android:parentActivityName=".SecondRegistrationActivity"></activity>
         <activity
             android:name=".RegActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

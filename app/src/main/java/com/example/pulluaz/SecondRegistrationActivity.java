@@ -40,7 +40,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
                     // "(?=.*[a-zA-Z])" +      //any letter
                     // "(?=.*[@#$%^&+=])" +    //at least 1 special character
                      "(?=\\S+$)" +           //no white spaces
-                    ".{12,}" +               //at least 4 characters
+                    ".{9,}" +               //at least 4 characters
                     "$");
 
 
@@ -114,7 +114,31 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
     public void btnNext(View view){
       final   String setBirthDayPicker = " "+ dp.getDayOfMonth() + " " + (dp.getMonth() +1)+ " " + dp.getYear();
 
-        intent();
+      String name = edNames.getText().toString();
+      String lastname = edLastName.getText().toString();
+      String phone = edPhone.getText().toString();
+
+      if (name.isEmpty()){
+          edNames.setError("Daxil edin");
+      }else if (lastname.isEmpty()){
+          edLastName.setError("Soyadinizi qeyd edin");
+      } else if (name.isEmpty() && lastname.isEmpty()){
+          edNames.setError("daxil edin");
+          edLastName.setError("daxil edin");
+
+      }else if (phone.isEmpty()){
+          edPhone.setError("Daxil edin");
+      }else if (name.isEmpty() | lastname.isEmpty() | phone.isEmpty()){
+          edNames.setError("daxil edin");
+          edLastName.setError("daxil edin");
+          edPhone.setError("daxil edin");
+      }else if (phone.length() <9 && phone.length()>10){
+          edPhone.setError("daxil edin");
+      }else if (!PHONE_NUMBER.matcher(phone).matches()) {
+          edPhone.setError("Password too weak");
+
+
+      }
 
 
 
@@ -172,6 +196,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         if (!validateName() | !validateLastName() | !validatePhone()) {
             return;
         }else {
+            intent();
             Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
         }
         

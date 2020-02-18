@@ -79,6 +79,7 @@ public class LastRegistrationActivity extends Activity {
            public void onResponse(Call<List<NewUserStruct>> call, Response<List<NewUserStruct>> response) {
 
                Log.d(TAG, "onResponse: " + response.body());
+               Log.d(TAG, "onResponse: " + response.body().get(0));
            }
 
            @Override
@@ -90,8 +91,7 @@ public class LastRegistrationActivity extends Activity {
            }
        });
         Log.d(TAG, "init: 3");
-;
-       // call.enqueue();
+
 
     }
 
