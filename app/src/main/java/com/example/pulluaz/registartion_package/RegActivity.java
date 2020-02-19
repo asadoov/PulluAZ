@@ -1,24 +1,25 @@
-package com.example.pulluaz;
+/*
+ * Created by Rufat Asadzade on 19.02.20 13:57
+ * Copyright (c) 2020. Rufat Asadzade. All rights reserved.
+ */
+
+package com.example.pulluaz.registartion_package;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
+import com.example.pulluaz.R;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AppCompatActivity;

@@ -1,32 +1,23 @@
 /*
- * Created by Rufat Asadzade on 13.02.20 16:25
+ * Created by Rufat Asadzade on 19.02.20 14:19
  * Copyright (c) 2020. Rufat Asadzade. All rights reserved.
  */
 
-package com.example.pulluaz;
+package com.example.pulluaz.registartion_package;
 
-import androidx.appcompat.app.AppCompatActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.GET;
-import retrofit2.http.Query;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.pulluaz.R;
 
 public class LastRegistrationActivity extends Activity {
     private static final String TAG = "LastRegistrationActivit";
@@ -85,13 +76,13 @@ public class LastRegistrationActivity extends Activity {
                Log.d(TAG, "onResponse: " + responseCode);
                if (responseCode == 0) {
                    Toast.makeText(LastRegistrationActivity.this, "ok", Toast.LENGTH_SHORT).show();
-                   //vsyo xuevo
+
                } else if (responseCode == 1) {
                    Toast.makeText(LastRegistrationActivity.this, "Server error", Toast.LENGTH_SHORT).show();
-                   //vsyo xoroshjo
+
                } else if (responseCode == 2) {
                    Toast.makeText(LastRegistrationActivity.this, "İstifadəçi artiq vardır", Toast.LENGTH_SHORT).show();
-                   //uje zaregan
+
                }
            }
 

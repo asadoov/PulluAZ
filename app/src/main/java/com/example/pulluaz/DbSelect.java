@@ -40,7 +40,7 @@ public class DbSelect {
     public List<User> GetUserList(String username, String pass) throws IOException, JSONException {
 
         String data = "";
-        URL url = new URL(DefaultURL + "/api/androidmobileapp/user/login?username=" + username + "&pass=" + pass);
+        URL url = new URL(DefaultURL + "/api/androidmobileapp/user/login?mail=" + username + "&pass=" + pass);
 
 
         HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -65,7 +65,7 @@ public class DbSelect {
         return usrList;
     }
 
-    public List<User> getUserRegister(String name,  String pass) throws IOException, JSONException {
+   /* public List<User> getUserRegister(String name,  String pass) throws IOException, JSONException {
 
         String data = "";
         URL url = new URL(DefaultURL + "/api/androidmobileapp/" + name + "&pass=" + pass);
@@ -91,7 +91,7 @@ public class DbSelect {
         }
 
         return usrList;
-    }
+    }*/
 
 
 

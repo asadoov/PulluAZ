@@ -8,7 +8,6 @@ package com.example.pulluaz;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,26 +16,18 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pulluaz.registartion_package.RegActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity {
 

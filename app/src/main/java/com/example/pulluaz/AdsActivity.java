@@ -15,10 +15,12 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -33,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -54,6 +57,8 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     List<User> usrList;
     List<Ads> AdsList;
     public int advCounter = 0;
+    BottomNavigationView bottomNavigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +67,33 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                 MODE_PRIVATE);
         super.onCreate(savedInstanceState);
 
+        final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.search:
+                                if (bottomNavigation.isPressed()){
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        bottomNavigation.setItemRippleColor(ColorStateList.valueOf(getColor(R.color.colorAccent)));
+                                        break;
+                                    }
+                                }
+                                openSearch();
+                                return true;
+                            case R.id.add:
+                                openAdd();
+                                return true;
+                            case R.id.notifications:
+                              openNotification();
+                                return true;
+                            case R.id.profile:
+                                openProfil();
+                                return true;
+
+                        }
+                        return false;
+                    }
+                };
 
 
 
@@ -184,6 +216,21 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
     }
 
+    private void openProfil() {
+        // Intent intentAdd = new Intent(this,);
+    }
+
+    private void openNotification() {
+        // Intent intentAdd = new Intent(this,);
+    }
+
+    private void openAdd() {
+        // Intent intentAdd = new Intent(this,);
+    }
+
+    private void openSearch() {
+       // Intent intentSearch = new Intent(this,);
+    }
 
 
     @Override

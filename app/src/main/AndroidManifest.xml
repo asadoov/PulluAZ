@@ -16,27 +16,30 @@
         android:usesCleartextTraffic="true">
         <activity android:name=".FinishActivity"></activity>
         <activity
-            android:name=".LastRegistrationActivity"
-            android:parentActivityName=".CountriesRegistrActivity"></activity>
+            android:name=".registartion_package.LastRegistrationActivity"
+            android:parentActivityName=".registartion_package.CountriesRegistrActivity"></activity>
         <activity
-            android:name=".CountriesRegistrActivity"
-            android:parentActivityName=".SecondRegistrationActivity"></activity>
+            android:name=".registartion_package.CountriesRegistrActivity"
+            android:parentActivityName=".registartion_package.SecondRegistrationActivity"></activity>
         <activity
-            android:name=".RegActivity"
+            android:name=".registartion_package.RegActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".AdsActivity" />
         <activity
             android:theme="@style/AppTheme"
-            android:name=".SecondRegistrationActivity"
-            android:parentActivityName=".RegActivity"
+            android:name=".registartion_package.SecondRegistrationActivity"
+            android:parentActivityName=".registartion_package.RegActivity"
              />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"

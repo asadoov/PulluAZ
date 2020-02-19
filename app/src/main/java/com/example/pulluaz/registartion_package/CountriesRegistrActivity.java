@@ -1,10 +1,10 @@
 /*
- * Created by Rufat Asadzade on 11.02.20 15:25
+ * Created by Rufat Asadzade on 19.02.20 14:18
  * Copyright (c) 2020. Rufat Asadzade. All rights reserved.
  */
 
 
-package com.example.pulluaz;
+package com.example.pulluaz.registartion_package;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,6 +22,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.pulluaz.City;
+import com.example.pulluaz.Countries;
+import com.example.pulluaz.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -49,6 +54,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_countries_registr);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         progressDoalog = new ProgressDialog(this);
         progressDoalog.setMax(500);
@@ -283,7 +289,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
             Log.d(LOG_TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone+" "+dp);
 
-            Intent intent = new Intent(getApplicationContext(),LastRegistrationActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LastRegistrationActivity.class);
             intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
             intent.putExtra("city", spinnerCity.getSelectedItem().toString());
             intent.putExtra("sector", sectorSpinner.getSelectedItem().toString());

@@ -1,9 +1,9 @@
 /*
- * Created by Rufat Asadzade on 11.02.20 15:57
+ * Created by Rufat Asadzade on 19.02.20 14:18
  * Copyright (c) 2020. Rufat Asadzade. All rights reserved.
  */
 
-package com.example.pulluaz;
+package com.example.pulluaz.registartion_package;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.example.pulluaz.R;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,6 +54,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         setContentView(R.layout.second_registration);
         closeKeyboard();
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
 
