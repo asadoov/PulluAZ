@@ -25,7 +25,7 @@
         <activity
             android:name=".registartion_package.RegActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
->>>>>>> Elvin
+
 
         </activity>
         <activity android:name=".AdsActivity" />
