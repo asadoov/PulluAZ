@@ -54,6 +54,7 @@
             android:title="PULLU Haqqında" />
         <item
 
+            android:id="@+id/exit"
 
             android:title="Çıxış" />
     </group>

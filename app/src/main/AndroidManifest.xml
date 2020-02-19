@@ -14,15 +14,33 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AdViewTest"></activity>
-        <activity android:name=".RegActivity" />
-        <activity android:name=".AdsActivity" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        <activity android:name=".FinishActivity"></activity>
+        <activity
+            android:name=".registartion_package.LastRegistrationActivity"
+            android:parentActivityName=".registartion_package.CountriesRegistrActivity"></activity>
+        <activity
+            android:name=".registartion_package.CountriesRegistrActivity"
+            android:parentActivityName=".registartion_package.SecondRegistrationActivity"></activity>
+        <activity
+            android:name=".registartion_package.RegActivity"
+            android:windowSoftInputMode="stateAlwaysHidden">
+>>>>>>> Elvin
+
+        </activity>
+        <activity android:name=".AdsActivity" />
+        <activity
+            android:theme="@style/AppTheme"
+            android:name=".registartion_package.SecondRegistrationActivity"
+            android:parentActivityName=".registartion_package.RegActivity"
+             />
+        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
 
         <meta-data

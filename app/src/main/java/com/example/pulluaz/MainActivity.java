@@ -8,7 +8,6 @@ package com.example.pulluaz;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,20 +18,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.pulluaz.registartion_package.RegActivity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,7 +42,8 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences sharedPreferences
                     = getSharedPreferences("MySharedPref",
                     MODE_PRIVATE);
-            if ((isNetworkAvailable() == true) && (sharedPreferences.getString("userData", null) != null) && (sharedPreferences.getString("pass", null) != null)) {
+            if ((isNetworkAvailable() == true) && (sharedPreferences.getString("userData", null) != null)
+                    && (sharedPreferences.getString("pass", null) != null)) {
 
                 String aa = sharedPreferences.getString("userData", null);
                 Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
@@ -70,8 +66,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-
-
 
 
     public void SignIn(View view) {
@@ -138,8 +132,7 @@ public class MainActivity extends AppCompatActivity {
 
                                     }
 
-                                }
-                                else  {
+                                } else {
                                     Toast.makeText(MainActivity.this, "Username Pass yalnish yazilib!", Toast.LENGTH_SHORT).show();
                                 }
                                 findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
@@ -191,11 +184,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager
-                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }
 
+
+
+        private boolean isNetworkAvailable () {
+            ConnectivityManager connectivityManager
+                    = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+            return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+
+
+    }
 }

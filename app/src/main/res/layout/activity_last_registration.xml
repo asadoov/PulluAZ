@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Created by Rufat Asadzade on 13.02.20 16:25
+  ~ Copyright (c) 2020. Rufat Asadzade. All rights reserved.
+  -->
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".registartion_package.LastRegistrationActivity">
+
+
+    <TextView
+
+        android:id="@+id/countryTxt"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+
+
+    <TextView
+
+        android:id="@+id/cityTxt"
+        android:layout_marginTop="70dp"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+
+    <TextView
+        android:layout_marginTop="70dp"
+
+        android:id="@+id/mailTxt"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+
+
+    <TextView
+        android:layout_marginTop="70dp"
+        android:id="@+id/nameTxt"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+
+
+    <TextView
+        android:layout_marginTop="70dp"
+        android:id="@+id/profession"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+    <TextView
+        android:layout_marginTop="70dp"
+        android:id="@+id/gender"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+    <TextView
+        android:layout_marginTop="60dp"
+        android:id="@+id/dateTxt"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:textSize="35dp">
+    </TextView>
+
+
+
+</LinearLayout>

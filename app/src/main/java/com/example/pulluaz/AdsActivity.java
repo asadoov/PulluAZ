@@ -16,9 +16,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
+import android.os.Build;
+>>>>>>> Elvin
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +34,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+>>>>>>> Elvin
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -51,6 +59,8 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     List<Ads> AdsList;
     List<adView> Ad;
     public int advCounter = 0;
+    BottomNavigationView bottomNavigation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +69,43 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                 = getSharedPreferences("MySharedPref",
                 MODE_PRIVATE);
         super.onCreate(savedInstanceState);
+
+        final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.search:
+                                if (bottomNavigation.isPressed()){
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                        bottomNavigation.setItemRippleColor(ColorStateList.valueOf(getColor(R.color.colorAccent)));
+                                        break;
+                                    }
+                                }
+                                openSearch();
+                                return true;
+                            case R.id.add:
+                                openAdd();
+                                return true;
+                            case R.id.notifications:
+                              openNotification();
+                                return true;
+                            case R.id.profile:
+                                openProfil();
+                                return true;
+
+                        }
+                        return false;
+                    }
+                };
+
+
+
+/*
+        Intent a = new Intent(this, MainActivity.class);
+        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+        AdsActivity.this.finish();*/
+
 
 
         try {
@@ -185,16 +232,22 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case 0:
-                // do whatever
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+    private void openProfil() {
+        // Intent intentAdd = new Intent(this,);
     }
+
+    private void openNotification() {
+        // Intent intentAdd = new Intent(this,);
+    }
+
+    private void openAdd() {
+        // Intent intentAdd = new Intent(this,);
+    }
+
+    private void openSearch() {
+       // Intent intentSearch = new Intent(this,);
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -204,6 +257,17 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.exit:
+                // do whatever
+                Toast.makeText(this, "Cixiw", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         switch (menuItem.getItemId()) {
@@ -485,6 +549,16 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         });
 
     }
+
+    /*public void exit(View v){
+
+       // finishAffinity();
+    }*/
+
+
+
+
+
 
 }
 

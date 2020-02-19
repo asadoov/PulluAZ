@@ -1,5 +1,32 @@
 <resources>
     <string name="app_name">PulluAZ</string>
+    <string-array name="spinner">
+        <item>Kişi</item>
+        <item>Qadin</item>
+
+    </string-array>
+    <string-array name="spinnerSector">
+        <item>Sektoru seçin</item>
+        <item>Texnologiya sektoru</item>
+        <item>Ticarət sektoru</item>
+        <item>Turizm sektoru</item>
+        <item>Əkinçilik sektoru</item>
+        <item>Əyləncə sektoru</item>
+        <item> Heyvandarlıq sektoru</item>
+        <item> İdman sektoru</item>
+        <item> Nəqliyyat sektoru</item>
+        <item> Qida sektoru</item>
+        <item> Səhiyyə sektoru</item>
+        <item> Təhsil sektoru</item>
+        <item> Təmir-tikinti sektoru</item>
+        <item> Özəl sektoru</item>
+        <item> İşsiz</item>
+        <item> Tələbə</item>
+        <item> Şagird</item>
+        <item> Təqaüdçü</item>
+        <item> Digər</item>
+
+    </string-array>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
