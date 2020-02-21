@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
 
-
+     //13.92.237.16/api/androidmobileapp/user/getAds?username=mirza@gmail.com&pass=mirza123
     public void SignIn(View view) {
         findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
 
@@ -123,7 +123,9 @@ public class MainActivity extends AppCompatActivity {
                                                 passTxt);
                                         myEdit.commit();
                                         Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
-                                        //AdsPage.putExtra("UserData", jsonUserData);
+                                        AdsPage.putExtra("username",usernameTxt);
+                                        AdsPage.putExtra("pass",passTxt);
+
                                         startActivity(AdsPage);
 
 
@@ -161,39 +163,17 @@ public class MainActivity extends AppCompatActivity {
                 findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
             }
 
-            //Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT).show();
-// Once the changes have been made,
-// we need to commit to apply those changes made,
-// otherwise, it will throw an error
-
-            //Toast.makeText(this, sharedPreferences.getString("name",""), Toast.LENGTH_SHORT).show();
-            //Toast.makeText(this, aa, Toast.LENGTH_SHORT).show();
-
-            // Intent intent=new Intent(this,RegActivity.class);
-
-            // startActivity(intent);
-
-            //startActivity(new Intent(MainActivity.this, RegActivity.class));
-
-            // Do something in response to button click
-
         } else {
             findViewById(R.id.progressBarHolder).setVisibility(View.GONE);
             Toast.makeText(this, "Boshluqlari doldurun!", Toast.LENGTH_SHORT).show();
         }
     }
 
-
-
-
-
         private boolean isNetworkAvailable () {
             ConnectivityManager connectivityManager
                     = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-
-
 
     }
 }

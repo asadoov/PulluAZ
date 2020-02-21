@@ -11,6 +11,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +43,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pulluaz.Adapters.CategoryAdapter;
+import com.example.pulluaz.registartion_package.SpinnerRetrofit;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -48,6 +58,7 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -63,8 +74,21 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     BottomNavigationView bottomNavigation;
 
 
+    private RecyclerView recyclerView;
+    private List<CategoryArray> data;
+    private CategoryAdapter categoryAdapter;
+
+    private static final String TAG = "AdsActivity";
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+       // recyclerView = findViewById(R.id.recyclerViewCategory);
+        categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(categoryAdapter);
 
         SharedPreferences sharedPreferences
                 = getSharedPreferences("MySharedPref",
@@ -76,21 +100,19 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                     @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.search:
-                                if (bottomNavigation.isPressed()){
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                        bottomNavigation.setItemRippleColor(ColorStateList.valueOf(getColor(R.color.colorAccent)));
-                                        break;
-                                    }
-                                }
+
                                 openSearch();
                                 return true;
                             case R.id.add:
+
                                 openAdd();
                                 return true;
                             case R.id.notifications:
+
                               openNotification();
                                 return true;
                             case R.id.profile:
+
                                 openProfil();
                                 return true;
 
@@ -100,19 +122,63 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                 };
 
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://13.92.237.16/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Log.d(TAG, "init: 1");
 
-/*
-        Intent a = new Intent(this, MainActivity.class);
-        a.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
-        AdsActivity.this.finish();*/
+        Intent intent = getIntent();
+
+        AdsService api = retrofit.create(AdsService.class);
+
+        Call<List<CategoryArray>> call = api.getCategory();
+        Log.d(TAG, "callInterface");
 
 
 
-        try {
-            //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
-            setContentView(R.layout.ads_layout);
-            NavigationView navView = findViewById(R.id.nav_view);
+        call.enqueue(new Callback<List<CategoryArray>>() {
+            @Override
+            public void onResponse(Call<List<CategoryArray>> call, Response<List<CategoryArray>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "response");
+
+
+                    data = response.body();
+                    for (int i = 0; i < data.size(); i++) {
+                        categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
+                        recyclerView.setAdapter(categoryAdapter);
+
+
+                        Log.d(TAG, "onResponse: " + response.body());
+                    }
+
+
+                }else{
+                    Log.d(TAG, "onResponse: "+  response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoryArray>> call, Throwable t) {
+
+            }
+        });
+
+
+
+
+
+     /*   String username = intent.getStringExtra("username");
+        String pass = intent.getStringExtra("pass");*/
+
+
+        try
+
+    {
+        //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
+        setContentView(R.layout.ads_layout);
+        NavigationView navView = findViewById(R.id.nav_view);
            /* toolbar = (Toolbar) findViewById(R.id.toolbar);
             drawerLayout = findViewById(R.id.drawer_layout);
             setSupportActionBar(toolbar);
@@ -198,19 +264,6 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                             }
                         });
 
-                        /*for (Ads adv: AdsList)
-                        {
-                            try {
-                            Ad.add(db.AdView(String.valueOf(adv.id)));
-                            }
-                            catch (IOException e)
-                            {
-                                e.printStackTrace();
-                            }
-                            catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }*/
                     }
 
                 });
@@ -230,6 +283,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
 
     }
 
@@ -400,21 +454,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         public void run(int adID, View view)
         {
         findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
-        /*DbSelect db = new DbSelect();
 
-        try {
-            Ad.add(db.AdView(String.valueOf(adID)));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
-        catch (JSONException e) {
-            e.printStackTrace();
-        }
-            Intent intent = new Intent(view.getContext(), AdViewTest.class);
-            intent.putExtra(VIEWADID, adID);
-            startActivity(intent);*/
         }
     };
 
