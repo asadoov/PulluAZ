@@ -14,33 +14,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".StatisticActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".FinishActivity"></activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".FinishActivity" />
         <activity
             android:name=".registartion_package.LastRegistrationActivity"
-            android:parentActivityName=".registartion_package.CountriesRegistrActivity"></activity>
+            android:parentActivityName=".registartion_package.CountriesRegistrActivity" />
         <activity
             android:name=".registartion_package.CountriesRegistrActivity"
-            android:parentActivityName=".registartion_package.SecondRegistrationActivity"></activity>
+            android:parentActivityName=".registartion_package.SecondRegistrationActivity" />
         <activity
             android:name=".registartion_package.RegActivity"
-            android:windowSoftInputMode="stateAlwaysHidden">
-
-
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
         <activity android:name=".AdsActivity" />
         <activity
-            android:theme="@style/AppTheme"
             android:name=".registartion_package.SecondRegistrationActivity"
             android:parentActivityName=".registartion_package.RegActivity"
-             />
-        <activity android:name=".MainActivity"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/AppTheme">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+
+
+
+
         </activity>
 
         <meta-data

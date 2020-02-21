@@ -6,9 +6,11 @@
 package com.example.pulluaz;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -53,6 +55,23 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
 
+        if (!isNetworkAvailable()){
+            new AlertDialog.Builder(this)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("İnternet yoxdur")
+                    .setMessage("Internet bağlanmasını yoxlayın")
+                    .setPositiveButton("Çixiş", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .show();
+
+        }else {
+            return;
+        }
+
     }
 
     public void RegMe(View view) {
@@ -83,6 +102,12 @@ public class MainActivity extends AppCompatActivity {
         final EditText passEdit = findViewById(R.id.pass);
         final String usernameTxt = usernameEdit.getText().toString();
         final String passTxt = passEdit.getText().toString();
+
+        Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
+        AdsPage.putExtra("username",usernameTxt);
+        AdsPage.putExtra("pass",passTxt);
+
+        startActivity(AdsPage);
 
         if (!TextUtils.isEmpty(usernameTxt) && !TextUtils.isEmpty(passTxt)) {
 

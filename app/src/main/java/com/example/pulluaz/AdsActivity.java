@@ -33,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 
 import android.os.Bundle;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,6 +44,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.pulluaz.Adapters.CategoryAdapter;
 import com.example.pulluaz.registartion_package.SpinnerRetrofit;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -52,7 +58,9 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -73,6 +81,9 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     public int advCounter = 0;
     BottomNavigationView bottomNavigation;
 
+    private RecyclerView mRecyclerView;
+    private CategoryAdapter mExampleAdapter;
+    private RequestQueue mRequestQueue;
 
     private RecyclerView recyclerView;
     private List<CategoryArray> data;
@@ -83,17 +94,27 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-       // recyclerView = findViewById(R.id.recyclerViewCategory);
-        categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(categoryAdapter);
-
         SharedPreferences sharedPreferences
                 = getSharedPreferences("MySharedPref",
                 MODE_PRIVATE);
+
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.ads_layout);
+
+        mRecyclerView = findViewById(R.id.recyclerViewCategories);
+//        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+
+      //  adsCreate();
+
+
+        data = new ArrayList<>();
+
+
+
+
+
+
 
         final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -137,7 +158,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
 
-        call.enqueue(new Callback<List<CategoryArray>>() {
+      /*  call.enqueue(new Callback<List<CategoryArray>>() {
             @Override
             public void onResponse(Call<List<CategoryArray>> call, Response<List<CategoryArray>> response) {
                 if (response.isSuccessful()) {
@@ -147,7 +168,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
                     data = response.body();
                     for (int i = 0; i < data.size(); i++) {
                         categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
-                        recyclerView.setAdapter(categoryAdapter);
+                      recyclerView.setAdapter(categoryAdapter);
 
 
                         Log.d(TAG, "onResponse: " + response.body());
@@ -164,8 +185,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
             }
         });
-
-
+*/
 
 
 
@@ -284,6 +304,60 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
             ex.printStackTrace();
         }
 
+
+    }
+
+    /*private  void adsCreate(){
+
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+        String pass = intent.getStringExtra("pass");
+
+        Log.d(TAG, "adsCreate: " + username + pass);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://13.92.237.16/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Log.d(TAG, "init: 1");
+
+        AdsService api = retrofit.create(AdsService.class);
+
+        Call<List<adView>> call = api.getAds(username,pass);
+        Log.d(TAG, "callInterface");
+
+        call.enqueue(new Callback<List<adView>>() {
+            @Override
+            public void onResponse(Call<List<adView>> call, Response<List<adView>> response) {
+            if (response.isSuccessful()){
+
+                Log.d("onSuccess", response.body().toString());
+                AdView(response.body());
+
+                Log.d(TAG, "onResponse: ---" + response.body().size());
+
+            }else {
+                Log.d(TAG, "onResponse: " + response.code());
+            }
+            }
+
+            @Override
+            public void onFailure(Call<List<adView>> call, Throwable t) {
+                Log.d(TAG, "onResponse: "+ t.getLocalizedMessage());
+                Log.d(TAG, "onResponse: "+ t.getMessage());
+            }
+        });
+
+
+*/
+
+
+    public void AdView(final List<adView> adViews){
+
+        ArrayList<adView> arrayList = new ArrayList<>();
+        for (int i = 0; i <adViews.size() ; i++) {
+                arrayList.add(adViews.get(i));
+        }
 
     }
 
