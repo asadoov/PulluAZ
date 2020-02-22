@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,9 +33,7 @@ import java.util.regex.Pattern;
 
 public class RegActivity extends AppCompatActivity {
 
-    private static final String JSON_URL = "http://13.92.237.16/api/androidmobileapp/user/about?mail=mirza@gmail.com&pass=mirza123&advertID=253";
 
-  //  EditText edEmail, edPass, edPass2;
     TextInputLayout txtInput,txtInputPass2,txtInputPass;
     Button btnNext;
 
@@ -50,7 +49,7 @@ public class RegActivity extends AppCompatActivity {
                     // "(?=.*[a-zA-Z])" +      //any letter
                    // "(?=.*[@#$%^&+=])" +    //at least 1 special character
                    // "(?=\\S+$)" +           //no white spaces
-                    ".{4,}" +               //at least 4 characters
+                    ".{3,}" +               //at least 4 characters
                     "$");
 
     @Override
@@ -95,7 +94,7 @@ public class RegActivity extends AppCompatActivity {
         edPass2.setOnFocusChangeListener(listener);*/
 
         btnNext = findViewById(R.id.btnNext);
-        txtInput = findViewById(R.id.txtInput);
+
 
 
 
@@ -105,19 +104,28 @@ public class RegActivity extends AppCompatActivity {
 
         mDisplayDate = (TextView) findViewById(R.id.date);
 
+        if (email.isEmpty()) {
+            txtInput.setError("Field can't be empty");
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            txtInput.setError("Please enter a valid email address");
+
+        } else {
+            txtInput.setError(null);
+
+        }
 
     }
 
-    private void intent() {
+   /* private void onClick(View view) {
         Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
 
         intent.putExtra("email",txtInput.getEditText().getText().toString());
         intent.putExtra("pass",txtInputPass.getEditText().getText().toString());
         startActivity(intent);
-    }
+    }*/
 
     private boolean validateEmail() {
-        String emailInput = txtInput.getEditText().getText().toString().trim();
+        String emailInput = txtInput.getEditText().toString().trim();
         if (emailInput.isEmpty()) {
             txtInput.setError("Field can't be empty");
             return false;
@@ -159,28 +167,26 @@ public class RegActivity extends AppCompatActivity {
     }
 
     public void confirmInput(View v) {
-        if (!validateEmail() | !validatePassword() | !validatePassword2()) {
-            return;
-        }
+           if (!validateEmail() | !validatePassword() | !validatePassword2()) {
+               return;
+           }
 
-        String strPassword1 = txtInputPass.getEditText().getText().toString();
-        String strPassword2 = txtInputPass2.getEditText().getText().toString();
+         String strPassword1 = txtInputPass.getEditText().getText().toString();
+         String strPassword2 = txtInputPass2.getEditText().getText().toString();
+
+         Log.d(TAG, "confirmInput: "  + strPassword2);
 
         if (strPassword1.equals(strPassword2)) {
-            Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-            intent();
-        }
+            Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
 
+            intent.putExtra("email",txtInput.getEditText().getText().toString());
+            intent.putExtra("pass",txtInputPass.getEditText().getText().toString());
+            startActivity(intent);
+        }
         else {
                 Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
-
-
             }
-
-
-
         }
-
 
     final View.OnFocusChangeListener listener = new View.OnFocusChangeListener() {
         @Override

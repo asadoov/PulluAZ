@@ -73,7 +73,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="60dp">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edEmail"
 
             android:layout_width="match_parent"
@@ -107,7 +107,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
 
             android:hint="* * * * * * * *"
             android:textSize="16dp"
@@ -143,7 +143,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content">
 
-        <EditText
+        <com.google.android.material.textfield.TextInputEditText
 
             android:hint="* * * * * * * *"
             android:drawableRight="@drawable/eye_icon"
@@ -169,6 +169,7 @@
             android:textAllCaps="false"
             android:textSize="22dp"
             android:text="irəli"
+
             android:visibility="visible"
             android:id="@+id/btnNext"
             android:textColor="#ffffff"

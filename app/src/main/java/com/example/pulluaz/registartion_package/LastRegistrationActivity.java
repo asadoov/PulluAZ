@@ -48,7 +48,7 @@ public class LastRegistrationActivity extends Activity {
 
     private void init(final NewUserStruct newUserStruct) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
+                .baseUrl("https://pullu.az/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         Log.d(TAG, "init: 1");

@@ -185,6 +185,48 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
             }
         });
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://13.92.237.16/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Log.d(TAG, "init: 1");
+
+        Intent intent = getIntent();
+
+        AdsService api = retrofit.create(AdsService.class);
+
+        Call<List<CategoryArray>> call = api.getCategory();
+        Log.d(TAG, "callInterface");
+
+
+
+      /*  call.enqueue(new Callback<List<CategoryArray>>() {
+            @Override
+            public void onResponse(Call<List<CategoryArray>> call, Response<List<CategoryArray>> response) {
+                if (response.isSuccessful()) {
+                    Log.d(TAG, "response");
+
+
+                    data = response.body();
+                    for (int i = 0; i < data.size(); i++) {
+                        categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
+                      recyclerView.setAdapter(categoryAdapter);
+
+
+                        Log.d(TAG, "onResponse: " + response.body());
+                    }
+
+
+                }else{
+                    Log.d(TAG, "onResponse: "+  response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CategoryArray>> call, Throwable t) {
+
+            }
+        });
 */
 
 

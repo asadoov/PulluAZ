@@ -35,7 +35,7 @@ import java.util.List;
 
 
 public class DbSelect {
-    String DefaultURL = "http://13.92.237.16";
+    String DefaultURL = "https://pullu.az";
 
     public List<User> GetUserList(String username, String pass) throws IOException, JSONException {
 
