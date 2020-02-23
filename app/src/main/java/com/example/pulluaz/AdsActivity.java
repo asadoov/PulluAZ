@@ -100,6 +100,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ads_layout);
+        NavigationView navView = findViewById(R.id.nav_view);
 
         mRecyclerView = findViewById(R.id.recyclerViewCategories);
 //        mRecyclerView.setHasFixedSize(true);
@@ -239,8 +240,8 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
     {
         //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
-        setContentView(R.layout.ads_layout);
-        NavigationView navView = findViewById(R.id.nav_view);
+      //  setContentView(R.layout.ads_layout);
+
            /* toolbar = (Toolbar) findViewById(R.id.toolbar);
             drawerLayout = findViewById(R.id.drawer_layout);
             setSupportActionBar(toolbar);

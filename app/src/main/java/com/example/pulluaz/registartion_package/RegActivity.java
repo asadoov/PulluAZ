@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.pulluaz.R;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import androidx.appcompat.app.AlertDialog;
@@ -35,6 +36,7 @@ public class RegActivity extends AppCompatActivity {
 
 
     TextInputLayout txtInput,txtInputPass2,txtInputPass;
+    TextInputEditText edEmail, edPass,edConfimPass;
     Button btnNext;
 
     TextView mDisplayDate;
@@ -56,9 +58,9 @@ public class RegActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registration_layout);
-      //  getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+       getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        if (!isNetworkAvailable()){
+        /*if (!isNetworkAvailable()){
             new AlertDialog.Builder(this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("İnternet yoxdur")
@@ -74,10 +76,8 @@ public class RegActivity extends AppCompatActivity {
         }else {
             return;
         }
+*/
 
-        getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-        );
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -89,6 +89,10 @@ public class RegActivity extends AppCompatActivity {
         txtInputPass = findViewById(R.id.txtInputPass);
         txtInputPass2 = findViewById(R.id.txtInputPass2);
 
+        edEmail = (TextInputEditText)findViewById(R.id.edEmail);
+        edPass = (TextInputEditText)findViewById(R.id.edPass);
+        edConfimPass = (TextInputEditText)findViewById(R.id.confimPass);
+
        /* edEmail.setOnFocusChangeListener(listener);
         edPass.setOnFocusChangeListener(listener);
         edPass2.setOnFocusChangeListener(listener);*/
@@ -97,10 +101,10 @@ public class RegActivity extends AppCompatActivity {
 
 
 
-
-        final String email = txtInput.getEditText().toString();
-        final String password = txtInputPass.getEditText().toString();
-        final String password2 = txtInputPass2.getEditText().toString();
+/*
+        final String email = edEmail.getText().toString();
+        final String password = edPass.getText().toString();
+        final String password2 = edConfimPass.getText().toString();
 
         mDisplayDate = (TextView) findViewById(R.id.date);
 
@@ -112,7 +116,7 @@ public class RegActivity extends AppCompatActivity {
         } else {
             txtInput.setError(null);
 
-        }
+        }*/
 
     }
 
@@ -125,12 +129,14 @@ public class RegActivity extends AppCompatActivity {
     }*/
 
     private boolean validateEmail() {
-        String emailInput = txtInput.getEditText().toString().trim();
+        String emailInput = edEmail.getText().toString().trim();
         if (emailInput.isEmpty()) {
             txtInput.setError("Field can't be empty");
+       //     requestFocus(edEmail);
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
             txtInput.setError("Please enter a valid email address");
+           // requestFocus(edEmail);
             return false;
         } else {
             txtInput.setError(null);
@@ -139,13 +145,15 @@ public class RegActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword() {
-        String passwordInput = txtInputPass.getEditText().getText().toString().trim().toLowerCase();
+        String passwordInput = edPass.getText().toString().trim().toLowerCase();
 
         if (passwordInput.isEmpty()) {
             txtInputPass.setError("Field can't be empty");
+         //   requestFocus(edPass);
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
             txtInputPass.setError("Password too weak");
+            requestFocus(edPass);
             return false;
 
         } else {
@@ -155,10 +163,11 @@ public class RegActivity extends AppCompatActivity {
     }
 
     private boolean validatePassword2() {
-        String passwordInput2 = txtInputPass2.getEditText().getText().toString().trim().toLowerCase();
+        String passwordInput2 = edConfimPass.getText().toString().trim().toLowerCase();
 
         if (passwordInput2.isEmpty()) {
             txtInputPass2.setError("Field can't be empty");
+         ///   requestFocus(edConfimPass);
             return false;
         } else {
             txtInputPass2.setError(null);
@@ -171,20 +180,20 @@ public class RegActivity extends AppCompatActivity {
                return;
            }
 
-         String strPassword1 = txtInputPass.getEditText().getText().toString();
-         String strPassword2 = txtInputPass2.getEditText().getText().toString();
+         String strPassword1 = edPass.getText().toString();
+         String strPassword2 = edConfimPass.getText().toString();
 
          Log.d(TAG, "confirmInput: "  + strPassword2);
 
         if (strPassword1.equals(strPassword2)) {
             Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
 
-            intent.putExtra("email",txtInput.getEditText().getText().toString());
-            intent.putExtra("pass",txtInputPass.getEditText().getText().toString());
+            intent.putExtra("email",edEmail.getText().toString());
+            intent.putExtra("pass",edPass.getText().toString());
             startActivity(intent);
         }
         else {
-                Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Duzgun doldurun", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -198,6 +207,14 @@ public class RegActivity extends AppCompatActivity {
     private void hideKeyboard() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), 0);
+    }
+
+    public void requestFocus(View view){
+        if (view.requestFocus()) {
+
+            getWindow().setSoftInputMode(
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
     private boolean isNetworkAvailable () {

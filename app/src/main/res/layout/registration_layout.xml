@@ -150,6 +150,7 @@
             android:layout_width="match_parent"
             android:layout_height="53dp"
             android:ems="10"
+            android:id="@+id/confimPass"
             android:imeOptions="flagNoExtractUi"
             android:textSize="16dp"
             android:inputType="textPassword" />

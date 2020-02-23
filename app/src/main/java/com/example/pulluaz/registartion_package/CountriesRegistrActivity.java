@@ -83,6 +83,8 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
         sectorSpinner.setOnItemSelectedListener(this);
 
+        Log.d(LOG_TAG, "onCreate: check-1" );
+
     }
 
     @Override
@@ -100,6 +102,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
     }
 
 
+
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
@@ -110,9 +113,11 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
+                .baseUrl("https://pullu.az/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+
 
         SpinnerRetrofit api = retrofit.create(SpinnerRetrofit.class);
 
@@ -121,12 +126,14 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
             @Override
             public void onResponse(Call<List<Countries>> call, Response<List<Countries>> response) {
                 progressDoalog.dismiss();
+                Log.d(LOG_TAG, "init: -1");
                 Log.d(LOG_TAG, "onResponse: " + response.code());
                 Log.d(LOG_TAG, "onResponse: " + response.toString());
 
                 if (response.isSuccessful()) {
                     if (response.body() != null) {
                         Log.d("onSuccess", response.body().toString());
+                        Log.d(LOG_TAG, "init: -2");
 
                         bindCountries(response.body());
 
@@ -192,7 +199,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
 
     public void onChooseCountry(Countries country) {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
+                .baseUrl("https://pullu.az/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -290,9 +297,9 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
             Log.d(LOG_TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone+" "+dp);
 
             Intent intent = new Intent(getApplicationContext(), LastRegistrationActivity.class);
-            intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
-            intent.putExtra("city", spinnerCity.getSelectedItem().toString());
-            intent.putExtra("sector", sectorSpinner.getSelectedItem().toString());
+//            intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
+ //           intent.putExtra("city", spinnerCity.getSelectedItem().toString());
+  //          intent.putExtra("sector", sectorSpinner.getSelectedItem().toString());
             intent.putExtra("name",name);
             intent.putExtra("email",mail);
             intent.putExtra("pass",pass);

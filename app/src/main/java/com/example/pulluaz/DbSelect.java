@@ -65,33 +65,6 @@ public class DbSelect {
         return usrList;
     }
 
-   /* public List<User> getUserRegister(String name,  String pass) throws IOException, JSONException {
-
-        String data = "";
-        URL url = new URL(DefaultURL + "/api/androidmobileapp/" + name + "&pass=" + pass);
-
-
-        HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-        InputStream inputStream = httpURLConnection.getInputStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-        String line = "";
-        while ((line = bufferedReader.readLine()) != null) {
-
-            data += line;
-        }
-        List<User> usrList = new ArrayList();
-        try {
-
-            Gson gson = new GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create();
-
-            usrList = Arrays.asList(gson.fromJson(data, User[].class));
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return usrList;
-    }*/
 
 
 
@@ -120,23 +93,6 @@ public class DbSelect {
             ex.printStackTrace();
         }
 
-
-
-
-/*
-       JSONArray JA = new JSONArray(data);
-
-        ArrayList<User> usrList = new ArrayList<User>();
-        User usr = new User();
-        for (int i = 0; i < JA.length(); i++) {
-
-            JSONObject JO = (JSONObject) JA.get(i);
-            usr.name = JO.get("id").toString();
-          //  usr.surname = JO.get("surname").toString();
-
-            usrList.add(usr);
-        }
-*/
 
         return adsList;
     }
