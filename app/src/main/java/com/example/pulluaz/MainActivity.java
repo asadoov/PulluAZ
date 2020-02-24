@@ -55,9 +55,9 @@ public class MainActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
 
-        if (!isNetworkAvailable()){
+        if (!isNetworkAvailable()) {
             new AlertDialog.Builder(this)
-        .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
                     .setTitle("İnternet yoxdur")
                     .setMessage("Internet bağlanmasını yoxlayın")
                     .setPositiveButton("Çixiş", new DialogInterface.OnClickListener() {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .show();
 
-        }else {
+        } else {
             return;
         }
 
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
 
-     //13.92.237.16/api/androidmobileapp/user/getAds?username=mirza@gmail.com&pass=mirza123
+    //13.92.237.16/api/androidmobileapp/user/getAds?username=mirza@gmail.com&pass=mirza123
     public void SignIn(View view) {
         findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
 
@@ -98,16 +98,17 @@ public class MainActivity extends AppCompatActivity {
         final SharedPreferences.Editor myEdit
                 = sharedPreferences.edit();
         final EditText usernameEdit = findViewById(R.id.username);
-
         final EditText passEdit = findViewById(R.id.pass);
+
         final String usernameTxt = usernameEdit.getText().toString();
         final String passTxt = passEdit.getText().toString();
 
         Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
-        AdsPage.putExtra("username",usernameTxt);
-        AdsPage.putExtra("pass",passTxt);
+        AdsPage.putExtra("username", usernameTxt);
+        AdsPage.putExtra("pass", passTxt);
 
         startActivity(AdsPage);
+/*
 
         if (!TextUtils.isEmpty(usernameTxt) && !TextUtils.isEmpty(passTxt)) {
 
@@ -148,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
                                                 passTxt);
                                         myEdit.commit();
                                         Intent AdsPage = new Intent(MainActivity.this, AdsActivity.class);
-                                        AdsPage.putExtra("username",usernameTxt);
-                                        AdsPage.putExtra("pass",passTxt);
+                                        AdsPage.putExtra("user_name",usernameTxt);
+                                        AdsPage.putExtra("pass_",passTxt);
 
                                         startActivity(AdsPage);
 
@@ -193,12 +194,13 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "Boshluqlari doldurun!", Toast.LENGTH_SHORT).show();
         }
     }
-
+*/
+    }
         private boolean isNetworkAvailable () {
             ConnectivityManager connectivityManager
                     = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
             return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 
+        }
     }
-}

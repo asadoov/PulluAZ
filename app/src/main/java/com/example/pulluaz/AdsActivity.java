@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -50,6 +51,11 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.pulluaz.Adapters.CategoryAdapter;
+import com.example.pulluaz.Fragments.AddFragment;
+import com.example.pulluaz.Fragments.HomeFragment;
+import com.example.pulluaz.Fragments.NotificationFragment;
+import com.example.pulluaz.Fragments.ProfilFragment;
+import com.example.pulluaz.Fragments.SearchFrgment;
 import com.example.pulluaz.registartion_package.SpinnerRetrofit;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -100,6 +106,11 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ads_layout);
+
+        Intent intent2 = new Intent(getApplicationContext(), FinishActivity.class);
+        startActivity(intent2);
+
+        bottomNavigation = findViewById(R.id.bottom_nav);
         NavigationView navView = findViewById(R.id.nav_view);
 
         mRecyclerView = findViewById(R.id.recyclerViewCategories);
@@ -107,41 +118,37 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
 
       //  adsCreate();
-
+        loadFragment(new SearchFrgment());
 
         data = new ArrayList<>();
 
-
-
-
-
-
-
-        final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
+        /*final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        Fragment fragment = null;
+
                         switch (item.getItemId()) {
                             case R.id.search:
 
-                                openSearch();
-                                return true;
+                                fragment = new SearchFrgment();
+                                break;
+
                             case R.id.add:
 
-                                openAdd();
-                                return true;
+                                fragment = new AddFragment();
+                                break;
                             case R.id.notifications:
+                                fragment = new NotificationFragment();
 
-                              openNotification();
-                                return true;
+                                break;
                             case R.id.profile:
-
-                                openProfil();
-                                return true;
+                                fragment = new ProfilFragment();
+                                break;
 
                         }
-                        return false;
+                        return loadFragment(fragment);
                     }
-                };
+                };*/
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -151,6 +158,9 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         Log.d(TAG, "init: 1");
 
         Intent intent = getIntent();
+        String name = intent.getStringExtra("user_name");
+        String pass = intent.getStringExtra("pass_");
+        Log.d(TAG, "onCreate: " + name +"   "+pass);
 
         AdsService api = retrofit.create(AdsService.class);
 
@@ -395,30 +405,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 */
 
 
-    public void AdView(final List<adView> adViews){
 
-        ArrayList<adView> arrayList = new ArrayList<>();
-        for (int i = 0; i <adViews.size() ; i++) {
-                arrayList.add(adViews.get(i));
-        }
-
-    }
-
-    private void openProfil() {
-        // Intent intentAdd = new Intent(this,);
-    }
-
-    private void openNotification() {
-        // Intent intentAdd = new Intent(this,);
-    }
-
-    private void openAdd() {
-        // Intent intentAdd = new Intent(this,);
-    }
-
-    private void openSearch() {
-       // Intent intentSearch = new Intent(this,);
-    }
 
 
     @Override
@@ -713,10 +700,13 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
        // finishAffinity();
     }*/
 
-
-
-
-
+    private boolean loadFragment(Fragment fragment){
+        if (fragment!=null){
+            getSupportFragmentManager().beginTransaction().replace(R.id.adsLayout,fragment);
+            return true;
+        }
+        return false;
+    }
 
 }
 

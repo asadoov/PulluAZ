@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Created by Rufat Asadzade on 17.02.20 12:00
+  ~ Created by Rufat Asadzade on 24.02.20 11:30
   ~ Copyright (c) 2020. Rufat Asadzade. All rights reserved.
   -->
 
@@ -8,28 +8,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".FinishActivity">
+    tools:context=".SearchActivity">
+
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_container1">
+        android:id="@+id/fragment_container">
 
     </FrameLayout>
 
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:background="#ffffff"
-        android:id="@+id/bot_nav"
+        android:id="@+id/bottom_navigate"
+        app:menu="@menu/bottom_nav"
+        android:background="#fff"
         app:itemIconTint="#000"
         app:itemTextColor="#000"
+        android:layout_alignBottom="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:labelVisibilityMode="labeled"
-        app:menu="@menu/bottom_nav"
+        android:layout_height="wrap_content">
 
-        />
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
 
 </RelativeLayout>
