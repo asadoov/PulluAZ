@@ -33,9 +33,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener{
+public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+    }
 
     @Nullable
     @Override
@@ -43,7 +51,7 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
         NavigationView navView = container.findViewById(R.id.nav_view);
         drawerLayout = container.findViewById(R.id.drawer_layout);
 
-        View view=  inflater.inflate(R.layout.home_fragment, null);
+        View view = inflater.inflate(R.layout.home_fragment, null);
 
 /*
 
@@ -56,7 +64,6 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
     }
 
 
-
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -64,28 +71,30 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
     }
 
     @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.exit:
-                    // do whatever
-                 //   Toast.makeText(this, "Cixiw", Toast.LENGTH_SHORT).show();
-                    return true;
-                default:
-                    return super.onOptionsItemSelected(item);
-            }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.exit:
+                // do whatever
+                //   Toast.makeText(this, "Cixiw", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            switch (menuItem.getItemId()) {
-                case R.id.nav_logout: {
-                    break;
-                }
-            }
-            menuItem.setChecked(true);
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return true;
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_logout: {
+                break;
+            }
         }
+        menuItem.setChecked(true);
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+
+    }
+
 
         public void openSideBar(View view) {
             try {

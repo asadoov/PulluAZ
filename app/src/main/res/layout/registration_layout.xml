@@ -1,29 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#ffffff"
-        android:id="@+id/scrollView">
-
-<LinearLayout
-
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".registartion_package.RegActivity"
-    android:paddingTop="15dp"
-    android:layout_margin="24dip">
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_margin="20dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
 
 
 
     <ImageView
 
-        android:layout_margin="-1dip"
+        android:layout_margin="20dip"
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="80dip"
@@ -35,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#454555"
-        android:layout_marginTop="-8dp"
+        android:layout_marginTop="-18dp"
         android:layout_gravity="center"
         android:fontFamily="@font/nunito_extralight"
         android:gravity="center"
@@ -68,14 +62,16 @@
         android:id="@+id/txtInput"
         app:errorEnabled="true"
         app:hintTextColor="#454555"
-        android:theme="@style/Widget.AppCompat.EditText"
+
         android:hint="example@mail.ru"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="60dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edEmail"
+            android:focusedByDefault="false"
 
+            android:textCursorDrawable="@drawable/cursor_color"
             android:layout_width="match_parent"
             android:imeOptions="flagNoExtractUi"
             android:textSize="16dp"
@@ -110,6 +106,7 @@
         <com.google.android.material.textfield.TextInputEditText
 
             android:hint="* * * * * * * *"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:textSize="16dp"
             android:id="@+id/edPass"
             android:imeOptions="flagNoExtractUi"
@@ -137,9 +134,16 @@
         android:layout_marginTop="8dip"
         android:id="@+id/txtInputPass2"
         app:errorEnabled="true"
+        android:focusableInTouchMode="true"
+        android:screenReaderFocusable="true"
+        android:touchscreenBlocksFocus="true"
+        android:filterTouchesWhenObscured="true"
+
+        android:isScrollContainer="true"
         app:hintTextColor="#454555"
         android:keyboardNavigationCluster="false"
         app:passwordToggleEnabled="true"
+
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_height="wrap_content">
 
@@ -147,10 +151,16 @@
 
             android:hint="* * * * * * * *"
             android:drawableRight="@drawable/eye_icon"
+            android:focusableInTouchMode="true"
+
             android:layout_width="match_parent"
+            android:cursorVisible="true"
+            android:isScrollContainer="true"
             android:layout_height="53dp"
             android:ems="10"
+
             android:id="@+id/confimPass"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:imeOptions="flagNoExtractUi"
             android:textSize="16dp"
             android:inputType="textPassword" />
@@ -159,31 +169,33 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="244dp"
+        android:layout_margin="5dp"
+        android:gravity="center"
+        android:layout_marginTop="4dp"
+
+        android:orientation="vertical">
+
+
         <Button
+            android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="48dip"
-            android:layout_marginTop="45dip"
-            android:onClick="confirmInput"
-            android:backgroundTint="#1E5DD3"
-            android:background="@drawable/button"
+            android:layout_marginTop="59dip"
+            android:background="@drawable/round_button"
+
             android:fontFamily="@font/nunito_extralight"
-            android:textAllCaps="false"
-            android:textSize="22dp"
+            android:onClick="confirmInput"
             android:text="irəli"
+            android:textAllCaps="false"
 
-            android:visibility="visible"
-            android:id="@+id/btnNext"
             android:textColor="#ffffff"
-            android:textFontWeight="400" />
+            android:textFontWeight="400"
+            android:textSize="22dp"
+            android:visibility="visible" />
+    </LinearLayout>
 
-
-
-
-
-
-
-
-
-</LinearLayout>
-
-    </ScrollView>
+    </LinearLayout>
+</ScrollView>

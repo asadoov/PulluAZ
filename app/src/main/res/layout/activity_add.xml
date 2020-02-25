@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Created by Rufat Asadzade on 21.02.20 15:08
+  ~ Created by Rufat Asadzade on 25.02.20 16:15
   ~ Copyright (c) 2020. Rufat Asadzade. All rights reserved.
   -->
 
@@ -9,13 +9,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StatisticActivity">
+    tools:context=".AddActivity">
 
     <TextView
-        android:text="AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+        android:text="AAAAAAAAAAAAADDDDDDDDDDDDDDDDDDDDDDDDDDDDAAAAAAAAAAAAAAAAAAAA"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-    </TextView>
+        android:layout_height="wrap_content"></TextView>
 
 </RelativeLayout>

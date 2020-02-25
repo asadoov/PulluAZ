@@ -56,6 +56,8 @@ import com.example.pulluaz.Fragments.HomeFragment;
 import com.example.pulluaz.Fragments.NotificationFragment;
 import com.example.pulluaz.Fragments.ProfilFragment;
 import com.example.pulluaz.Fragments.SearchFrgment;
+import com.example.pulluaz.registartion_package.CountriesRegistrActivity;
+import com.example.pulluaz.registartion_package.SecondRegistrationActivity;
 import com.example.pulluaz.registartion_package.SpinnerRetrofit;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -107,18 +109,52 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ads_layout);
 
-        Intent intent2 = new Intent(getApplicationContext(), FinishActivity.class);
-        startActivity(intent2);
 
-        bottomNavigation = findViewById(R.id.bottom_nav);
+
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_nav);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                                                                     @Override
+                                                                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                                                                         if (menuItem.getItemId() == R.id.main) {
+
+                                                                         } else if (menuItem.getItemId() == R.id.search) {
+                                                                             Intent intent = new Intent(AdsActivity.this, CountriesRegistrActivity.class);
+                                                                             startActivity(intent);
+
+                                                                         }else if (menuItem.getItemId() == R.id.profile) {
+                                                                             Intent intent = new Intent(AdsActivity.this, ProfilFragment.class);
+                                                                             startActivity(intent);
+                                                                         }
+                                                                         return true;
+                                                                     }
+
+                                                                     Menu menu = bottomNavigationView.getMenu();
+                                                                     MenuItem menuItem = menu.getItem(1);
+
+
+                                                                     public void setMenuItem(MenuItem menuItem) {
+                                                                         this.menuItem = menuItem;
+                                                                         menuItem.setChecked(true);
+                                                                     }
+                                                                 });
+
+
+        /*Intent intent2 = new Intent(getApplicationContext(), FinishActivity.class);
+        startActivity(intent2);*/
+
+
+       // bottomNavigation = findViewById(R.id.bottom_nav);
+//        bottomNavigation.setOnNavigationItemSelectedListener(navListener);
+
         NavigationView navView = findViewById(R.id.nav_view);
 
         mRecyclerView = findViewById(R.id.recyclerViewCategories);
 //        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-      //  adsCreate();
-        loadFragment(new SearchFrgment());
+        //  adsCreate();
+
 
         data = new ArrayList<>();
 
@@ -160,7 +196,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         Intent intent = getIntent();
         String name = intent.getStringExtra("user_name");
         String pass = intent.getStringExtra("pass_");
-        Log.d(TAG, "onCreate: " + name +"   "+pass);
+        Log.d(TAG, "onCreate: " + name + "   " + pass);
 
         AdsService api = retrofit.create(AdsService.class);
 
@@ -246,11 +282,9 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         String pass = intent.getStringExtra("pass");*/
 
 
-        try
-
-    {
-        //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
-      //  setContentView(R.layout.ads_layout);
+        try {
+            //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
+            //  setContentView(R.layout.ads_layout);
 
            /* toolbar = (Toolbar) findViewById(R.id.toolbar);
             drawerLayout = findViewById(R.id.drawer_layout);
@@ -408,6 +442,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -429,17 +464,18 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        switch (menuItem.getItemId()) {
-            case R.id.nav_logout: {
-                break;
-            }
-        }
-        menuItem.setChecked(true);
-        drawerLayout.closeDrawer(GravityCompat.START);
+        /*if (menuItem.getItemId() == R.id.main) {
+
+        } else if (menuItem.getItemId() == R.id.search) {
+            Intent intent = new Intent(AdsActivity.this, SearchFrgment.class);
+            startActivity(intent);
+
+        }else if (menuItem.getItemId() == R.id.profile) {
+            Intent intent = new Intent(AdsActivity.this, ProfilFragment.class);
+            startActivity(intent);
+        }*/
         return true;
-
     }
-
     public void openSideBar(View view) {
         try {
             drawerLayout = findViewById(R.id.drawer_layout);
@@ -791,6 +827,10 @@ class adLoadInBack extends AsyncTask<Integer, Void, adView> {
         }
 
     }
+
+
+
+
 }
 
 

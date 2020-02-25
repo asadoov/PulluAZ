@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.pulluaz.Fragments.AddFragment;
@@ -25,49 +27,44 @@ public class SearchActivity extends AppCompatActivity{ //implements BottomNaviga
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-    /*    loadFragment(new SearchFrgment());
-        BottomNavigationView navigationView = findViewById(R.id.bottom_navigate);
-        navigationView.setOnNavigationItemSelectedListener(this);
-
-    }
-
-
+        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                findViewById(R.id.bottom_nav);
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem menuItem = menu.getItem(1);
+        menuItem.setChecked(true);
 
 
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    Fragment fragment = null;
 
-                    switch (item.getItemId()) {
-                        case R.id.search:
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                            fragment = new SearchFrgment();
-                            break;
 
-                        case R.id.add:
+                if (menuItem.getItemId() == R.id.main) {
+                    Intent intent = new Intent(SearchActivity.this, MainActivity.class);
+                    startActivity(intent);
 
-                            fragment = new AddFragment();
-                            break;
-                        case R.id.notifications:
-                            fragment = new NotificationFragment();
 
-                            break;
-                        case R.id.profile:
-                            fragment = new ProfilFragment();
-                            break;
+                } else if (menuItem.getItemId() == R.id.profile) {
 
-                    }
-                    return loadFragment(fragment);
-
+                    Intent intentProfil = new Intent(SearchActivity.this, StatisticActivity.class);
+                    startActivity(intentProfil);
+                }else if (menuItem.getItemId() == R.id.add){
+                    Intent intentProfil = new Intent(SearchActivity.this, AddActivity.class);
+                    startActivity(intentProfil);
                 }
+                return true;
+            }
+            Menu menu = bottomNavigationView.getMenu();
+            MenuItem menuItem = menu.getItem(1);
 
-                private boolean loadFragment(Fragment fragment) {
-                    if (fragment != null) {
-                        getSupportFragmentManager().beginTransaction().replace(R.id.adsLayout, fragment);
-                        return true;
-                    }
-                    return false;
-                }*/
+
+            public void setMenuItem(MenuItem menuItem) {
+                this.menuItem = menuItem;
+                menuItem.setChecked(true);
+            }
+        });
+
     }
 
 

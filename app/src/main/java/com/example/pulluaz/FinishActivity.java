@@ -28,11 +28,11 @@ public class FinishActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_finish);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bot_nav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+   //     bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
        /* Intent intent = new Intent(this, AdsActivity.class);
         startActivity(intent);*/
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container1, new HomeFragment()).commit();
+      getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container1, new HomeFragment()).commit();
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -40,10 +40,15 @@ public class FinishActivity extends AppCompatActivity  {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
 
+                    if (item.getItemId() ==0){
+                        Intent intent = new Intent(getApplicationContext(),AdsActivity.class);
+                        startActivity(intent);
+                    }
                     switch (item.getItemId()){
                         case  R.id.main:
-                            selectedFragment = new HomeFragment();
-                            break;
+                            Intent intent = new Intent(getApplicationContext(),AdsActivity.class);
+                            startActivity(intent);
+
 
                         case  R.id.notifications:
                             selectedFragment = new NotificationFragment();

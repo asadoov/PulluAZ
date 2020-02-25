@@ -26,38 +26,6 @@ public class StatisticActivity extends AppCompatActivity {
         setContentView(R.layout.activity_statistic);
 
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Log.d(TAG, "init: 1");
-
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        String pass = intent.getStringExtra("pass");
-
-
-        AdsService api = retrofit.create(AdsService.class);
-
-
-
-        Call<Statics> call = api.getStatistics(username, pass);
-        Log.d(TAG, "callInterface" + username + "    "+ pass + "         ");
-
-        call.enqueue(new Callback<Statics>() {
-            @Override
-            public void onResponse(Call<Statics> call, Response<Statics> response) {
-                /*Statics statics = new Statics();
-                statics = response.body();*/
-                Log.d(TAG, "onResponse: " + response.body().allUsers.toString());
-
-            }
-
-            @Override
-            public void onFailure(Call<Statics> call, Throwable t) {
-
-            }
-        });
 
 
     }
