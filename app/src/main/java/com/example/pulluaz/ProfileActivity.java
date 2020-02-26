@@ -1,5 +1,5 @@
 /*
- * Created by Rufat Asadzade on 24.02.20 11:30
+ * Created by Rufat Asadzade on 26.02.20 12:01
  * Copyright (c) 2020. Rufat Asadzade. All rights reserved.
  */
 
@@ -7,31 +7,28 @@ package com.example.pulluaz;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.pulluaz.Fragments.AddFragment;
-import com.example.pulluaz.Fragments.NotificationFragment;
-import com.example.pulluaz.Fragments.ProfilFragment;
-import com.example.pulluaz.Fragments.SearchFrgment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class SearchActivity extends AppCompatActivity{ //implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class ProfileActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+        setContentView(R.layout.activity_profile);
 
        /* bottomNavigation = findViewById(R.id.bottom_nav);
         Menu menu = bottomNavigation.getMenu();
-        MenuItem menuItem = menu.getItem(1);
+        MenuItem menuItem = menu.getItem(4);
         menuItem.setChecked(true);
+
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -39,7 +36,7 @@ public class SearchActivity extends AppCompatActivity{ //implements BottomNaviga
                 switch (item.getItemId()) {
                     case R.id.main:
 
-                        Intent intentAds = new Intent(SearchActivity.this, AdsActivity.class);
+                        Intent intentAds = new Intent(ProfileActivity.this, AdsActivity.class);
                         startActivity(intentAds);
                         overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
@@ -47,23 +44,24 @@ public class SearchActivity extends AppCompatActivity{ //implements BottomNaviga
 
                     case R.id.search:
 
-
+                        Intent intentSearch = new Intent(ProfileActivity.this, SearchActivity.class);
+                        startActivity(intentSearch);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
+
 
                     case R.id.add:
-                        Intent intentAdd = new Intent(SearchActivity.this, AddActivity.class);
+                        Intent intentAdd = new Intent(ProfileActivity.this, AddActivity.class);
                         startActivity(intentAdd);
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
                     case R.id.profile:
-                        Intent intentProfile = new Intent(SearchActivity.this, ProfileActivity.class);
-                        startActivity(intentProfile);
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
                         break;
                     case R.id.notifications:
-                        Intent intentNotification = new Intent(SearchActivity.this, NotificationActivity.class);
+                        Intent intentNotification = new Intent(ProfileActivity.this, NotificationActivity.class);
                         startActivity(intentNotification);
-                        overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);
                         break;
 
 
@@ -72,12 +70,11 @@ public class SearchActivity extends AppCompatActivity{ //implements BottomNaviga
             }
         });
 
-
     }
 
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.slide_in_left,R.anim.slide_out_right);*/
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);*/
     }
 }

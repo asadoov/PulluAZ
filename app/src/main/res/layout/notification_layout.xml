@@ -19,7 +19,7 @@
         android:id="@+id/fragment_container">
 
         <TextView
-            android:text="TWOOOOOOOOOOOOOOOOOOOOOOOOO"
+            android:text="THREEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
             android:layout_width="wrap_content"
             android:textSize="35dp"
             android:gravity="center"

@@ -70,12 +70,13 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edEmail"
             android:focusedByDefault="false"
-
+            android:textColorHighlight="#000000"
             android:textCursorDrawable="@drawable/cursor_color"
             android:layout_width="match_parent"
             android:imeOptions="flagNoExtractUi"
             android:textSize="16dp"
             android:layout_height="53dp"
+            android:backgroundTint="#000"
             android:ems="10"
             android:inputType="textEmailAddress" />
 

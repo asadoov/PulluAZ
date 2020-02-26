@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                     && (sharedPreferences.getString("pass", null) != null)) {
 
                 String aa = sharedPreferences.getString("userData", null);
-                Intent AdsPage = new Intent(MainActivity.this, FinishActivity.class);
+                Intent AdsPage = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(AdsPage);
             }
         } catch (Exception ex) {

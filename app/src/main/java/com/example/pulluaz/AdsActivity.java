@@ -6,6 +6,7 @@
 package com.example.pulluaz;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -111,80 +112,80 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
 
-        final BottomNavigationView bottomNavigationView = (BottomNavigationView)
-                findViewById(R.id.bottom_nav);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                                                                     @Override
-                                                                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                                                                         if (menuItem.getItemId() == R.id.main) {
-
-                                                                         } else if (menuItem.getItemId() == R.id.search) {
-                                                                             Intent intent = new Intent(AdsActivity.this, CountriesRegistrActivity.class);
-                                                                             startActivity(intent);
-
-                                                                         }else if (menuItem.getItemId() == R.id.profile) {
-                                                                             Intent intent = new Intent(AdsActivity.this, ProfilFragment.class);
-                                                                             startActivity(intent);
-                                                                         }
-                                                                         return true;
-                                                                     }
-
-                                                                     Menu menu = bottomNavigationView.getMenu();
-                                                                     MenuItem menuItem = menu.getItem(1);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,new HomeFragment()).commit();
 
 
-                                                                     public void setMenuItem(MenuItem menuItem) {
-                                                                         this.menuItem = menuItem;
-                                                                         menuItem.setChecked(true);
-                                                                     }
-                                                                 });
 
 
-        /*Intent intent2 = new Intent(getApplicationContext(), FinishActivity.class);
-        startActivity(intent2);*/
-
-
-       // bottomNavigation = findViewById(R.id.bottom_nav);
+        bottomNavigation = findViewById(R.id.bottom_nav);
 //        bottomNavigation.setOnNavigationItemSelectedListener(navListener);
 
         NavigationView navView = findViewById(R.id.nav_view);
 
-        mRecyclerView = findViewById(R.id.recyclerViewCategories);
+    //    mRecyclerView = findViewById(R.id.recyclerViewCategories);
 //        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+      //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
         //  adsCreate();
 
 
         data = new ArrayList<>();
 
-        /*final BottomNavigationView.OnNavigationItemSelectedListener navigationItemSelectedListener =
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        Fragment fragment = null;
+       /* Menu menu = bottomNavigation.getMenu();
+        MenuItem menuItem = menu.getItem(0);
+        menuItem.setChecked(true);*/
 
-                        switch (item.getItemId()) {
-                            case R.id.search:
+        bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+         @Override
+         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                                fragment = new SearchFrgment();
-                                break;
+             Fragment selectedFragment = null;
 
-                            case R.id.add:
+         switch (item.getItemId()) {
+             case R.id.main:
 
-                                fragment = new AddFragment();
-                                break;
-                            case R.id.notifications:
-                                fragment = new NotificationFragment();
+                 selectedFragment = new HomeFragment();
 
-                                break;
-                            case R.id.profile:
-                                fragment = new ProfilFragment();
-                                break;
+                 break;
 
-                        }
-                        return loadFragment(fragment);
-                    }
-                };*/
+
+             case R.id.search:
+
+                 selectedFragment = new SearchFrgment();
+
+              /*   Intent intentSearch = new Intent(AdsActivity.this, SearchActivity.class);
+                 startActivity(intentSearch);
+                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
+                 break;
+
+             case R.id.add:
+                 selectedFragment = new AddFragment();
+
+               /*  Intent intentAdd = new Intent(AdsActivity.this, AddActivity.class);
+                 startActivity(intentAdd);
+                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
+                 break;
+             case R.id.profile:
+                 selectedFragment = new ProfilFragment();
+               /*  Intent intentProfile = new Intent(AdsActivity.this, ProfileActivity.class);
+                 startActivity(intentProfile);
+                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
+                 break;
+             case R.id.notifications:
+                 selectedFragment = new NotificationFragment();
+             /*    Intent intentNotification = new Intent(AdsActivity.this, NotificationActivity.class);
+                 startActivity(intentNotification);
+                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
+                 break;
+
+
+        }
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,selectedFragment).commit();
+         return true;
+    }
+});
+
+/*
 
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -203,6 +204,7 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         Call<List<CategoryArray>> call = api.getCategory();
         Log.d(TAG, "callInterface");
 
+*/
 
 
       /*  call.enqueue(new Callback<List<CategoryArray>>() {
@@ -283,10 +285,10 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
         try {
-            //findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
-            //  setContentView(R.layout.ads_layout);
+            findViewById(R.id.progressBarHolder).setVisibility(View.VISIBLE);
 
-           /* toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+          /*  toolbar = (Toolbar) findViewById(R.id.toolbar);
             drawerLayout = findViewById(R.id.drawer_layout);
             setSupportActionBar(toolbar);
 
@@ -300,9 +302,8 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
             collapsingToolbar.setActivated(true);
             collapsingToolbar.setExpandedTitleColor(Color.parseColor("#00FFFFFF"));
             collapsingToolbar.setTitle("PULLU");
+*/
 
-
-           */
 
             Intent iin = getIntent();
             Bundle uData = iin.getExtras();

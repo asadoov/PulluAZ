@@ -5,9 +5,11 @@
 
 package com.example.pulluaz.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,10 +36,11 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
-public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener {
+public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     DrawerLayout drawerLayout;
-
+    ImageButton btnTog;
+    private static final String TAG = "HomeFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,14 +55,13 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
         NavigationView navView = container.findViewById(R.id.nav_view);
         drawerLayout = container.findViewById(R.id.drawer_layout);
 
+
         View view = inflater.inflate(R.layout.home_fragment, null);
 
-/*
+        ImageButton btnTog = (ImageButton)view.findViewById(R.id.btnToggle);
+        btnTog.onclick
 
-
-        Intent intent = new Intent(HomeFragment.this.getActivity(), AdsActivity.class);
-        startActivity(intent);*/
-
+        btnTog.setOnClickListener(this);
         return view;
 
     }
@@ -103,9 +106,21 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
                 ex.printStackTrace();
             }
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btnToggle:
+                try {
+                    DrawerLayout drawer = (DrawerLayout)getActivity().findViewById(R.id.drawer_layout);
+                    drawer.openDrawer(Gravity.LEFT,true);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+
+                Log.d(TAG, "onClick:  OOOOOOOOOOOOKKKKKKKKKKKKKKK");
         }
 
-
-
-
+    }
 }
