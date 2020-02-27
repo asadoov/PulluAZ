@@ -1,40 +1,53 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
+    android:layout_width="match_parent"
+    android:layout_above="@+id/bottom_nav"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ads_background"
     tools:context=".AdsActivity">
 
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_nav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#ffffff"
+        app:itemIconTint="#000"
+        app:itemTextColor="#000"
+        app:labelVisibilityMode="labeled"
+
+        app:menu="@menu/bottom_nav"
+
+        />
+
     <FrameLayout
+        android:id="@+id/fragment_container2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_container2">
+        android:layout_above="@id/bottom_nav"
+        android:layout_marginBottom="-1dp">
+
+
 
     </FrameLayout>
 
 
+        <RelativeLayout
+            android:id="@+id/adHeader"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
 
-
-
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:background="#ffffff"
-            android:id="@+id/bottom_nav"
-            app:itemIconTint="#000"
-            app:itemTextColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:labelVisibilityMode="labeled"
-
-            app:menu="@menu/bottom_nav"
-
-            />
+            android:orientation="vertical">
 
 
 
 
+        </RelativeLayout>
 
 </RelativeLayout>
+

@@ -495,9 +495,9 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
             findViewById(R.id.adsLayout).setVisibility(View.GONE);
 
 
-            Button paidBtn = findViewById(R.id.paidBtn);
-            paidBtn.setBackgroundResource(R.drawable.round_button_not_clicked);
-            paidBtn.setTextColor(Color.parseColor("#454555"));
+       //     Button paidBtn = findViewById(R.id.paidBtn);
+      //      paidBtn.setBackgroundResource(R.drawable.round_button_not_clicked);
+        //    paidBtn.setTextColor(Color.parseColor("#454555"));
 
 
             Button btn = (Button) view;
@@ -553,9 +553,9 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
         try {
 
 
-            Button notPaidBtn = findViewById(R.id.notPaidBtn);
-            notPaidBtn.setBackgroundResource(R.drawable.round_button_not_clicked);
-            notPaidBtn.setTextColor(Color.parseColor("#454555"));
+         //   Button notPaidBtn = findViewById(R.id.notPaidBtn);
+          //  notPaidBtn.setBackgroundResource(R.drawable.round_button_not_clicked);
+          //  notPaidBtn.setTextColor(Color.parseColor("#454555"));
 
 
             Button btn = (Button) view;

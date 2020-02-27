@@ -45,7 +45,7 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.MyVie
         holder.name.setText(data.get(position).name);
 
         Picasso.with(mContext).load(categoryItem.catImage)
-                .fit()
+                .fit().centerCrop()
                 .into(holder.icon);
 
     }
@@ -64,7 +64,7 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.MyVie
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            name = (TextView)itemView.findViewById(R.id.name);
+            name = (TextView)itemView.findViewById(R.id.nameCat);
             icon=(ImageView)itemView.findViewById(R.id.iconImg);
         }
     }
