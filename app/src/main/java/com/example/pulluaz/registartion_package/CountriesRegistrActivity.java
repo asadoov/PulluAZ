@@ -57,9 +57,9 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LOCAL_FOCUS_MODE, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         progressDoalog = new ProgressDialog(this);
-        progressDoalog.setMax(500);
+        progressDoalog.setMax(400);
         progressDoalog.setMessage("Yuklenir...");
-        progressDoalog.setTitle("Sonuncu merhele");
+        progressDoalog.setTitle("3-cü mərhələ");
         progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         // show it
         progressDoalog.show();
@@ -97,7 +97,7 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
         }
         else {
             String item = adapterView.getItemAtPosition(i).toString();
-            Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
+     //       Toast.makeText( adapterView.getContext(),""+ item, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -297,9 +297,9 @@ public class CountriesRegistrActivity extends AppCompatActivity implements Adapt
             Log.d(LOG_TAG, "onCreate: "+ mail+" "+ pass+" "+name+" "+lastname+" "+phone+" "+dp);
 
             Intent intent = new Intent(getApplicationContext(), LastRegistrationActivity.class);
-//            intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
- //           intent.putExtra("city", spinnerCity.getSelectedItem().toString());
-  //          intent.putExtra("sector", sectorSpinner.getSelectedItem().toString());
+            intent.putExtra("country", spinnerCountry.getSelectedItem().toString());
+            intent.putExtra("city", spinnerCity.getSelectedItem().toString());
+            intent.putExtra("sector", sectorSpinner.getSelectedItem().toString());
             intent.putExtra("name",name);
             intent.putExtra("email",mail);
             intent.putExtra("pass",pass);

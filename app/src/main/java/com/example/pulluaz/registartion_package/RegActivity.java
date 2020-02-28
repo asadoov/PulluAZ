@@ -60,83 +60,25 @@ public class RegActivity extends AppCompatActivity {
         setContentView(R.layout.registration_layout);
        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
-        /*if (!isNetworkAvailable()){
-            new AlertDialog.Builder(this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle("İnternet yoxdur")
-                    .setMessage("Internet bağlanmasını yoxlayın")
-                    .setPositiveButton("Çixiş", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            finish();
-                        }
-                    })
-                    .show();
-
-        }else {
-            return;
-        }
-*/
-
-
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                     WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-
         txtInput = findViewById(R.id.txtInput);
         txtInputPass = findViewById(R.id.txtInputPass);
         txtInputPass2 = findViewById(R.id.txtInputPass2);
-
         edEmail = (TextInputEditText)findViewById(R.id.edEmail);
         edPass = (TextInputEditText)findViewById(R.id.edPass);
         edConfimPass = (TextInputEditText)findViewById(R.id.confimPass);
-
-       /* edEmail.setOnFocusChangeListener(listener);
-        edPass.setOnFocusChangeListener(listener);
-        edPass2.setOnFocusChangeListener(listener);*/
-
         btnNext = findViewById(R.id.btnNext);
-
-
-
-/*
-        final String email = edEmail.getText().toString();
-        final String password = edPass.getText().toString();
-        final String password2 = edConfimPass.getText().toString();
-
-        mDisplayDate = (TextView) findViewById(R.id.date);
-
-        if (email.isEmpty()) {
-            txtInput.setError("Field can't be empty");
-        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            txtInput.setError("Please enter a valid email address");
-
-        } else {
-            txtInput.setError(null);
-
-        }*/
-
     }
-
-   /* private void onClick(View view) {
-        Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
-
-        intent.putExtra("email",txtInput.getEditText().getText().toString());
-        intent.putExtra("pass",txtInputPass.getEditText().getText().toString());
-        startActivity(intent);
-    }*/
-
     private boolean validateEmail() {
         String emailInput = edEmail.getText().toString().trim();
         if (emailInput.isEmpty()) {
-            txtInput.setError("Field can't be empty");
-       //     requestFocus(edEmail);
+            txtInput.setError("Boşluğu doldurun");
             return false;
         } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
-            txtInput.setError("Please enter a valid email address");
-           // requestFocus(edEmail);
+            txtInput.setError("GMail ünvanınızı düzgün formada qeyd edin");
             return false;
         } else {
             txtInput.setError(null);
@@ -148,11 +90,11 @@ public class RegActivity extends AppCompatActivity {
         String passwordInput = edPass.getText().toString().trim().toLowerCase();
 
         if (passwordInput.isEmpty()) {
-            txtInputPass.setError("Field can't be empty");
+            txtInputPass.setError("Boşluğu doldurun");
          //   requestFocus(edPass);
             return false;
         } else if (!PASSWORD_PATTERN.matcher(passwordInput).matches()) {
-            txtInputPass.setError("Password too weak");
+            txtInputPass.setError("Şifrəni düzgün doldurun");
             requestFocus(edPass);
             return false;
 
@@ -166,8 +108,7 @@ public class RegActivity extends AppCompatActivity {
         String passwordInput2 = edConfimPass.getText().toString().trim().toLowerCase();
 
         if (passwordInput2.isEmpty()) {
-            txtInputPass2.setError("Field can't be empty");
-         ///   requestFocus(edConfimPass);
+            txtInputPass2.setError("Şifrəni düzgün doldurun");
             return false;
         } else {
             txtInputPass2.setError(null);
@@ -183,7 +124,6 @@ public class RegActivity extends AppCompatActivity {
          String strPassword1 = edPass.getText().toString();
          String strPassword2 = edConfimPass.getText().toString();
 
-         Log.d(TAG, "confirmInput: "  + strPassword2);
 
         if (strPassword1.equals(strPassword2)) {
             Intent intent = new Intent(getApplicationContext(), SecondRegistrationActivity.class);
@@ -193,7 +133,8 @@ public class RegActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-                Toast.makeText(this, "Duzgun doldurun", Toast.LENGTH_SHORT).show();
+            txtInputPass2.setError("Şifrələr fərqlənir");
+            txtInputPass.setError("Şifrələr fərqlənir");
             }
         }
 

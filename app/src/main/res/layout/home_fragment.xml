@@ -88,18 +88,16 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dip"
-                    android:layout_marginTop="20dip"
-                    android:layout_marginRight="20dip"
-                    android:orientation="horizontal"
-                    android:weightSum="3">
+
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/paidBtn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dip"
                         android:layout_height="36dip"
                         android:layout_margin="2dip"
-                        android:layout_weight="1"
                         android:background="@drawable/round_button"
                         android:onClick="PaidClick"
                         android:text="Ödənişli"
@@ -107,16 +105,15 @@
 
                     <Button
                         android:id="@+id/notPaidBtn"
-                        android:layout_width="wrap_content"
+                        android:layout_width="150dip"
                         android:layout_height="36dip"
-                        android:layout_margin="2dip"
-                        android:layout_weight="1"
+                        android:layout_margin="2dp"
                         android:background="@drawable/round_button_not_clicked"
                         android:onClick="notPaidClick"
                         android:text="Ödənişsiz"
                         android:textColor="#454555" />
 
-                    <Button
+                    <!--<Button
                         android:id="@+id/readedBtn"
                         android:layout_width="wrap_content"
                         android:layout_height="36dip"
@@ -124,7 +121,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/round_button_not_clicked"
                         android:text="İzlədiklərim"
-                        android:textColor="#454555" />
+                        android:textColor="#454555" />-->
 
                 </LinearLayout>
 
@@ -133,13 +130,13 @@
                     android:layout_height="100dp"
                     android:layout_marginRight="14dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="-3dp"
+                    android:layout_marginTop="-2dp"
                     android:orientation="horizontal"
                     android:paddingTop="5dp">
                     <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:padding="5dp"
+                        android:padding="1dp"
                         android:elevation="5dp"
                         android:id="@+id/rec_cat"
                         android:layout_height="match_parent">
@@ -148,139 +145,25 @@
                 </LinearLayout>
 
 
-                <ScrollView
-
+                <LinearLayout
+                    android:layout_margin="14dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
-                    <LinearLayout
-
-                        android:id="@+id/adsScroll"
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginTop="11dp"
-                        android:layout_marginRight="20dp"
-                        android:layout_marginBottom="36dp"
+                        android:id="@+id/rec_ads_view">
 
-                        android:orientation="vertical">
+                    </androidx.recyclerview.widget.RecyclerView>
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="5dip"
+                    </RelativeLayout>
 
-
-                            app:cardCornerRadius="25dp">
-
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical">
-
-
-                                <ImageView
-
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:scaleType="fitXY"
-
-                                    android:src="@drawable/ic_background" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:fontFamily="@font/nunito_extralight"
-                                    android:padding="5dip"
-                                    android:text="AutoCAD programının tədrisi"
-                                    android:textColor="@android:color/black"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-
-                                    android:layout_height="match_parent"
-                                    android:fontFamily="@font/nunito_extralight"
-                                    android:padding="5dip"
-                                    android:text="İnternet və Yeni Texnologiyaların tədrisi mərkəzində AutoCAD programının tədrisi" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:orientation="horizontal"
-                                    android:padding="10dip"
-                                    android:weightSum="5">
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/nunito_extralight"
-                                        android:text="20.05.2019"
-                                        android:textColor="@android:color/black" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/nunito_extralight"
-                                        android:text="|"
-
-                                        android:textSize="20dip" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/nunito_extralight"
-                                        android:text="Mətn reklamı"
-
-                                        android:textColor="@android:color/black"
-                                        android:textSize="20dip" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/nunito_extralight"
-                                        android:text="|"
-                                        android:textSize="20dip"
-
-                                        />
-
-                                    <TextView
-
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/nunito_extralight"
-
-                                        android:onClick="ViewAd"
-                                        android:text="İzlə"
-                                        android:textColor="#2E6BFF"
-                                        android:textSize="20dip"
-                                        android:textStyle="bold" />
-
-                                </LinearLayout>
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_margin="10dip"
-
-                                android:background="@drawable/round_button"
-                                android:padding="2dip"
-                                android:text="Texnologiya"
-                                android:textColor="@android:color/white" />
-                        </androidx.cardview.widget.CardView>
-                    </LinearLayout>
-                </ScrollView>
+                </LinearLayout>
 
 
             </LinearLayout>

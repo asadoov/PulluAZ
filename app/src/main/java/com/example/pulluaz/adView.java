@@ -5,6 +5,9 @@
 
 package com.example.pulluaz;
 
+import com.example.pulluaz.Adapters.PhotoUrl;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class adView {
@@ -21,5 +24,6 @@ public class adView {
     public int catId;
     public String catName;
     public Date cDate;
-    public String[] photoUrl;
+  public String[] photoUrl;
+  //  public ArrayList<PhotoUrl> photoUrl;
 }

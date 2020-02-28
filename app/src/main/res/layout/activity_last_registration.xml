@@ -14,64 +14,6 @@
     tools:context=".registartion_package.LastRegistrationActivity">
 
 
-    <TextView
-
-        android:id="@+id/countryTxt"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
-
-
-    <TextView
-
-        android:id="@+id/cityTxt"
-        android:layout_marginTop="70dp"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
-
-    <TextView
-        android:layout_marginTop="70dp"
-
-        android:id="@+id/mailTxt"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
-
-
-    <TextView
-        android:layout_marginTop="70dp"
-        android:id="@+id/nameTxt"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
-
-
-    <TextView
-        android:layout_marginTop="70dp"
-        android:id="@+id/profession"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
-    <TextView
-        android:layout_marginTop="70dp"
-        android:id="@+id/gender"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
-    <TextView
-        android:layout_marginTop="60dp"
-        android:id="@+id/dateTxt"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:textSize="35dp">
-    </TextView>
 
 
 

@@ -53,22 +53,14 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_registration);
         closeKeyboard();
-
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-
-
 
         edNames = findViewById(R.id.edName);
         edPhone = findViewById(R.id.edPhone);
         edLastName = findViewById(R.id.edLastName);
 
         dp = (DatePicker)findViewById(R.id.datePicker);
-
             dp.isSaveEnabled();
-
-
 
         spinner = findViewById(R.id.spinner);
 
@@ -77,12 +69,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
-
-
-
-
 }
-
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
         if (view !=null){
@@ -95,11 +82,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
         String text = adapterView.getItemAtPosition(i).toString();
-
-
-
         if (adapterView.isSelected()) {
 
             intent();
@@ -111,7 +94,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
-        Toast.makeText(this, "Choose...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Seçin...", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -133,24 +116,17 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
       }else if (phone.isEmpty()){
           edPhone.setError("Daxil edin");
       }else if (name.isEmpty() | lastname.isEmpty() | phone.isEmpty()){
-          edNames.setError("daxil edin");
-          edLastName.setError("daxil edin");
-          edPhone.setError("daxil edin");
+          edNames.setError("Daxil edin");
+          edLastName.setError("Daxil edin");
+          edPhone.setError("Daxil edin");
       }else if (phone.length() <9 && phone.length()>10){
-          edPhone.setError("daxil edin");
+          edPhone.setError("Daxil edin");
       }else if (!PHONE_NUMBER.matcher(phone).matches()) {
-          edPhone.setError("Password too weak");
+          edPhone.setError("Düzgün qeyd edin");
 
 
       } else
           intent();
-
-
-
-
-
-
-       // Toast.makeText(this, "" + setBirthDayPicker, Toast.LENGTH_SHORT).show();
         return;
 
 
@@ -160,10 +136,10 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
     private boolean validatePhone() {
         String phoneInput = edPhone.getText().toString().trim();
         if (phoneInput.isEmpty()) {
-            edPhone.setError("Field can't be empty");
+            edPhone.setError("Boşluğu doldurun");
             return false;
         } else if (phoneInput.length() < 9 || phoneInput.length() > 13) {
-            edPhone.setError("Please enter a valid phone number");
+            edPhone.setError("Düzgün doldurun");
             return false;
         } else {
             edPhone.setError(null);
@@ -178,7 +154,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         String nameInput = edNames.getText().toString().trim();
 
         if (nameInput.isEmpty()) {
-            edNames.setError("Field can't be empty");
+            edNames.setError("Boşluğu doldurun");
             return false;
         } else {
             edNames.setError(null);
@@ -190,7 +166,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
         String passwordInput = edLastName.getText().toString().trim();
 
         if (passwordInput.isEmpty()) {
-            edLastName.setError("Field can't be empty");
+            edLastName.setError("Boşluğu doldurun");
             return false;
         } else {
             edLastName.setError(null);
@@ -202,7 +178,7 @@ public class SecondRegistrationActivity  extends AppCompatActivity implements Ad
             return;
         }else {
             intent();
-            Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
+     //       Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
         }
         
     }

@@ -23,13 +23,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.pulluaz.Adapters.AdsAdapter;
 import com.example.pulluaz.Adapters.CategoryAdapter;
 import com.example.pulluaz.Ads;
 import com.example.pulluaz.AdsActivity;
 import com.example.pulluaz.AdsService;
 import com.example.pulluaz.CategoryArray;
 import com.example.pulluaz.R;
+import com.example.pulluaz.adView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -53,9 +57,13 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
     DrawerLayout drawerLayout;
     ImageButton btnTog;
     private static final String TAG = "HomeFragment";
+
     List<CategoryArray> data;
+    List<adView> dataAds;
+    AdsAdapter adsAdapter;
+
     CategoryAdapter categoryAdapter;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,recyclerViewAds;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,15 +82,62 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
 
 
          recyclerView = (RecyclerView)view.findViewById(R.id.rec_cat);
+         recyclerViewAds = (RecyclerView)view.findViewById(R.id.rec_ads_view);
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         recyclerView.setLayoutManager(layoutManager);
 
+        RecyclerView.LayoutManager layoutManager1 = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerViewAds.setLayoutManager(layoutManager1);
+
+
         loadRetrofit();
+        loadAdsRetrofit();
         return view;
 
     }
+
+    private void loadAdsRetrofit() {
+
+        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http:/pullu.az/")
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+        Log.d(TAG, "init: 1");
+
+
+        AdsService api = retrofit.create(AdsService.class);
+
+        Call<List<adView>> call = api.getAds();
+        Log.d(TAG, "Cheeeck");
+        call.enqueue(new Callback<List<adView>>() {
+            @Override
+            public void onResponse(Call<List<adView>> call, Response<List<adView>> response) {
+                if (response.isSuccessful()){
+                    dataAds = response.body();
+                    for (int i = 0; i < dataAds.size(); i++) {
+                        Log.d(TAG, "Cheeeck for");
+                        adsAdapter = new AdsAdapter(getActivity(), (ArrayList<adView>) dataAds);
+                        recyclerViewAds.setAdapter(adsAdapter);
+
+
+                        Log.d(TAG, "onResponse: " + response.body());
+                    }
+                }else Log.d(TAG, "onResponse: "+response.code());
+            }
+
+            @Override
+            public void onFailure(Call<List<adView>> call, Throwable t) {
+                Log.d(TAG, "onFailure: " + t.getMessage());
+                Log.d(TAG, "onFailure: " + t.getLocalizedMessage());
+            }
+        });
+
+    }
+
 
     private void loadRetrofit() {
         //https://pullu.az/api/androidmobileapp/acategory
@@ -97,7 +152,7 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
         AdsService api = retrofit.create(AdsService.class);
 
         Call<List<CategoryArray>> call = api.getCategory();
-        Log.d(TAG, "callInterface");
+     //   Log.d(TAG, "callInterface");
         call.enqueue(new Callback<List<CategoryArray>>() {
             @Override
             public void onResponse(Call<List<CategoryArray>> call, Response<List<CategoryArray>> response) {
@@ -108,15 +163,15 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
                         recyclerView.setAdapter(categoryAdapter);
 
 
-                        Log.d(TAG, "onResponse: " + response.body());
+        //                Log.d(TAG, "onResponse: " + response.body());
                     }
-                }else Log.d(TAG, "onResponse: "+response.code());
+                } else Log.d(TAG, "onResponse: "+response.code());
             }
 
             @Override
             public void onFailure(Call<List<CategoryArray>> call, Throwable t) {
-                Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
-                Log.d(TAG, "onFailure: "+t.getMessage());
+            //    Log.d(TAG, "onFailure: "+t.getLocalizedMessage());
+              //  Log.d(TAG, "onFailure: "+t.getMessage());
             }
         });
 

@@ -184,7 +184,7 @@
             android:id="@+id/btnNext"
             android:layout_width="match_parent"
             android:layout_height="48dip"
-            android:layout_marginTop="59dip"
+            android:layout_marginTop="19dip"
             android:background="@drawable/round_button"
 
             android:fontFamily="@font/nunito_extralight"

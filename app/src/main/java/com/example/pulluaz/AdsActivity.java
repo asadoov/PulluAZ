@@ -802,13 +802,13 @@ class adLoadInBack extends AsyncTask<Integer, Void, adView> {
     }
 
 
-    protected void onPostExecute(adView page) {
+  /*  protected void onPostExecute(adView page) {
         super.onPreExecute();
 
         if (page.id > 0)
         {
             String[] urls;
-            urls = page.photoUrl;
+        //    urls = page.photoUrl;
             Intent intent = new Intent(context, AdViewTest.class);
             intent.putExtra(VIEWADID, String.valueOf(page.id));
             intent.putExtra(VIEWADHEADERTEXT, page.name);
@@ -818,20 +818,19 @@ class adLoadInBack extends AsyncTask<Integer, Void, adView> {
             intent.putExtra(VIEWADTYPE, page.catName);
             intent.putExtra(VIEWADPROFIT, "NAN");
             intent.putExtra(VIEWADBALANS, "NAN");
-            intent.putExtra(VIEWADHEADERIMAGE, urls[0]);
+           // intent.putExtra(VIEWADHEADERIMAGE, urls[0]);
             context.startActivity(intent);
             ((Activity)context).finish();
         }
         else
         {
             Toast.makeText(context, "Məlumatları yükləmək mümkün olmadı", Toast.LENGTH_SHORT).show();
-        }
+        }*/
 
     }
 
 
 
 
-}
 
 

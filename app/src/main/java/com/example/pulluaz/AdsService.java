@@ -14,7 +14,10 @@ import retrofit2.http.Query;
 public interface AdsService  {
 
     @GET("api/androidmobileapp/user/getAds?")
-    Call<List<adView>> getAds(@Query("username") String username, @Query("pass")String pass);
+    Call<List<adView>> getaAds(@Query("username") String username, @Query("pass")String pass);
+
+    @GET("api/androidmobileapp/user/getAds?username=elvin.ibragimov.9757@gmail.com&pass=qwerty")
+    Call<List<adView>> getAds();
 
     @GET("api/androidmobileapp/user/getStatistics?")
     Call<Statics> getStatistics(@Query("username") String username, @Query("pass")String pass);

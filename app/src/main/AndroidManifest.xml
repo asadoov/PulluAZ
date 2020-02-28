@@ -27,7 +27,6 @@
             android:parentActivityName=".registartion_package.SecondRegistrationActivity" />
         <activity
             android:name=".registartion_package.RegActivity"
-
             android:windowSoftInputMode="adjustResize" >
 
 
@@ -39,6 +38,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
 
 
         </activity>
