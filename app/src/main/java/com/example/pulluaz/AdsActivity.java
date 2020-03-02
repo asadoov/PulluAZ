@@ -93,13 +93,11 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
     private RecyclerView mRecyclerView;
     private CategoryAdapter mExampleAdapter;
     private RequestQueue mRequestQueue;
-
     private RecyclerView recyclerView;
     private List<CategoryArray> data;
     private CategoryAdapter categoryAdapter;
 
     private static final String TAG = "AdsActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,31 +107,11 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ads_layout);
-
-
-
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,new HomeFragment()).commit();
-
-
-
-
         bottomNavigation = findViewById(R.id.bottom_nav);
-//        bottomNavigation.setOnNavigationItemSelectedListener(navListener);
-
         NavigationView navView = findViewById(R.id.nav_view);
-
-    //    mRecyclerView = findViewById(R.id.recyclerViewCategories);
-//        mRecyclerView.setHasFixedSize(true);
-      //  mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        //  adsCreate();
-
-
         data = new ArrayList<>();
 
-       /* Menu menu = bottomNavigation.getMenu();
-        MenuItem menuItem = menu.getItem(0);
-        menuItem.setChecked(true);*/
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,new HomeFragment()).commit();
 
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
          @Override
@@ -143,145 +121,25 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
          switch (item.getItemId()) {
              case R.id.main:
-
                  selectedFragment = new HomeFragment();
-
                  break;
-
-
              case R.id.search:
-
                  selectedFragment = new SearchFrgment();
-
-              /*   Intent intentSearch = new Intent(AdsActivity.this, SearchActivity.class);
-                 startActivity(intentSearch);
-                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
                  break;
-
              case R.id.add:
                  selectedFragment = new AddFragment();
-
-               /*  Intent intentAdd = new Intent(AdsActivity.this, AddActivity.class);
-                 startActivity(intentAdd);
-                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
                  break;
              case R.id.profile:
                  selectedFragment = new ProfilFragment();
-               /*  Intent intentProfile = new Intent(AdsActivity.this, ProfileActivity.class);
-                 startActivity(intentProfile);
-                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
                  break;
              case R.id.notifications:
                  selectedFragment = new NotificationFragment();
-             /*    Intent intentNotification = new Intent(AdsActivity.this, NotificationActivity.class);
-                 startActivity(intentNotification);
-                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);*/
                  break;
-
-
         }
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,selectedFragment).commit();
          return true;
     }
 });
-
-/*
-
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Log.d(TAG, "init: 1");
-
-        Intent intent = getIntent();
-        String name = intent.getStringExtra("user_name");
-        String pass = intent.getStringExtra("pass_");
-        Log.d(TAG, "onCreate: " + name + "   " + pass);
-
-        AdsService api = retrofit.create(AdsService.class);
-
-        Call<List<CategoryArray>> call = api.getCategory();
-        Log.d(TAG, "callInterface");
-
-*/
-
-
-      /*  call.enqueue(new Callback<List<CategoryArray>>() {
-            @Override
-            public void onResponse(Call<List<CategoryArray>> call, Response<List<CategoryArray>> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "response");
-
-
-                    data = response.body();
-                    for (int i = 0; i < data.size(); i++) {
-                        categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
-                      recyclerView.setAdapter(categoryAdapter);
-
-
-                        Log.d(TAG, "onResponse: " + response.body());
-                    }
-
-
-                }else{
-                    Log.d(TAG, "onResponse: "+  response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<CategoryArray>> call, Throwable t) {
-
-            }
-        });
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Log.d(TAG, "init: 1");
-
-        Intent intent = getIntent();
-
-        AdsService api = retrofit.create(AdsService.class);
-
-        Call<List<CategoryArray>> call = api.getCategory();
-        Log.d(TAG, "callInterface");
-
-
-
-      /*  call.enqueue(new Callback<List<CategoryArray>>() {
-            @Override
-            public void onResponse(Call<List<CategoryArray>> call, Response<List<CategoryArray>> response) {
-                if (response.isSuccessful()) {
-                    Log.d(TAG, "response");
-
-
-                    data = response.body();
-                    for (int i = 0; i < data.size(); i++) {
-                        categoryAdapter = new CategoryAdapter(getApplicationContext(), (ArrayList<CategoryArray>) data);
-                      recyclerView.setAdapter(categoryAdapter);
-
-
-                        Log.d(TAG, "onResponse: " + response.body());
-                    }
-
-
-                }else{
-                    Log.d(TAG, "onResponse: "+  response.code());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<CategoryArray>> call, Throwable t) {
-
-            }
-        });
-*/
-
-
-
-     /*   String username = intent.getStringExtra("username");
-        String pass = intent.getStringExtra("pass");*/
 
 
         try {
@@ -394,52 +252,6 @@ public class AdsActivity extends AppCompatActivity implements NavigationView.OnN
 
 
     }
-
-    /*private  void adsCreate(){
-
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("username");
-        String pass = intent.getStringExtra("pass");
-
-        Log.d(TAG, "adsCreate: " + username + pass);
-
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://13.92.237.16/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        Log.d(TAG, "init: 1");
-
-        AdsService api = retrofit.create(AdsService.class);
-
-        Call<List<adView>> call = api.getAds(username,pass);
-        Log.d(TAG, "callInterface");
-
-        call.enqueue(new Callback<List<adView>>() {
-            @Override
-            public void onResponse(Call<List<adView>> call, Response<List<adView>> response) {
-            if (response.isSuccessful()){
-
-                Log.d("onSuccess", response.body().toString());
-                AdView(response.body());
-
-                Log.d(TAG, "onResponse: ---" + response.body().size());
-
-            }else {
-                Log.d(TAG, "onResponse: " + response.code());
-            }
-            }
-
-            @Override
-            public void onFailure(Call<List<adView>> call, Throwable t) {
-                Log.d(TAG, "onResponse: "+ t.getLocalizedMessage());
-                Log.d(TAG, "onResponse: "+ t.getMessage());
-            }
-        });
-
-
-*/
-
-
 
 
 

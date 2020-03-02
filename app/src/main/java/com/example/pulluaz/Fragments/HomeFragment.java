@@ -29,11 +29,14 @@ import com.example.pulluaz.Ads;
 import com.example.pulluaz.AdsActivity;
 import com.example.pulluaz.AdsService;
 import com.example.pulluaz.CategoryArray;
+import com.example.pulluaz.DetailAdsActivity;
 import com.example.pulluaz.R;
 import com.example.pulluaz.adView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import org.w3c.dom.Text;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -52,10 +55,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,AdsAdapter.OnItemClickListener {
 
+    public static final String EXTRA_ADS_NAME = "name" ;
     DrawerLayout drawerLayout;
     ImageButton btnTog;
+    TextView txtWatch;
     private static final String TAG = "HomeFragment";
 
     List<CategoryArray> data;
@@ -80,6 +85,8 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
         View view = inflater.inflate(R.layout.home_fragment, null);
         ImageButton btnTog = (ImageButton)view.findViewById(R.id.btnToggle);
 
+    //    txtWatch = (TextView) view.findViewById(R.id.txtWatch);
+
 
          recyclerView = (RecyclerView)view.findViewById(R.id.rec_cat);
          recyclerViewAds = (RecyclerView)view.findViewById(R.id.rec_ads_view);
@@ -94,13 +101,18 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
 
         loadRetrofit();
         loadAdsRetrofit();
+
+
         return view;
+
 
     }
 
+
+
     private void loadAdsRetrofit() {
 
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+        Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy").create();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http:/pullu.az/")
@@ -119,12 +131,15 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
                 if (response.isSuccessful()){
                     dataAds = response.body();
                     for (int i = 0; i < dataAds.size(); i++) {
-                        Log.d(TAG, "Cheeeck for");
+
+                      //  Log.d(TAG, "Cheeeck for");
                         adsAdapter = new AdsAdapter(getActivity(), (ArrayList<adView>) dataAds);
                         recyclerViewAds.setAdapter(adsAdapter);
+                        adsAdapter.setOnItemClickListener(HomeFragment.this);
 
 
-                        Log.d(TAG, "onResponse: " + response.body());
+                       Log.d(TAG, "onResponse: " + response.body().get(i).photoUrl);
+                       Log.d(TAG, "onResponse: " + response.body().get(i).description);
                     }
                 }else Log.d(TAG, "onResponse: "+response.code());
             }
@@ -232,7 +247,21 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
                 }
 
                 Log.d(TAG, "onClick:  OOOOOOOOOOOOKKKKKKKKKKKKKKK");
+
         }
 
+
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent detailIntent=new Intent(getActivity(), DetailAdsActivity.class);
+        adView adsView = dataAds.get(position);
+
+        detailIntent.putExtra(EXTRA_ADS_NAME,adsView.name);
+
+
+        startActivity(detailIntent);
     }
 }

@@ -6,13 +6,16 @@
 package com.example.pulluaz.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.pulluaz.CategoryArray;
+import com.example.pulluaz.DetailAdsActivity;
 import com.example.pulluaz.R;
 import com.example.pulluaz.adView;
 import com.squareup.picasso.Picasso;
@@ -20,11 +23,20 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder> {
+public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder>{
     private Context mContext;
     private ArrayList<adView> data;
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        mListener = listener;
+    }
 
 
     public AdsAdapter(Context mContext, ArrayList<adView> mData) {
@@ -45,11 +57,13 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder> {
         adView adsView = data.get(position);
 
         holder.txtAds.setText(data.get(position).aTypeName);
-//        holder.name.setText(data.get(position).name);
+        holder.txtTitle.setText(data.get(position).name);
         holder.txtAdsSector.setText(data.get(position).catName);
-     //   holder.name(data.get(position).name.);
+        holder.txtDesc.setText(data.get(position).description);
+        holder.txtDate.setText(data.get(position).cDate.toString());
 
-        Picasso.with(mContext).load(adsView.photoUrl.toString())
+       // PhotoUrl photoUrl = adsView.photoUrl;
+        Picasso.with(mContext).load(adsView.photoUrl.get(0))
                 .fit().centerCrop()
                 .into(holder.adsImg);
 
@@ -68,6 +82,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder> {
         public TextView txtDesc;
         public TextView txtDate;
         public TextView txtAds;
+        public TextView watch;
         public ImageView adsImg;
 
 
@@ -78,9 +93,22 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder> {
             txtDesc = (TextView)itemView.findViewById(R.id.txtDesc);
             txtDate = (TextView)itemView.findViewById(R.id.txtDate);
             txtAds = (TextView)itemView.findViewById(R.id.txtAds);
-
-            adsImg=(ImageView)itemView.findViewById(R.id.imgAds);
+            name = (TextView)itemView.findViewById(R.id.nameCat);
+         //   watch = (TextView)itemView.findViewById(R.id.txtWatch);
+            adsImg=(ImageView)itemView.findViewById(R.id.imgAds1);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mListener!=null){
+                        int position = getAdapterPosition();
+                        if (position!=RecyclerView.NO_POSITION){
+                            mListener.onItemClick(position);
+                        }
+                    }
+                }
+            });
         }
+
 
     }
 }

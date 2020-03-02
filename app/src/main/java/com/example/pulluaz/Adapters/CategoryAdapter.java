@@ -45,7 +45,7 @@ public class CategoryAdapter  extends RecyclerView.Adapter<CategoryAdapter.MyVie
         holder.name.setText(data.get(position).name);
 
         Picasso.with(mContext).load(categoryItem.catImage)
-                .fit().centerCrop()
+
                 .into(holder.icon);
 
     }

@@ -11,7 +11,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/fragment_container2">
+        android:id="@+id/fragment_container3">
 
     </FrameLayout>
 
@@ -54,17 +54,10 @@
                     android:id="@+id/btnToggle"
                     android:src="@drawable/ic_menu" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_extralight"
-                    android:text="Əsas səhifə"
-                    android:textColor="#ffffffff"
-                    android:textSize="32dp"
-                    android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/advCounter"
+                    android:layout_marginTop="40dp"
+                    android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_extralight"
@@ -91,84 +84,13 @@
 
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/paidBtn"
-                        android:layout_width="150dip"
-                        android:layout_height="36dip"
-                        android:layout_margin="2dip"
-                        android:background="@drawable/round_button"
-                        android:onClick="PaidClick"
-                        android:text="Ödənişli"
-                        android:textColor="#fff" />
 
-                    <Button
-                        android:id="@+id/notPaidBtn"
-                        android:layout_width="150dip"
-                        android:layout_height="36dip"
-                        android:layout_margin="2dp"
-                        android:background="@drawable/round_button_not_clicked"
-                        android:onClick="notPaidClick"
-                        android:text="Ödənişsiz"
-                        android:textColor="#454555" />
-
-                    <!--<Button
-                        android:id="@+id/readedBtn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dip"
-                        android:layout_margin="2dip"
-                        android:layout_weight="1"
-                        android:background="@drawable/round_button_not_clicked"
-                        android:text="İzlədiklərim"
-                        android:textColor="#454555" />-->
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="87dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginLeft="9dp"
-                    android:layout_marginBottom="1dp"
-                    android:layout_marginTop="-2dp"
-                    android:orientation="horizontal"
-                    android:paddingTop="3dp">
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:padding="1dp"
-                        android:elevation="10dp"
-                        android:id="@+id/rec_cat"
-                        android:layout_height="match_parent">
 
-                    </androidx.recyclerview.widget.RecyclerView>
-                </LinearLayout>
-
-
-                <LinearLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rec_ads_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="1dp">
-
-
-                        </androidx.recyclerview.widget.RecyclerView>
-
-
-
-
-                    </RelativeLayout>
-
-                </LinearLayout>
 
 
             </LinearLayout>
@@ -176,19 +98,19 @@
 
         </LinearLayout>
 
-   <!--     <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:background="#ffffff"
-            android:id="@+id/bottom_nav"
-            app:itemIconTint="#000"
-            app:itemTextColor="#000"
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_nav_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:background="#ffffff"
+            app:itemIconTint="#000"
+            app:itemTextColor="#000"
             app:labelVisibilityMode="labeled"
-
+            android:layout_gravity="bottom"
             app:menu="@menu/bottom_nav"
 
-            />-->
+            />
 
     </RelativeLayout>
     <FrameLayout
@@ -208,6 +130,7 @@
             android:layout_gravity="center"
             android:indeterminate="true" />
     </FrameLayout>
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"

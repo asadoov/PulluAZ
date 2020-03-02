@@ -4,125 +4,104 @@
   ~ Copyright (c) 2020. Rufat Asadzade. All rights reserved.
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:layout_margin="1dp"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:padding="4dp"
-    android:adjustViewBounds="true">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dip"
->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="17dp"
+    android:layout_margin="5dip">
 
 
         <LinearLayout
+           android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
 
 
             <ImageView
 
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="199dp"
                 android:scaleType="fitXY"
-                android:id="@+id/imgAds"
+                android:id="@+id/imgAds1"
                 android:src="@drawable/ic_background" />
 
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/nunito_extralight"
-                android:padding="5dip"
                 android:id="@+id/txtTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/nunito_extralight"
+                android:padding="15dip"
                 android:text="AutoCAD programının tədrisi"
                 android:textColor="@android:color/black"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
+                <TextView
+                    android:id="@+id/txtAdsSector"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:padding="3dip"
+                    android:layout_margin="8dp"
+                    android:text="Texnologiya"
+
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
             <TextView
-                android:layout_width="match_parent"
                 android:id="@+id/txtDesc"
-                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_extralight"
                 android:padding="5dip"
                 android:text="İnternet və Yeni Texnologiyaların tədrisi mərkəzində AutoCAD programının tədrisi" />
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="10dip"
-                android:weightSum="5">
+                android:layout_height="wrap_content">
 
-                <TextView
+            <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:maxLength="11"
                     android:id="@+id/txtDate"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
+                android:onClick="watch"
                     android:fontFamily="@font/nunito_extralight"
                     android:text="20.05.2019"
+
                     android:textColor="@android:color/black" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/nunito_extralight"
-                    android:text="|"
-
-                    android:textSize="20dip" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/nunito_extralight"
-                    android:text="Mətn reklamı"
                     android:id="@+id/txtAds"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginStart="50dp"
+                    android:layout_toRightOf="@+id/txtDate"
+                    android:fontFamily="@font/nunito_extralight"
+                    android:maxLines="1"
+                    android:text="Mətn reklamı"
                     android:textColor="@android:color/black"
                     android:textSize="20dip" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/nunito_extralight"
-                    android:text="|"
-                    android:textSize="20dip"
 
-                    />
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/nunito_extralight"
-
-                    android:onClick="ViewAd"
-                    android:text="İzlə"
-                    android:textColor="#2E6BFF"
-                    android:textSize="20dip"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dip"
-            android:id="@+id/txtAdsSector"
-            android:background="@drawable/round_button"
-            android:padding="2dip"
-            android:text="Texnologiya"
-            android:textColor="@android:color/white" />
     </androidx.cardview.widget.CardView>
-</LinearLayout>
+

@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".DetailAdsActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".AddActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".StatisticActivity" />
@@ -27,22 +28,14 @@
             android:parentActivityName=".registartion_package.SecondRegistrationActivity" />
         <activity
             android:name=".registartion_package.RegActivity"
-            android:windowSoftInputMode="adjustResize" >
-
-
-        </activity>
-
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".AdsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
-
-
         </activity>
-
         <activity
             android:name=".registartion_package.SecondRegistrationActivity"
             android:parentActivityName=".registartion_package.RegActivity"
@@ -50,9 +43,7 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
