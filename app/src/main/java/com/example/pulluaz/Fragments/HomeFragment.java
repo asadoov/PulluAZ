@@ -58,6 +58,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class HomeFragment extends Fragment  implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener,AdsAdapter.OnItemClickListener {
 
     public static final String EXTRA_ADS_NAME = "name" ;
+    public static final String EXTRA_ADS_DESC = "desc";
     DrawerLayout drawerLayout;
     ImageButton btnTog;
     TextView txtWatch;
@@ -260,6 +261,7 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
         adView adsView = dataAds.get(position);
 
         detailIntent.putExtra(EXTRA_ADS_NAME,adsView.name);
+        detailIntent.putExtra(EXTRA_ADS_DESC,adsView.description);
 
 
         startActivity(detailIntent);

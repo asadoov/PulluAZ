@@ -22,6 +22,7 @@ import com.example.pulluaz.Fragments.SearchFrgment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
+import static com.example.pulluaz.Fragments.HomeFragment.EXTRA_ADS_DESC;
 import static com.example.pulluaz.Fragments.HomeFragment.EXTRA_ADS_NAME;
 
 
@@ -33,10 +34,13 @@ public class DetailAdsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_ads);
 
-        bottomNavigation = findViewById(R.id.bottom_nav);
+        bottomNavigation = findViewById(R.id.bottom_nav_detail);
         NavigationView navView = findViewById(R.id.nav_view);
 
+  //      getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container3,new HomeFragment()).commit();
 
+
+/*
 
         bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -65,15 +69,19 @@ public class DetailAdsActivity extends AppCompatActivity {
                 return true;
             }
         });
+*/
 
 
 
 
         Intent intent = getIntent();
         String name = intent.getStringExtra(EXTRA_ADS_NAME);
+        String desc = intent.getStringExtra(EXTRA_ADS_DESC);
 
-        TextView titleText= (TextView)findViewById(R.id.name);
-        titleText.setText(name);
+        TextView nameText= (TextView)findViewById(R.id.name);
+        nameText.setText(name);
+        TextView descText= (TextView)findViewById(R.id.detail_desc);
+        descText.setText(desc);
 
     }
 }

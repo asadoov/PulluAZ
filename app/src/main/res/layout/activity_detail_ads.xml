@@ -39,7 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dip"
-                android:layout_marginTop="35dip"
+                android:layout_marginTop="49dip"
                 android:layout_marginBottom="10dip"
                 android:orientation="vertical"
 
@@ -63,7 +63,7 @@
                     android:fontFamily="@font/nunito_extralight"
                     android:text="25 yeni reklam"
                     android:textColor="#ffffffff"
-                    android:textSize="18dp"
+                    android:textSize="22dp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -86,6 +86,22 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="35dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
+                        android:minLines="7"
+                        android:id="@+id/detail_desc"
+                        android:layout_marginStart="10dp"
+                        android:text="AAAAAAAAAAAAAAAAAAAAAAAA AAAAAAAAAAA AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+                        AAAAAAAAA AAAAAAAAAAAAAA AAAAAAAAAA"
+                        android:textAlignment="viewStart"
+                        android:autoSizeTextType="uniform"
+                        android:maxLines="10">
+
+                    </TextView>
 
 
                 </LinearLayout>
