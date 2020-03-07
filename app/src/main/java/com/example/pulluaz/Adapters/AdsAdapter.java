@@ -57,12 +57,13 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder>{
         adView adsView = data.get(position);
 
         holder.txtAds.setText(data.get(position).aTypeName);
+//        holder.txtName.setText(data.get(position).sellerFullName);
         holder.txtTitle.setText(data.get(position).name);
         holder.txtAdsSector.setText(data.get(position).catName);
         holder.txtDesc.setText(data.get(position).description);
         holder.txtDate.setText(data.get(position).cDate.toString());
 
-       // PhotoUrl photoUrl = adsView.photoUrl;
+
         Picasso.with(mContext).load(adsView.photoUrl.get(0))
                 .fit().centerCrop()
                 .into(holder.adsImg);
@@ -82,6 +83,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder>{
         public TextView txtDesc;
         public TextView txtDate;
         public TextView txtAds;
+        public TextView txtName;
         public TextView watch;
         public ImageView adsImg;
 
@@ -93,6 +95,7 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.MyViewHolder>{
             txtDesc = (TextView)itemView.findViewById(R.id.txtDesc);
             txtDate = (TextView)itemView.findViewById(R.id.txtDate);
             txtAds = (TextView)itemView.findViewById(R.id.txtAds);
+            txtName = (TextView)itemView.findViewById(R.id.sellerName);
             name = (TextView)itemView.findViewById(R.id.nameCat);
          //   watch = (TextView)itemView.findViewById(R.id.txtWatch);
             adsImg=(ImageView)itemView.findViewById(R.id.imgAds1);

@@ -5,9 +5,7 @@
 
 package com.example.pulluaz.Fragments;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -17,16 +15,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.pulluaz.Adapters.AdsAdapter;
 import com.example.pulluaz.Adapters.CategoryAdapter;
-import com.example.pulluaz.Ads;
-import com.example.pulluaz.AdsActivity;
 import com.example.pulluaz.AdsService;
 import com.example.pulluaz.CategoryArray;
 import com.example.pulluaz.DetailAdsActivity;
@@ -36,9 +29,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import org.w3c.dom.Text;
-
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +37,8 @@ import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
@@ -59,11 +51,14 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
 
     public static final String EXTRA_ADS_NAME = "name" ;
     public static final String EXTRA_ADS_DESC = "desc";
+    public static final String EXTRA_ADS_IMG = "img";
+    public static final String EXTRA_ADS_SELLERNAME = "sellername";
     DrawerLayout drawerLayout;
     ImageButton btnTog;
     TextView txtWatch;
     private static final String TAG = "HomeFragment";
-
+    Fragment fragment;
+    FragmentTransaction fTrans;
     List<CategoryArray> data;
     List<adView> dataAds;
     AdsAdapter adsAdapter;
@@ -103,7 +98,10 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
         loadRetrofit();
         loadAdsRetrofit();
 
+    fragment = new HomeFragment();
 
+        fTrans = getChildFragmentManager().beginTransaction();
+        fTrans.add(R.id.fragment_container2,fragment);
         return view;
 
 
@@ -257,13 +255,27 @@ public class HomeFragment extends Fragment  implements NavigationView.OnNavigati
 
     @Override
     public void onItemClick(int position) {
+/*
+        fTrans.commit();
+        fTrans.addToBackStack(null);*/
+
+
+
+     //   getChildFragmentManager().beginTransaction().replace(R.id.fragment_detaill,new Detail_Fragment_Ads()).commit();
+
+
         Intent detailIntent=new Intent(getActivity(), DetailAdsActivity.class);
         adView adsView = dataAds.get(position);
 
         detailIntent.putExtra(EXTRA_ADS_NAME,adsView.name);
         detailIntent.putExtra(EXTRA_ADS_DESC,adsView.description);
+        detailIntent.putExtra(EXTRA_ADS_SELLERNAME,adsView.sellerFullName);
+        detailIntent.putExtra(EXTRA_ADS_IMG,adsView.photoUrl.get(0));
 
 
-        startActivity(detailIntent);
+
+       startActivity(detailIntent);
     }
+
+
 }

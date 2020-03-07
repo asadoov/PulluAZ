@@ -33,7 +33,16 @@
 
 
     </FrameLayout>
+    <FrameLayout
+        android:id="@+id/fragment_detaill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottom_nav"
+        android:layout_marginBottom="-1dp">
 
+
+
+    </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/adHeader"

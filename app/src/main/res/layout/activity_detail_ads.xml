@@ -8,65 +8,58 @@
     tools:context=".AdsActivity">
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/fragment_container3">
-
-    </FrameLayout>
-
-
-
-    <RelativeLayout
-        android:id="@+id/adsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
 
             >
-
-
-            <!-- Scrollable view here -->
-
-            <LinearLayout
-                android:id="@+id/adHeader"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="25dip"
-                android:layout_marginTop="49dip"
-                android:layout_marginBottom="10dip"
-                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
-                >
+
+                <ImageView
+                    android:id="@+id/detail_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="199dp">
+
+                </ImageView>
 
                 <ImageButton
                     android:layout_width="45dp"
-
                     android:layout_height="45dp"
+                    android:layout_marginTop="51dp"
+                    android:layout_marginStart="30dp"
                     android:background="@android:color/transparent"
                     android:onClick="openSideBar"
                     android:id="@+id/btnToggle"
                     android:src="@drawable/ic_menu" />
-
-
-                <TextView
-                    android:layout_marginTop="40dp"
-                    android:id="@+id/name"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/adHeader"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_extralight"
-                    android:text="25 yeni reklam"
-                    android:textColor="#ffffffff"
-                    android:textSize="22dp"
-                    android:textStyle="bold" />
+                    android:layout_marginLeft="25dip"
+                    android:layout_marginTop="84dip"
+                    android:layout_marginBottom="10dip"
+                    android:orientation="vertical">
 
-            </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:fontFamily="@font/nunito_extralight"
+                        android:text="25 yeni reklam"
+                        android:textColor="#ffffffff"
+                        android:textSize="22dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
 
 
             <LinearLayout
@@ -106,7 +99,21 @@
 
                 </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="SEllerName"
+                        android:id="@+id/sellerName"
+                        android:textSize="27dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_height="wrap_content">
+
+                    </TextView>
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -114,21 +121,6 @@
 
         </LinearLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_nav_detail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="#ffffff"
-            app:itemIconTint="#000"
-            app:itemTextColor="#000"
-            app:labelVisibilityMode="labeled"
-            android:layout_gravity="bottom"
-            app:menu="@menu/bottom_nav"
-
-            />
-
-    </RelativeLayout>
     <FrameLayout
         android:id="@+id/progressBarHolder"
         android:layout_width="match_parent"
